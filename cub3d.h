@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/19 16:01:49 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:32:00 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ typedef struct s_exec
 }	t_exec;
 
 /*PART 2*/
+char	**cub_get_map(t_info *inf, int i);
 double	degree_to_rad(double deg);
-	/*clean function*/
 void	to_free(char **av);
+int		file_len(t_info *info);
+
 #endif
 
 

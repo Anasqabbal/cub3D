@@ -3,7 +3,7 @@ CC=cc
 S=-fsanitize=address -g
 FLAGS=-Wall -Wextra -Werror $(S)
 PARSING=
-PART2= cub_clean.c
+PART2= cub_clean.c  utils1.c
 SRC=cub.c $(PARSING) $(PART2)
 OBJ=$(SRC:.c=.o)
 LIBFT=./libft/libft.a
@@ -18,7 +18,6 @@ libf :
 
 $(NAME) : $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) $(LIBFT) -lmlx $(FRAMEWORKS) -o $@
-
 
 %.o : %.c $(INCLUDES)
 	$(CC) $(FLAGS) -c $< -o $@
