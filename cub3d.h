@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/19 16:32:00 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:29:09 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_mlx
 {
 	void	*mlx;
 	void	*mlx_w;
+	void	*mlx_img_add;
 	unsigned int	win_hei;
 	unsigned int	win_wid;
 }	t_mlx;
