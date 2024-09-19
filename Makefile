@@ -1,9 +1,10 @@
 NAME=cub3D
 CC=cc
-FLAGS=-Wall -Wextra -Werror
+S=-fsanitize=address -g
+FLAGS=-Wall -Wextra -Werror $(S)
 PARSING=
-PART2= 
-SRC=cub.c $(PARSING) $(EXEC)
+PART2= cub_clean.c
+SRC=cub.c $(PARSING) $(PART2)
 OBJ=$(SRC:.c=.o)
 LIBFT=./libft/libft.a
 LIBFT_PATH=./libft

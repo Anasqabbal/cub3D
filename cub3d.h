@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/15 11:40:06 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:01:49 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,39 @@
 # define PI 3.14
 # endif
 
+#define PIXELS 30
+
 typedef struct	s_mlx
 {
 	void	*mlx;
 	void	*mlx_w;
+	unsigned int	win_hei;
+	unsigned int	win_wid;
 }	t_mlx;
+
+typedef struct s_info
+{
+	char		*path;
+	unsigned int hei;
+	unsigned int wid;
+	char		**map;
+	int			flr_cl;
+	int			clg_cl;
+
+}	t_info;
+
+typedef struct s_exec
+{
+	t_mlx	mlx;
+	t_info	inf;
+	char	**av;
+
+}	t_exec;
 
 /*PART 2*/
 double	degree_to_rad(double deg);
-
+	/*clean function*/
+void	to_free(char **av);
 #endif
 
 
