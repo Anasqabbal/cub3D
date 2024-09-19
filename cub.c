@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/19 16:07:18 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:21:00 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ int creat_and_start_awindow(t_mlx *mlx)
     return (0);
 }
 
-
-
 int     init_info_struct(t_info *inf)
 {
-    inf->map = cub_get_map(inf, 0);
+    inf->map = read_cub_get_map__(inf, 0);
     if (!inf->map)
         return (printf("failed to get the map\n"), -1);
     inf->wid = ft_strlen(inf->map[0]);
@@ -63,7 +61,7 @@ int start_cub(char **av)
 
     init_structs(&exec, 0, av);
     creat_and_start_awindow(&exec.mlx);
-    draw_the_floor(&exec.mlx);
+    // draw_the_floor(&exec.mlx);
     return (0);
 }
 
