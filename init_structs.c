@@ -1,0 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_structs.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/20 13:14:44 by anqabbal          #+#    #+#             */
+/*   Updated: 2024/09/20 15:54:05 by anqabbal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+# include "cub3d.h"
+
+int     init_info_struct(t_info *inf, char **av)
+{
+    inf->path = av[1];
+    inf->map = cub_get_map(inf, 0);
+    if (!inf->map)
+        return (printf("failed to get the map\n"), -1);
+    inf->wid = ft_strlen(inf->map[0]);
+    inf->flr_cl = 0xbbbbbb;
+    inf->clg_cl = 0x332d31;
+    return (0);
+}
+int init_mlx_struct(t_exec *exec)
+{
+    exec->mlx.win_hei = exec->inf.hei * PIXELS;
+    exec->mlx.win_wid = (exec->inf.wid - 1) * PIXELS;
+    return (0);
+}
+
+ int    init_structs(void *ptr, int ind, char **av)
+ {
+    t_exec *exec;
+
+    exec = ptr;
+    (void) ind;
+    if (init_info_struct(&exec->inf, av) < 0)
+        return (-1);
+    init_mlx_struct(exec);
+    return (0);
+}

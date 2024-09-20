@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_clean.c                                        :+:      :+:    :+:   */
+/*   creat_window.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/19 10:30:58 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/20 14:28:21 by anqabbal         ###   ########.fr       */
+/*   Created: 2024/09/20 13:05:30 by anqabbal          #+#    #+#             */
+/*   Updated: 2024/09/20 13:06:25 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+# include"cub3d.h"
 
-// void to_free_cub(char **av)
-// {
-//     int i;
-
-//     i = -1;
-//     if (av)
-//     {
-//         while(av[++i])
-//             free(av[i]);
-//         free(av);
-//     }
-// }
+int creat_and_start_awindow(t_mlx *mlx)
+{
+    mlx->mlx = mlx_init();
+	if (!mlx->mlx)
+		return (-1);
+	mlx->mlx_w = mlx_new_window(mlx->mlx, mlx->win_wid, mlx->win_hei, "new cub3D");
+    if (!mlx->mlx_w)
+    {
+        /* free the init section for your mlx_init() */
+        return (-1);
+    }
+    return (0);
+}

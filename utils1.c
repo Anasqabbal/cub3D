@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:07:07 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/19 16:31:52 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:45:30 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int file_len(t_info *info)
         i++;
     }
     close (fd);
-    printf("the len of your map == %d\n", i);
     return (i);
 }
 
@@ -49,7 +48,7 @@ char **cub_get_map(t_info *inf, int i)
     fd = open(inf->path, O_RDONLY);
     if (fd < 0)
         return (perror("open"), NULL);
-    res = malloc(sizeof(char *) * len);
+    res = malloc(sizeof(char *) * (len + 1));
     if (!res)
         return (NULL);
     res1 = NULL;
@@ -61,5 +60,6 @@ char **cub_get_map(t_info *inf, int i)
         res[i++] = ft_strdup(res1);
         free(res1);
     }
+    res[len] = NULL;
     return (close (fd), inf->hei = len, res);
 }
