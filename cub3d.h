@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/21 15:33:45 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/21 18:09:25 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # define PI 3.14
 # endif
 
-#define PIXELS 30
+#define PIXELS 50
+#define STEPS 10;
 
 typedef struct	s_mlx
 {
@@ -65,14 +66,15 @@ typedef struct s_ply
 	int		rds;
 	int		endlx;
 	int		endrx;
-	int		endly;
-	int		endry;
+	int		enduy;
+	int		enddy;
 } t_ply;
 
 typedef struct s_tex
 {
 	void	*wall;
 	t_ply	ply;
+	t_ply	flr;
 
 } t_tex;
 
@@ -102,7 +104,7 @@ int		init_structs(void *ptr, int ind, char **av);
 int		init_mlx_struct(t_exec *exec);
 int		catch_moves(int key, void *p);
 int		ft_move_player(t_exec *exec);
-
+void	draw_circle(void *mlx_ptr, void *win_ptr, int cx, int cy, int radius, int color, t_exec *exec);
 
 #endif
 

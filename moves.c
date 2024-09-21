@@ -6,40 +6,80 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/21 15:20:55 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/21 18:10:19 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
+int redraw_flr_img(t_exec *exec)
+{
+    t_img   img;
+
+	img.ylen =  PIXELS;
+	img.xlen = PIXELS;
+    img.image = mlx_new_image(exec->mlx.mlx, PIXELS, PIXELS);
+    img.image_add = mlx_get_data_addr(img.image, &img.bits_pp, &img.line_, &img.endian);
+    img.color = exec->inf.flr_cl;
+	set_pixels_to_image(&img);
+    exec->tex.flr.img = img.image;
+    return (0);
+}
+
 int     move_up(t_exec *exec)
 {
-    (void)exec;
-    printf("move up\n");
+    int     s;
+
+    s = STEPS;
+    exec->tex.ply.enduy += STEPS;
+    exec->tex.ply.enddy -= STEPS;
+    exec->tex.ply.py -= STEPS;
+    redraw_flr_img(exec);
+    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img, exec->tex.ply.px,  exec->tex.ply.py + s);
+    ft_move_player(exec);
     return (0);
 }
 
 int move_down(t_exec *exec)
 {
-    (void)exec;
-    printf("move down\n");
+    int     s;
+    
+    s = STEPS;
+    exec->tex.ply.enddy += STEPS;
+    exec->tex.ply.enduy -= STEPS;
+    exec->tex.ply.py += STEPS;
+    redraw_flr_img(exec);
+    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img, exec->tex.ply.px, (exec->tex.ply.py - s));
+    ft_move_player(exec);
     return (0);
 }
 
 int move_righ(t_exec *exec)
 {
-    (void) exec;
-    exec->tex.ply.endrx += 1;
-    exec->tex.ply.endlx -= 1;
-    exec->tex.ply.px += 1;
+    int     s;
+    
+    s = STEPS;
+    exec->tex.ply.endrx += STEPS;
+    exec->tex.ply.endlx -= STEPS;
+    exec->tex.ply.px += STEPS;
+    ft_move_player(exec);
+    redraw_flr_img(exec);
+    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img, exec->tex.ply.px - s, (exec->tex.ply.py));
     ft_move_player(exec);
     return (0);
 }
 
 int move_left(t_exec *exec)
 {
-    (void)exec;
-     printf("move left\n");
+    int     s;
+    
+    s = STEPS;
+    exec->tex.ply.endrx -= STEPS;
+    exec->tex.ply.endlx += STEPS;
+    exec->tex.ply.px -= STEPS;
+    redraw_flr_img(exec);
+    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img, exec->tex.ply.px + s,  exec->tex.ply.py);
+    ft_move_player(exec);
      return (0);
 }
 
