@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/20 17:36:54 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/20 22:58:58 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,68 @@ int set_pixels_as_circle(unsigned int raduis, t_img *img)
 	return (0);
 }
 
+int draw_a_circle(t_exec *exec, int x, int y)
+{
+	int		p; // decision maker
+	char	*image;
+	int		rds;
+	int		px[1024];
+	int		cx;
+	int		cy;
+	int		i;
+	int		j;
+	int		oi[1024];
+	int		oj[1024];
+	int		k;
+	int drwx = x;
+	int drwy = y;
+
+	k = 0;
+	rds = PIXELS / 2;
+	p = 1 - rds;
+	j = rds;
+	i = 0;
+	x = PIXELS / 2;
+	y = PIXELS / 2;
+	cx = x;
+	cy = y;
+	image = exec->img.image_add;
+	printf("your (%d, %d)\n", cx, cy);
+	while(i < j)
+	{
+		if (p < 0)
+		{
+			if (k - 2 < 0 && k != 0)
+				p += 2 * (0) + 3;
+			else if (k - 2 >= 0 && k)
+				p += 2 * (px[k - 2]) + 3;
+			px [k] = i;
+			oi[k] = i;
+			oj[k] = j;
+			i += 1;
+			cx = x + i;
+			cy = y + j;
+			printf("current (%d, %d)\n", cx, cy);
+		}
+		else
+		{
+			oi[k] = i;
+			px[k] = i;
+			oj[k] = j;
+			p += 2 * (oi[k - 2] - oj[k - 2]) + 5;
+			j -= 1;
+			i += 1;
+			cx = x + i;
+			cy = y + j;
+		}
+		printf("your coordonate (%d, %d)\n", cx, cy);
+		*(int *)(image + (cy * exec->img.line_) + (cx * (exec->img.bits_pp / 8))) = exec->img.color;
+		k++;
+	}
+	mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->img.image, drwx, drwy);
+	return (0);
+}
+
 int	draw_the_player(t_exec *exec)
 {
 	t_img img;
@@ -135,16 +197,20 @@ int	draw_the_player(t_exec *exec)
 	set_pixels_to_image(&img);
 	img.color = exec->inf.flr_cl;
 	img.color = 0xDB0000;
-	set_pixels_as_circle(PIXELS, &img);
+	// set_pixels_as_circle(PIXELS, &img);
 	y = 0;
 	x = 0;
+	exec->img = img;
 	while(exec->inf.map[y])
 	{
 		x = 0;
 		while(exec->inf.map[y][x])
 		{
 			if (exec->inf.map[y][x] == 'P')
-				mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, img.image, (x * PIXELS), (y * PIXELS));
+			{
+				draw_a_circle(exec, x * PIXELS, y * PIXELS);
+				draw_a_circle(exec, x * PIXELS, y * PIXELS);
+			}
 			x++;
 		}
 		y++;

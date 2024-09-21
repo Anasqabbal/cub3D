@@ -6,7 +6,7 @@
 #    By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 18:28:40 by anqabbal          #+#    #+#              #
-#    Updated: 2024/09/15 09:39:43 by anqabbal         ###   ########.fr        #
+#    Updated: 2024/02/29 11:14:47 by anqabbal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libft.a
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra -Werror
 
 FILES = ft_isalpha.c ft_isdigit.c \
 		ft_isalnum.c ft_isascii.c \
@@ -37,7 +37,9 @@ FILES = ft_isalpha.c ft_isdigit.c \
 		ft_lstlast_bonus.c ft_lstadd_front_bonus.c \
 		ft_lstadd_back_bonus.c  ft_lstdelone_bonus.c \
 		ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c\
-		get_next_line_bonus.c get_next_line_utils_bonus.c
+		get_next_line_bonus.c get_next_line_utils_bonus.c\
+		ft_printf_char_fd.c ft_printf_nbr_fd.c ft_printf_str_fd.c ft_printf_hexa.c\
+		ft_printf.c ft_printf_unsigned.c ft_printf_address.c
 OBJF  = $(FILES:.c=.o)
 
 all: $(NAME)

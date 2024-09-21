@@ -14,7 +14,7 @@ LINUX= -lX11 -lXext -lXrandr
 MLX_PATH = ./minilibx-linux
 MLX=$(MLX_PATH)/libmlx_Linux.a
 
-all : libf $(NAME)
+all : libf mlx $(NAME)
 
 mlx :
 	make -C $(MLX_PATH)
@@ -23,7 +23,7 @@ libf :
 	make -C $(LIBFT_PATH)
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(FRAMEWORKS) -o $@
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(MLX) $(LINUX) -o $@
 
 %.o : %.c $(INCLUDES)
 	$(CC) $(FLAGS) -c $< -o $@

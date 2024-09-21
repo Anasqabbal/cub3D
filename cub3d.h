@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/20 15:58:46 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/20 20:20:15 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 # include "./libft/libft.h"
 # include <stdio.h>
 # include <math.h>
-# include <mlx.h>
+// # include <mlx.h>
+# include "./minilibx-linux/mlx.h"
 # ifndef PI
 # define PI 3.14
 # endif
