@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 19:17:14 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/07/30 16:58:47 by anqabbal         ###   ########.fr       */
+/*   Created: 2023/11/01 14:04:48 by anqabbal          #+#    #+#             */
+/*   Updated: 2023/12/01 09:33:48 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	int		len;
-	char	*arr;
-
-	len = ft_strlen(s1);
-	arr = malloc((len + 1) * (sizeof (char)));
-	if (!arr)
+	if ((!dst && !src))
 		return (0);
-	ft_memcpy(arr, s1, len);
-	arr[len] = '\0';
-	return (arr);
+	if (len == 0)
+		return (dst);
+	if (dst < src || src == dst)
+		ft_memcpy(dst, src, len);
+	else
+	{
+		while (len > 0)
+		{
+			*((char *) dst + len - 1) = *((char *)src + len - 1);
+			len--;
+		}
+	}
+	return (dst);
 }

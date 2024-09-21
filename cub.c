@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/20 15:56:14 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:12:42 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int start_cub(char **av)
     draw_the_floor(&exec);
     draw_the_walls(&exec);
     draw_the_player(&exec);
+    mlx_key_hook(exec.mlx.mlx_w, catch_moves, &exec);
     mlx_loop(exec.mlx.mlx);
     return (0);
 }

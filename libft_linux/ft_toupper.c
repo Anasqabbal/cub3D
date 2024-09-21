@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 19:17:14 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/07/30 16:58:47 by anqabbal         ###   ########.fr       */
+/*   Created: 2023/11/01 17:54:48 by anqabbal          #+#    #+#             */
+/*   Updated: 2023/11/25 10:03:59 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+int	ft_toupper(int c)
 {
-	int		len;
-	char	*arr;
-
-	len = ft_strlen(s1);
-	arr = malloc((len + 1) * (sizeof (char)));
-	if (!arr)
-		return (0);
-	ft_memcpy(arr, s1, len);
-	arr[len] = '\0';
-	return (arr);
+	if (c >= 97 && c <= 122)
+		c -= 32;
+	return (c);
 }

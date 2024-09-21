@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/20 20:20:15 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:33:45 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 # include "./libft/libft.h"
 # include <stdio.h>
 # include <math.h>
-// # include <mlx.h>
+# include <mlx.h>
 # include "./minilibx-linux/mlx.h"
 # ifndef PI
 # define PI 3.14
 # endif
 
-#define PIXELS 40
+#define PIXELS 30
 
 typedef struct	s_mlx
 {
@@ -53,16 +53,39 @@ typedef struct s_img
 	unsigned int	xlen;
 	unsigned int	ylen;
 	int				color;
+	void			*wall_img;
+	void			*player_img;
 }	t_img;
+
+typedef struct s_ply
+{
+	void	*img;
+	int		px;
+	int		py;
+	int		rds;
+	int		endlx;
+	int		endrx;
+	int		endly;
+	int		endry;
+} t_ply;
+
+typedef struct s_tex
+{
+	void	*wall;
+	t_ply	ply;
+
+} t_tex;
 
 typedef struct s_exec
 {
 	t_mlx	mlx;
 	t_info	inf;
 	t_img	img;
+	t_tex	tex;
 	char	**av;
 
 }	t_exec;
+
 
 /*PART 2*/
 char	**cub_get_map(t_info *inf, int i);
@@ -77,6 +100,8 @@ int		draw_the_player(t_exec *exec);
 int     init_info_struct(t_info *inf, char **av);
 int		init_structs(void *ptr, int ind, char **av);
 int		init_mlx_struct(t_exec *exec);
+int		catch_moves(int key, void *p);
+int		ft_move_player(t_exec *exec);
 
 
 #endif

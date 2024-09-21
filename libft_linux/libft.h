@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:09:28 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/15 09:39:29 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:24:30 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # include <fcntl.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
+# endif
+# ifndef OPEN_MAX
+#  define OPEN_MAX 100
+# endif
+# ifndef PATH_MAX
+#  define PATH_MAX 1024
 # endif
 
 int		ft_isalpha(int c);
@@ -71,6 +77,13 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+int		ft_printf(const char *format, ...);
+int		ft__putstr_fd(char *s, int fd);
+int		ft__putnbr_fd(int n, int fd);
+int		ft__putchar_fd(char c, int fd);
+int		ft__print_hexa(unsigned int nb, int indice);
+int		ft__print_unsigned(unsigned int nb, int fd);
+int		ft__print_address(void *p);
 char	*get_next_line(int fd);
 char	*my_strchr(const char *s, int c);
 char	*my_strjoin(char *s1, char *s2);

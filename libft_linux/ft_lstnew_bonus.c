@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 19:17:14 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/07/30 16:58:47 by anqabbal         ###   ########.fr       */
+/*   Created: 2023/11/15 14:28:26 by anqabbal          #+#    #+#             */
+/*   Updated: 2023/11/27 13:07:00 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+t_list	*ft_lstnew(void *content)
 {
-	int		len;
-	char	*arr;
+	t_list	*arr;
 
-	len = ft_strlen(s1);
-	arr = malloc((len + 1) * (sizeof (char)));
+	arr = malloc(sizeof(t_list));
 	if (!arr)
 		return (0);
-	ft_memcpy(arr, s1, len);
-	arr[len] = '\0';
+	arr->content = content;
+	arr->next = NULL;
 	return (arr);
 }

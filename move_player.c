@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   move_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 19:17:14 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/07/30 16:58:47 by anqabbal         ###   ########.fr       */
+/*   Created: 2024/09/21 14:08:59 by anqabbal          #+#    #+#             */
+/*   Updated: 2024/09/21 15:25:35 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# include "cub3d.h"
 
-char	*ft_strdup(const char *s1)
+int ft_move_player(t_exec *exec)
 {
-	int		len;
-	char	*arr;
-
-	len = ft_strlen(s1);
-	arr = malloc((len + 1) * (sizeof (char)));
-	if (!arr)
-		return (0);
-	ft_memcpy(arr, s1, len);
-	arr[len] = '\0';
-	return (arr);
+    (void)exec;
+    // if (exec->tex.ply.endrx == 0 && exec->tex.)
+    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.ply.img, exec->tex.ply.px,  exec->tex.ply.py);
+    return (0);
 }
