@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:09:28 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/07/22 16:24:30 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:34:46 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # ifndef OPEN_MAX
 #  define OPEN_MAX 100
 # endif
+
 # ifndef PATH_MAX
 #  define PATH_MAX 1024
 # endif

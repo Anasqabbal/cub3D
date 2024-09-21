@@ -8,6 +8,7 @@ SRC=cub.c $(PARSING) $(PART2)
 OBJ=$(SRC:.c=.o)
 LIBFT=./libft/libft.a
 LIBFT_PATH=./libft
+LIBFT_LINUX=./libft_linux
 INCLUDES=./libft/libft.h cub3d.h
 FRAMEWORKS= -framework OpenGL -framework AppKit -lmlx
 MLX_PATH = ./minilibx-linux
@@ -25,11 +26,14 @@ all : libf $(NAME)
 libf :
 	make -C $(LIBFT_PATH)
 
-# $(NAME) : $(OBJ)
-# 	$(CC) $(FLAGS) $(OBJ) $(LIBFT)  $(MLX) $(LINUX) -o $@
+# libf :
+# 	make -C $(LIBFT_LINUX)
 
 $(NAME) : $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(FRAMEWORKS) -o $@
+
+# $(NAME) : $(OBJ)
+# 	$(CC) $(FLAGS) $(OBJ) $(LIBFT)  $(MLX) $(LINUX) -o $@
 
 %.o : %.c $(INCLUDES)
 	$(CC) $(FLAGS) -c $< -o $@
