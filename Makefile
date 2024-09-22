@@ -16,24 +16,24 @@ MLX=$(MLX_PATH)/libmlx_Linux.a
 LINUX= -lX11 -lXext -lXrandr
 SYSTEM=$(uname)
 
-all : libf $(NAME)
+#all : libf $(NAME)
 
-# all : libf mlx  $(NAME)
+ all : libf mlx  $(NAME)
 
-# mlx :
-# 	make -C $(MLX_PATH)
+mlx :
+	make -C $(MLX_PATH)
+
+#libf :
+#	make -C $(LIBFT_PATH)
 
 libf :
-	make -C $(LIBFT_PATH)
+	make -C $(LIBFT_LINUX)
 
-# libf :
-# 	make -C $(LIBFT_LINUX)
+#$(NAME) : $(OBJ)
+#	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(FRAMEWORKS) -o $@
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(FRAMEWORKS) -o $@
-
-# $(NAME) : $(OBJ)
-# 	$(CC) $(FLAGS) $(OBJ) $(LIBFT)  $(MLX) $(LINUX) -o $@
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT)  $(MLX) $(LINUX) -o $@
 
 %.o : %.c $(INCLUDES)
 	$(CC) $(FLAGS) -c $< -o $@
