@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/21 18:09:25 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/21 22:30:55 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 # include "./libft/libft.h"
 # include <stdio.h>
 # include <math.h>
-# include <mlx.h>
+// # include <mlx.h>
 # include "./minilibx-linux/mlx.h"
 # ifndef PI
 # define PI 3.14
+# define POV 60
 # endif
 
 #define PIXELS 50
-#define STEPS 10;
+#define STEPS 10
 
 typedef struct	s_mlx
 {

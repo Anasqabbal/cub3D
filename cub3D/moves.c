@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/21 18:10:19 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/21 20:22:15 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ int catch_moves(int key, void *p)
     exec = p;
     (void)exec;
     (void)p;
-    if (key == 124)
+    if (key == 124 || key == 65363)
         move_righ(exec);
-    if (key == 123)
+    if (key == 123 || key == 65361)
         move_left(exec);
-    if (key == 126)
+    if (key == 126 || key == 65362)
         move_up(exec);
-    if (key == 125)
+    if (key == 125 || key == 65364)
         move_down(exec);
     return (0);
 }

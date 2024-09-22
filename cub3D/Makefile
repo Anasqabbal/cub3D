@@ -4,7 +4,7 @@ S=-fsanitize=address -g
 FLAGS=-Wall -Wextra -Werror $(S)
 PARSING=
 PART2= cub_clean.c  utils1.c cub_clean.c creat_window.c init_structs.c creat_textures.c move_player.c moves.c
-SRC=cub.c $(PARSING) $(PART2)
+SRC=test2.c $(PARSING) $(PART2)
 OBJ=$(SRC:.c=.o)
 LIBFT=./libft/libft.a
 LIBFT_PATH=./libft
@@ -33,7 +33,7 @@ libf :
 #	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(FRAMEWORKS) -o $@
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT)  $(MLX) $(LINUX) -o $@
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT_LINUX)/libft.a  $(MLX) $(LINUX) -o $@
 
 %.o : %.c $(INCLUDES)
 	$(CC) $(FLAGS) -c $< -o $@
