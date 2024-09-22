@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/21 22:30:55 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/22 14:39:33 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@
 # include <math.h>
 // # include <mlx.h>
 # include "./minilibx-linux/mlx.h"
-# ifndef PI
-# define PI 3.14
-# define POV 60
-# endif
 
-#define PIXELS 50
-#define STEPS 10
+# define PI 3.14
+# define AOV 60
+# define PIXELS 40
+# define STEPS 10
 
 typedef struct	s_mlx
 {
@@ -55,13 +53,13 @@ typedef struct s_img
 	unsigned int	xlen;
 	unsigned int	ylen;
 	int				color;
-	void			*wall_img;
-	void			*player_img;
 }	t_img;
 
 typedef struct s_ply
 {
 	void	*img;
+	int		turn;
+	int		rotangle;
 	int		px;
 	int		py;
 	int		rds;
@@ -78,6 +76,17 @@ typedef struct s_tex
 	t_ply	flr;
 
 } t_tex;
+
+typedef struct s_cir
+{
+	int	x;
+	int	y;
+	int	cx;
+	int cy;
+	int rds;
+	int to_center;
+	int to_fill;
+} t_cir;
 
 typedef struct s_exec
 {
@@ -105,7 +114,7 @@ int		init_structs(void *ptr, int ind, char **av);
 int		init_mlx_struct(t_exec *exec);
 int		catch_moves(int key, void *p);
 int		ft_move_player(t_exec *exec);
-void	draw_circle(void *mlx_ptr, void *win_ptr, int cx, int cy, int radius, int color, t_exec *exec);
+void	draw_circle(t_exec *exec, t_cir *cir);
 
 #endif
 

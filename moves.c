@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/21 20:22:15 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/22 18:07:12 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ int redraw_flr_img(t_exec *exec)
 int     move_up(t_exec *exec)
 {
     int     s;
-
+    if (exec->inf.map[((exec->tex.ply.py - (PIXELS / 2)) / PIXELS) - 1][((exec->tex.ply.px - (PIXELS / 2)) / PIXELS)] == '1')
+        return (0);
+    redraw_flr_img(exec);
+    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img, exec->tex.ply.px - (PIXELS / 2),  exec->tex.ply.py - (PIXELS / 2));
     s = STEPS;
     exec->tex.ply.enduy += STEPS;
     exec->tex.ply.enddy -= STEPS;
     exec->tex.ply.py -= STEPS;
-    redraw_flr_img(exec);
-    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img, exec->tex.ply.px,  exec->tex.ply.py + s);
     ft_move_player(exec);
     return (0);
 }
@@ -43,13 +44,15 @@ int     move_up(t_exec *exec)
 int move_down(t_exec *exec)
 {
     int     s;
-    
+
+    redraw_flr_img(exec);
+    if (exec->inf.map[((exec->tex.ply.py - (PIXELS  / 2)) / PIXELS) + 1][((exec->tex.ply.px + (PIXELS / 2)) / PIXELS)] == '1')
+        return (0);
+    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img, exec->tex.ply.px - (PIXELS / 2),  exec->tex.ply.py - (PIXELS / 2));
     s = STEPS;
     exec->tex.ply.enddy += STEPS;
     exec->tex.ply.enduy -= STEPS;
     exec->tex.ply.py += STEPS;
-    redraw_flr_img(exec);
-    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img, exec->tex.ply.px, (exec->tex.ply.py - s));
     ft_move_player(exec);
     return (0);
 }
@@ -57,14 +60,17 @@ int move_down(t_exec *exec)
 int move_righ(t_exec *exec)
 {
     int     s;
-    
+
+    printf("%c\n", exec->inf.map[exec->tex.ply.py / PIXELS][(exec->tex.ply.px / PIXELS) + 1]);
+    if (exec->inf.map[(exec->tex.ply.py - (PIXELS / 2)) / PIXELS][((exec->tex.ply.px - (PIXELS / 2)) / PIXELS) + 1] == '1')
+        return (0);
+    printf("BBD%d\n", exec->tex.ply.endlx - STEPS);
+    redraw_flr_img(exec);
+    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img ,exec->tex.ply.px - (PIXELS / 2),  exec->tex.ply.py - (PIXELS / 2));
     s = STEPS;
     exec->tex.ply.endrx += STEPS;
     exec->tex.ply.endlx -= STEPS;
     exec->tex.ply.px += STEPS;
-    ft_move_player(exec);
-    redraw_flr_img(exec);
-    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img, exec->tex.ply.px - s, (exec->tex.ply.py));
     ft_move_player(exec);
     return (0);
 }
@@ -72,13 +78,17 @@ int move_righ(t_exec *exec)
 int move_left(t_exec *exec)
 {
     int     s;
-    
+
     s = STEPS;
+    printf("%c\n", exec->inf.map[(exec->tex.ply.py + (PIXELS / 2)) / PIXELS][((exec->tex.ply.px + (PIXELS / 2)) / PIXELS) - 1]);
+    if (exec->inf.map[(exec->tex.ply.py + (PIXELS / 2)) / PIXELS][((exec->tex.ply.px + (PIXELS / 2)) / PIXELS) - 1] == '1')
+        return (0);
+    printf("hna\n");
+    redraw_flr_img(exec);
+    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img, exec->tex.ply.px - (PIXELS / 2),  exec->tex.ply.py - (PIXELS / 2));
     exec->tex.ply.endrx -= STEPS;
     exec->tex.ply.endlx += STEPS;
     exec->tex.ply.px -= STEPS;
-    redraw_flr_img(exec);
-    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img, exec->tex.ply.px + s,  exec->tex.ply.py);
     ft_move_player(exec);
      return (0);
 }

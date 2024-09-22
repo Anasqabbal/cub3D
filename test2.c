@@ -79,8 +79,8 @@ int main()
         while(first && --first)
         {
             mlx_pixel_put(mlx.mlx, mlx.mlx_w, (int)x, (int)y, 0x6B6969);
-            x += cos(POV) * 0.1;
-            y += cos(POV) * 0.1;
+            x += cos(AOV) * 0.1;
+            y += cos(AOV) * 0.1;
             printf("player in y %d\n",(int)save[0]);
             printf("player in x %d\n", (int)save[1]);
         }

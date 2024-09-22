@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/21 18:00:41 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/22 17:25:29 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,129 +84,10 @@ int draw_the_walls(t_exec *exec)
 }
 
 
-
-
-void _circle_points_on_img(char *image, int cx, int cy, int x, int y, int color, t_exec *exec)
-{
-	(void) color;
-	int		to_center;
-
-	to_center = cx + x;
-	while(to_center != cx)
-		*(int *)(image + ((to_center--)* (exec->img.bits_pp / 8) + ((cy + y) * exec->img.line_))) = exec->img.color;
-	to_center = cy + y;
-	while(to_center != cy)
-		*(int *)(image + ((cx + x)* (exec->img.bits_pp / 8) + ((to_center--) * exec->img.line_))) = exec->img.color;
-	*(int *)(image + ((cx + x )* (exec->img.bits_pp / 8) + ((cy + y) * exec->img.line_))) = exec->img.color;
-
-
-	to_center = cx - x;
-	while(to_center != cx)
-		*(int *)(image + ((to_center++)* (exec->img.bits_pp / 8) + ((cy + y) * exec->img.line_))) = exec->img.color;
-	to_center = cy + y;
-	while(to_center != cy)
-		*(int *)(image + ((cx - x)* (exec->img.bits_pp / 8) + ((to_center--) * exec->img.line_))) = exec->img.color;
-	*(int *)(image + ((cx - x )* (exec->img.bits_pp / 8) + ((cy + y) * exec->img.line_))) = exec->img.color;
-
-
-	to_center = cx + x;
-	while(to_center != cx)
-		*(int *)(image + ((to_center--)* (exec->img.bits_pp / 8) + ((cy - y) * exec->img.line_))) = exec->img.color;
-	to_center = cy - y;
-	while(to_center != cy)
-		*(int *)(image + ((cx + x)* (exec->img.bits_pp / 8) + ((to_center++) * exec->img.line_))) = exec->img.color;	
-	*(int *)(image + ((cx + x )* (exec->img.bits_pp / 8) + ((cy - y) * exec->img.line_))) = exec->img.color;
-
-
-
-	to_center = cx - x;
-	while(to_center != cx)
-		*(int *)(image + ((to_center++)* (exec->img.bits_pp / 8) + ((cy - y) * exec->img.line_))) = exec->img.color;
-	to_center = cy - y;
-	while(to_center != cy)
-		*(int *)(image + ((cx - x)* (exec->img.bits_pp / 8) + ((to_center++) * exec->img.line_))) = exec->img.color;
-	*(int *)(image + ((cx - x )* (exec->img.bits_pp / 8) + ((cy - y) * exec->img.line_))) = exec->img.color;
-
-
-
-	to_center = cx + y;
-	while(to_center != cx)
-		*(int *)(image + ((to_center--)* (exec->img.bits_pp / 8) + ((cy + x) * exec->img.line_))) = exec->img.color;
-	to_center = cy + x;
-	while(to_center != cy)
-		*(int *)(image + ((cx + y)* (exec->img.bits_pp / 8) + ((to_center--) * exec->img.line_))) = exec->img.color;
-	*(int *)(image + ((cx + y)* (exec->img.bits_pp / 8) + ((cy + x) * exec->img.line_))) = exec->img.color;
-
-
-
-
-	to_center = cx - y;
-	while(to_center != cx)
-		*(int *)(image + ((to_center++)* (exec->img.bits_pp / 8) + ((cy + x) * exec->img.line_))) = exec->img.color;
-	to_center = cy + x;
-	while(to_center != cy)
-		*(int *)(image + ((cx - y)* (exec->img.bits_pp / 8) + ((to_center--) * exec->img.line_))) = exec->img.color;
-	*(int *)(image + ((cx - y)* (exec->img.bits_pp / 8) + ((cy + x) * exec->img.line_))) = exec->img.color;
-
-
-	/*7*/
-	to_center = cx + y;
-	while(to_center != cx)
-		*(int *)(image + ((to_center--)* (exec->img.bits_pp / 8) + ((cy + x) * exec->img.line_))) = exec->img.color;
-	to_center = cy - x;
-	while(to_center != cy)
-		*(int *)(image + ((cx + y)* (exec->img.bits_pp / 8) + ((to_center++) * exec->img.line_))) = exec->img.color;
-	*(int *)(image + ((cx + y)* (exec->img.bits_pp / 8) + ((cy - x) * exec->img.line_))) = exec->img.color;
-
-
-
-	/* done 8*/
-	to_center = cx - y;
-	while(to_center != cx)
-		*(int *)(image + ((to_center++)* (exec->img.bits_pp / 8) + ((cy + x) * exec->img.line_))) = exec->img.color;
-	to_center = cy - x;
-	while(to_center != cy)
-		*(int *)(image + ((cx - y)* (exec->img.bits_pp / 8) + ((to_center++) * exec->img.line_))) = exec->img.color;
-	// *(int *)(image + ((cx - y)* (exec->img.bits_pp / 8) + ((cy - x) * exec->img.line_))) = exec->img.color;
-}
-
-// Midpoint circle drawing algorithm
-void draw_circle(void *mlx_ptr, void *win_ptr, int cx, int cy, int radius, int color, t_exec *exec)
-{
-    int x = 0;
-    int y = radius;
-    int d = 1 - radius; // Decision parameter
-
-    // Draw the initial points on the axes
-	(void)d;
-	(void)d;
-	(void)mlx_ptr;
-	(void)win_ptr;
-	(void)cx;
-	(void)cy;
-    // draw_circle_points(mlx_ptr, win_ptr, cx, cy, x, y, color);
-	_circle_points_on_img(exec->img.image_add, PIXELS / 2, PIXELS / 2, x, y, color, exec);
-
-    // // Iterate over the points until x >= y
-    while (x < y)
-    {
-        if (d < 0)
-            d += 2 * x + 3;
-        else
-        {
-            d += 2 * (x - y) + 5;
-            y--;
-        }
-        x++;
-        // Draw points for the current (x, y)
-        _circle_points_on_img(exec->img.image_add, PIXELS / 2, PIXELS / 2, x, y, color, exec);
-    }
-}
-
-
 int	draw_the_player(t_exec *exec)
 {
 	t_img img;
+	t_cir	cir;
 	unsigned int x;
 	unsigned int y;
 	int			rds;
@@ -218,14 +99,15 @@ int	draw_the_player(t_exec *exec)
 	img.color = exec->inf.flr_cl;
 	set_pixels_to_image(&img);
 	img.color = 0xDB0000;
-	// set_pixels_as_circle(PIXELS, &img);
 	y = 0;
 	x = 0;
 	if (PIXELS % 2 == 0)
-		rds = PIXELS / 5 - 1;
+		rds = PIXELS / 2 - 1;
 	else
-		rds = PIXELS / 5;
+		rds = PIXELS / 2;
 	exec->img = img;
+	cir.rds = rds;
+	cir.to_fill = 0;
 	while(exec->inf.map[y])
 	{
 		x = 0;
@@ -233,12 +115,16 @@ int	draw_the_player(t_exec *exec)
 		{
 			if (exec->inf.map[y][x] == 'P')
 			{
-				draw_circle(exec->mlx.mlx, exec->mlx.mlx_w, x * PIXELS, y * PIXELS, rds, 0xDB0000, exec);
-				mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, img.image, x * PIXELS, y * PIXELS);
-				exec->tex.ply.img = img.image;
+				cir.cx = (x * PIXELS) + (PIXELS / 2);
+				cir.cy = (y * PIXELS) + (PIXELS / 2);
+				draw_circle(exec, &cir);
+				if (cir.to_fill)
+					exec->tex.ply.img = img.image;
+				else
+					exec->tex.ply.img = NULL;
 				exec->tex.ply.rds = rds;
-				exec->tex.ply.px = x * PIXELS;
-				exec->tex.ply.py = y * PIXELS;
+				exec->tex.ply.px = (x * PIXELS) + (PIXELS / 2);
+				exec->tex.ply.py = (y * PIXELS) + (PIXELS / 2);
 				exec->tex.ply.endlx = (x * PIXELS) / 2;
 				exec->tex.ply.endrx = (x * PIXELS) / 2;
 				exec->tex.ply.enduy = (y * PIXELS) / 2;
