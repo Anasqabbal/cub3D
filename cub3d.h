@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/22 14:39:33 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:43:06 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@
 // # include <mlx.h>
 # include "./minilibx-linux/mlx.h"
 
-# define PI 3.14
 # define AOV 60
-# define PIXELS 40
-# define STEPS 10
+# define PIXELS 60
+# define SPEED 10
 
 typedef struct	s_mlx
 {
@@ -59,7 +58,7 @@ typedef struct s_ply
 {
 	void	*img;
 	int		turn;
-	int		rotangle;
+	double		rotangle;
 	int		px;
 	int		py;
 	int		rds;
@@ -76,6 +75,13 @@ typedef struct s_tex
 	t_ply	flr;
 
 } t_tex;
+
+typedef struct s_ray
+{
+	int	x;
+	int	y;
+	int	len;
+} t_ray;
 
 typedef struct s_cir
 {
@@ -94,12 +100,14 @@ typedef struct s_exec
 	t_info	inf;
 	t_img	img;
 	t_tex	tex;
+	t_ray	line;
 	char	**av;
 
 }	t_exec;
 
 
 /*PART 2*/
+void	ft_draw_rays(t_exec *exec);
 char	**cub_get_map(t_info *inf, int i);
 double	degree_to_rad(double deg);
 void	to_free_cub(char **av);
@@ -115,6 +123,9 @@ int		init_mlx_struct(t_exec *exec);
 int		catch_moves(int key, void *p);
 int		ft_move_player(t_exec *exec);
 void	draw_circle(t_exec *exec, t_cir *cir);
+int		check_walls(int ind, int y, int x, t_exec *exec);
+int 	ft_dda_algo(t_exec *exec, double endy, double endx);
+double	rad_to_degree(double rad);
 
 #endif
 

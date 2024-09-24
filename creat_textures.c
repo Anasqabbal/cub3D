@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/22 17:25:29 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:21:35 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	draw_the_player(t_exec *exec)
 		x = 0;
 		while(exec->inf.map[y][x])
 		{
-			if (exec->inf.map[y][x] == 'P')
+			if (exec->inf.map[y][x] == 'N' || exec->inf.map[y][x] == 'S' || exec->inf.map[y][x] == 'E' || exec->inf.map[y][x] == 'W' || exec->inf.map[y][x] == 'P')
 			{
 				cir.cx = (x * PIXELS) + (PIXELS / 2);
 				cir.cy = (y * PIXELS) + (PIXELS / 2);
@@ -129,6 +129,14 @@ int	draw_the_player(t_exec *exec)
 				exec->tex.ply.endrx = (x * PIXELS) / 2;
 				exec->tex.ply.enduy = (y * PIXELS) / 2;
 				exec->tex.ply.enddy = (y * PIXELS) / 2;
+				if (exec->inf.map[y][x] == 'N')
+					exec->tex.ply.rotangle = degree_to_rad(90);
+				if (exec->inf.map[y][x] == 'S')
+					exec->tex.ply.rotangle = degree_to_rad(270);
+				if (exec->inf.map[y][x] == 'W')
+					exec->tex.ply.rotangle = degree_to_rad(360);
+				if (exec->inf.map[y][x] == 'E')
+					exec->tex.ply.rotangle = degree_to_rad(180);
 			}
 			x++;
 		}

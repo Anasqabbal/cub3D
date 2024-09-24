@@ -51,7 +51,7 @@ int main()
     while(++j < 8)
     {
         i = -1;
-        while(++i < 20)
+        while(++i < 40)
         {
             if (map[j][i] == '1')
                 draw_element(i, j, '1', &mlx);

@@ -18,7 +18,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
 
     timeout-minutes: 20
-    steps:
+    SPEED:
     - uses: actions/checkout@v2
     - name: Install mlx dependencies
       run: |
