@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/24 17:43:06 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:52:06 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "./minilibx-linux/mlx.h"
 
 # define AOV 60
-# define PIXELS 60
+# define PIXELS 30
 # define SPEED 10
 
 typedef struct	s_mlx
@@ -70,9 +70,10 @@ typedef struct s_ply
 
 typedef struct s_tex
 {
+	void	*image;
+	void	*flr;
 	void	*wall;
 	t_ply	ply;
-	t_ply	flr;
 
 } t_tex;
 
@@ -113,7 +114,7 @@ double	degree_to_rad(double deg);
 void	to_free_cub(char **av);
 int		file_len(t_info *info);
 int		creat_and_start_awindow(t_mlx *mlx);
-void	set_pixels_to_image(t_img *img);
+void	set_pixels_to_image(t_img *img, t_exec *exec, int color);
 int		draw_the_floor(t_exec *exec);
 int		draw_the_walls(t_exec *exec);
 int		draw_the_player(t_exec *exec);
@@ -126,6 +127,10 @@ void	draw_circle(t_exec *exec, t_cir *cir);
 int		check_walls(int ind, int y, int x, t_exec *exec);
 int 	ft_dda_algo(t_exec *exec, double endy, double endx);
 double	rad_to_degree(double rad);
+void	bresenhams_line_algo(t_exec *exec,int endy,int endx);
+void	define_the_end_position(double *y, double *x, t_exec *exec);
+void	bresenham_line_algo2(int x0, int y0, int x1, int y1, t_exec *exec);
+void	draw_map(t_exec *exec);
 
 #endif
 

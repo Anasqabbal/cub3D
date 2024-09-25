@@ -11,7 +11,7 @@ void draw_element(int x, int y, char c, t_mlx *mlx)
     img.xlen = PIXELS; 
     img.ylen = PIXELS;
     img.image = mlx_new_image(mlx->mlx, img.xlen, img.ylen);
-    img.image_add = mlx_get_data_addr(img.image, &img.bits_pp, &img.line_, &img.endian);
+    img.image_add = mlx_get_data_addr(exec->tex.image, &img.bits_pp, &img.line_, &img.endian);
     set_pixels_to_image(&img);
     mlx_put_image_to_window(mlx->mlx, mlx->mlx_w, img.image, x * PIXELS, y * PIXELS);
 
