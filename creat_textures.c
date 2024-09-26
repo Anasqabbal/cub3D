@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/25 17:52:31 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:35:19 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,8 @@ void draw_map(t_exec *exec)
 		{
 			if (exec->inf.map[y][x] == '1')
 				mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.wall, (x * PIXELS), (y * PIXELS));
-			if (exec->inf.map[y][x] == '0')
-			{
-				printf("hte add of your floor is %p\n", exec->tex.flr);
+			else
 				mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr, (x * PIXELS), (y * PIXELS));
-
-			}
 			x++;
 		}
 		y++;

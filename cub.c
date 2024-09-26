@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/25 17:52:23 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:24:18 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec)
     int dy;
     int sx ;
     int sy ;
-    int err ;
+    int err;
     int e2;
 
     dx = ft_abs(x1 - x0);
@@ -110,8 +110,10 @@ void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec)
     else
         sy = -1;
     err = dx - dy;
-    while (1) {
-        if (x0 == x1 && y0 == y1) 
+    // printf("y0 %d x0 %d === %c\n", (y0 - (PIXELS / 2)) / PIXELS, (x0 - (PIXELS / 2)) / PIXELS);
+    while (1)
+    {
+        if ((x0 == x1 && y0 == y1))
             break;
         e2 = 2 * err;
         if (e2 > -dy)

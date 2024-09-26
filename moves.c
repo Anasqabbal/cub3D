@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/25 18:02:42 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:33:54 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,12 @@ int     move_up(t_exec *exec)
     // mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr.img, exec->tex.ply.px - (PIXELS / 2),  exec->tex.ply.py - (PIXELS / 2));
     exec->tex.ply.py += sin(exec->tex.ply.rotangle) * SPEED;
     exec->tex.ply.px += cos(exec->tex.ply.rotangle) * SPEED;
+            double x;
+    double y;
+    x = (cos(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.px;
+    y = (sin(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.py;
     ft_move_player(exec);
+    bresenham_line_algo2(exec->tex.ply.py, exec->tex.ply.px, (int)y, (int)x, exec);
     return (0);
 }
 
@@ -50,7 +55,12 @@ int move_down(t_exec *exec)
     // exec->tex.ply.enduy -= SPEED;
     exec->tex.ply.py -= (sin(exec->tex.ply.rotangle) * SPEED);
     exec->tex.ply.px -= (cos(exec->tex.ply.rotangle) * SPEED);
+        double x;
+    double y;
+    x = (cos(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.px;
+    y = (sin(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.py;
     ft_move_player(exec);
+    bresenham_line_algo2(exec->tex.ply.py, exec->tex.ply.px, (int)y, (int)x, exec);
     return (0);
 }
 
