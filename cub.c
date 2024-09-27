@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/26 15:24:18 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:12:29 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void bresenhams_line_algo(t_exec *exec, int endy, int endx)
 
     m = (2 * suby) - subx;
     mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, endx, endy, 0xEFFF00);
-    printf("enter\n");
     if (subx == 0)
     {
         while (y <= endy)
@@ -75,7 +74,7 @@ void bresenhams_line_algo(t_exec *exec, int endy, int endx)
             mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, x, y, 0x000000);
         }
     }
-    printf("gone\n");
+    printf("GONE\n");
 }
 
 void plot(int x, int y) {
@@ -179,7 +178,8 @@ int start_cub(char **av)
 
     if (init_structs(&exec, 0, av) < 0)
         return (-1);
-    creat_and_start_awindow(&exec.mlx);
+    if (creat_and_start_awindow(&exec.mlx) < 0)
+        return (-1);
     draw_the_floor(&exec);
     draw_the_walls(&exec);
     draw_map(&exec);

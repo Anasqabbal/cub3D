@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:14:44 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/20 15:54:05 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:08:37 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int init_mlx_struct(t_exec *exec)
 
     exec = ptr;
     (void) ind;
-    if (init_info_struct(&exec->inf, av) < 0)
-        return (-1);
+    init_info_struct(&exec->inf, av);
     init_mlx_struct(exec);
     return (0);
 }

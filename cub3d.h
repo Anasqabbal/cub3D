@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/26 15:25:21 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/27 17:18:16 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 
 # define AOV 60
 # define PIXELS 30
-# define SPEED 10
+# define SPEED 5
+# define VIEW_SPEED 20
 
 typedef struct	s_mlx
 {
@@ -131,6 +132,7 @@ void	bresenhams_line_algo(t_exec *exec,int endy,int endx);
 void	define_the_end_position(double *y, double *x, t_exec *exec);
 void	bresenham_line_algo2(int x0, int y0, int x1, int y1, t_exec *exec);
 void	draw_map(t_exec *exec);
+int trace_rays1(t_exec *exec);
 
 #endif
 

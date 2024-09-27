@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/26 15:35:19 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:48:01 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int draw_the_floor(t_exec *exec)
 
 	img.ylen =  PIXELS;
 	img.xlen = PIXELS;
-	img.color = 0xbbbbbb;
+	 exec->inf.flr_cl= 0xFFFFFF;
+	img.color = exec->inf.flr_cl;
 	exec->tex.image = mlx_new_image(exec->mlx.mlx, (PIXELS), (PIXELS));
-	img.image = exec->tex.flr;
 	img.image_add = mlx_get_data_addr(exec->tex.image, &img.bits_pp, &img.line_, &img.endian);
-	set_pixels_to_image(&img, exec, 0xbbbbbb);
-	exec->tex.wall = exec->tex.image;
+	set_pixels_to_image(&img, exec, 0xFFFFFF);
+	exec->tex.flr = exec->tex.image;
 	return (0);
 }
 
@@ -60,9 +60,9 @@ int draw_the_walls(t_exec *exec)
 	img.xlen = PIXELS;
 	exec->tex.image = mlx_new_image(exec->mlx.mlx, PIXELS, PIXELS);
 	img.image_add = mlx_get_data_addr(exec->tex.image, &img.bits_pp, &img.line_, &img.endian);
-	img.color = 0xFFFFFF;
+	img.color = 0xbbbbbb ;
 	set_pixels_to_image(&img, exec, 0x000000);
-	exec->tex.flr = exec->tex.image;
+	exec->tex.wall = exec->tex.image;
 	return (0);
 }
 
@@ -99,13 +99,13 @@ int	draw_the_player(t_exec *exec)
 	y = 0;
 	x = 0;
 	if (PIXELS % 2 == 0)
-		rds = PIXELS / 6 - 1;
+		rds = PIXELS / 2 - 1;
 	else
-		rds = PIXELS / 6;
+		rds = PIXELS / 2;
 	exec->img = img;
 	cir.rds = rds;
 	cir.to_fill = 0;
-	exec->tex.flr = exec->tex.image;
+	// exec->tex.flr = exec->tex.image;
 	while(exec->inf.map[y])
 	{
 		x = 0;
@@ -130,21 +130,21 @@ int	draw_the_player(t_exec *exec)
 				double yy = 0;
 				if (exec->inf.map[y][x] == 'N')
 				{
-					exec->tex.ply.rotangle = degree_to_rad(270);
-					define_the_end_position(&yy, &xx, exec);
+					exec->tex.ply.rotangle = degree_to_rad(90);
 					mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, xx, yy, 0x000000);
 
 				}
 				if (exec->inf.map[y][x] == 'S')
-					exec->tex.ply.rotangle = degree_to_rad(180);
+					exec->tex.ply.rotangle = degree_to_rad(270);
 				if (exec->inf.map[y][x] == 'W')
-					exec->tex.ply.rotangle = degree_to_rad(90);
-				if (exec->inf.map[y][x] == 'E')
 					exec->tex.ply.rotangle = degree_to_rad(0);
+				if (exec->inf.map[y][x] == 'E')
+					exec->tex.ply.rotangle = degree_to_rad(180);
 				mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr, x * (PIXELS), y * PIXELS);
 				draw_circle(exec, &cir);
-				mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.ply.px, exec->tex.ply.py, 0x3A00FF);
-				bresenhams_line_algo(exec, yy, xx);
+				mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.ply.px, exec->tex.ply.py, 0x000000);
+				trace_rays1(exec);
+				// bresenhams_line_algo(exec, yy, xx);
 			}
 			x++;
 		}
