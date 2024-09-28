@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:14:44 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/27 16:08:37 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/28 08:17:19 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int     init_info_struct(t_info *inf, char **av)
     if (!inf->map)
         return (printf("failed to get the map\n"), -1);
     inf->wid = ft_strlen(inf->map[0]);
-    inf->flr_cl = 0xbbbbbb;
+    inf->flr_cl = 0xE3E3E3;
+    // exec->inf.flr_cl= 0xFFFFFF;
     inf->clg_cl = 0x332d31;
     return (0);
 }

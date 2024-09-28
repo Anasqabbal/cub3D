@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 17:22:13 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/27 17:56:34 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/28 12:13:50 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,27 @@ static int too_free(char **res)
         free(res[i]);
     free(res);
     return (0);
+}
+
+void draw_the_opposite(double angle, int adj, int x, int y, t_mlx mlx)
+{
+    /* first find the hypotenuse*/
+    /* cos = adj / hyp*/
+    /* hyp = cos / adj */
+    /* sin = opp / hyp */
+    printf("your ANGLE %d\n", (int)angle);
+    printf("your ADJ   %d\n", adj);
+    printf("your HYPO %d\n", (int)((double)adj / cos(degree_to_rad(angle))));
+    int xx;
+    int opp = (int)(sin(degree_to_rad(angle)) * ((double)adj / cos(degree_to_rad(angle))));
+    int i = 0;
+    printf("your OPP %d\n", opp);
+    while(i++ <= (opp))
+    {
+        xx = (x + i) + cos(degree_to_rad(angle - angle));
+        mlx_pixel_put(mlx.mlx, mlx.mlx_w, xx , y, 0xFF0000);
+    }
+    printf("THE VALUE OF I OUTSIDE %d\n", i);
 }
 
 int main()
@@ -40,9 +61,6 @@ int main()
     }
 
 
-
-
-
     /* creat a window and textures */
     t_mlx m;
 
@@ -58,17 +76,17 @@ int main()
     mlx_pixel_put(m.mlx, m.mlx_w, (int)(x * PIXELS), (int)(y * PIXELS), 0xFF0000);
     printf("the value of y %f x = %f\n", y * PIXELS, x * PIXELS);
     i = 0;
+    int angle = 30;
     while(i < 10)
     {
-        x = (cos((degree_to_rad(30)) * 1) + ((wid_len / 2) * 30) + i);
-        y = (sin((degree_to_rad(30)) * 1) + ((h_len / 2) * 30) + i);
+        x = (cos((degree_to_rad(angle)) * 1) + ((wid_len / 2) * PIXELS) + i);
+        y = (sin((degree_to_rad(angle)) * 1) + ((h_len / 2) * PIXELS) - i);
         mlx_pixel_put(m.mlx, m.mlx_w, (int)(x), (int)(y), 0xFF0000);
+        draw_the_opposite(angle, i, x, y, m);
         i++;
     }
     printf("the value of y %f x = %f\n", y, x);
     mlx_loop(m.mlx);
 
-
-    
     too_free(map);
 }
