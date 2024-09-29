@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/28 18:12:17 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:16:41 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,80 @@ void draw_the_opposite(double angle, int hyp, int x, int y, t_mlx mlx)
     printf("THE VALUE OF I OUTSIDE %d\n", i);
 }
 
-void draw_the_walls11(double rx, double ry, t_exec *exec)
+void set_pixels_to_image_pro(t_img *img, int nheigh, t_exec *exec)
 {
-    int ds;
+    int x;
+    int y;
+
+    x = 0;
+    y = 0;
+    int clg = ((exec->inf.hei * PIXELS) / 2) - nheigh;
+    char *image = exec->tex.image;
+        while(y < clg)
+        {
+            x = 0;
+            while(x < 4)
+                *(int *)((image + ((y * img->line_) + (x++ * (img->bits_pp / 8))))) =  exec->inf.clg_cl;
+            y++;
+        }
+		x = 0;
+        int yy = 0;
+        while(yy < nheigh)
+        {
+            x = 0;
+            while(x < 4)
+                *(int *)((image + ((y * img->line_) + (x++ * (img->bits_pp / 8))))) =  0xFB001D;
+            yy++;
+            y++;
+        }
+        while(y < (int)exec->mlx.win_hei)
+		{
+            x = 0;
+            while(x < 4)
+                *(int *)((image + ((y * img->line_) + (x++ * (img->bits_pp / 8))))) =  exec->inf.flr_cl;
+		    y++;
+		}
+}
+
+void draw_the_walls11(double rx, double ry, t_exec *exec, double angle, int n)
+{
+    double ds;
     // int str;
     int nheigh;
+   double  ah;
+   
+    (void)n;
+    ah = (ry - exec->tex.ply.py) / cos((degree_to_rad(90) - angle));
+    ds = sqrt((pow(rx - exec->tex.ply.px, 2) + pow(ry - exec->tex.ply.py, 2)));
+    nheigh  = ((PIXELS) / (ds)) * exec->mlx.win_hei;
+    // draw_map(exec);
+    ah = abs((int)ah);
+    // mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.ply.px - (cos(angle) * (int)ah), exec->tex.ply.py - (sin(angle) * (int)ah), 0xFF0000);
+    // mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, (exec->tex.ply.px - (cos(angle) * (int)ds)) - 1, exec->tex.ply.py - (sin(angle) * (int)ds), 0x00FF00);
+    
+    t_img img;
 
-    ds = sqrt(pow(rx - exec->tex.ply.px, 2) + pow(ry - exec->tex.ply.py, 2));
-    // printf("DS %d\n", ds);
-    nheigh  = ((exec->mlx.win_hei / 2) / ds) * exec->mlx.win_hei / 4;
+    img.image = mlx_new_image(exec->mlx.mlx, 4, exec->mlx.win_hei);
+    exec->tex.image = mlx_get_data_addr(img.image, &img.bits_pp, &img.line_, &img.endian);
+    img.xlen = 4;
+    img.ylen = exec->mlx.win_hei;
+    unsigned int y ;
+    int x ;
+    n = -1;
+    set_pixels_to_image_pro(&img, nheigh, exec);
+    // mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w1, exec->tex.image, rx, ry);
+    while(++n < 1)
+    {
+        y = 0;
+        x = 0;
+        int clg = ((exec->inf.hei * PIXELS) / 2) - nheigh;
+        while((int)y++ < clg)
+            mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++,exec->inf.clg_cl);
+        while((int)x++ < nheigh)
+            mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, 0xFB001D);
+        while(y < (exec->inf.hei * PIXELS))
+            mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, exec->inf.flr_cl);
+    }
     printf("height s %d %d\n", nheigh, exec->mlx.win_hei);
     (void)ry;
     (void)exec;
@@ -83,9 +148,12 @@ int trace_rays1(t_exec *exec)
     double start_angle;
     double x;
     double y;
-    int i = -1;
+    double i = 1;
 
-    while(++i < (AOV))
+    printf("ray increment nb == %f\n",(double)AOV / ((exec->mlx.win_wid) / 4));
+    int num_of_rays = (exec->mlx.win_wid / 4);
+    double n = (double)AOV / (double)num_of_rays;
+    while(i < (AOV))
     {
         x = exec->tex.ply.px;
         y = exec->tex.ply.py;
@@ -94,12 +162,12 @@ int trace_rays1(t_exec *exec)
         {
             x -= (cos(start_angle));
             y -= (sin(start_angle));
-            if (exec->inf.map[((int)y) / PIXELS][((int)x) / PIXELS] != '1')
-                mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, (int)x, (int)y, 0x000000);
+            // if (exec->inf.map[((int)y) / PIXELS][((int)x) / PIXELS] != '1')
+            //     mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, (int)x, (int)y, 0x000000);
         }
-        draw_the_walls11(x, y, exec);
+        draw_the_walls11(x, y, exec, start_angle, (exec->inf.wid * PIXELS) / AOV);
+        i += n;
     }
-    exit (0);
     return (0);
 }
 
@@ -171,9 +239,9 @@ int move_righ(t_exec *exec)
     // mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.ply.px, exec->tex.ply.py, 0xFFFFFF);
     // printf("Player position == (%d,%d)\n",exec->tex.ply.py, exec->tex.ply.px);
     // printf("rotangelbefore == %f\n", rad_to_degree(exec->tex.ply.rotangle));
-    exec->tex.ply.rotangle += degree_to_rad(VIEW_SPEED);
-    if (exec->tex.ply.rotangle > (2 * M_PI))
+    if (exec->tex.ply.rotangle > (M_PI * 2))
         exec->tex.ply.rotangle -= 2 * M_PI;
+    exec->tex.ply.rotangle += degree_to_rad(VIEW_SPEED);
     mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.ply.px, exec->tex.ply.py, 0x3A00FF);
     double x;
     double y;
@@ -191,7 +259,7 @@ int move_left(t_exec *exec)
 {
     // if (check_walls(2, exec->tex.ply.py, exec->tex.ply.px - (PIXELS / 2) - 1, exec))
     //     return (0);
-    if (exec->tex.ply.rotangle <= 0)
+    if (exec->tex.ply.rotangle < 0)
         exec->tex.ply.rotangle += 2 * M_PI;
     exec->tex.ply.rotangle -= degree_to_rad(VIEW_SPEED);
     // double x;
@@ -202,7 +270,7 @@ int move_left(t_exec *exec)
     // // mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, x, y, 0x3A00FF);
     // ft_move_player(exec);
     // // bresenham_line_algo2(exec->tex.ply.py, exec->tex.ply.px, (int)y, (int)x, exec);
-    trace_rays1(exec);
+    // trace_rays1(exec);
      return (0);
 }
 
@@ -213,6 +281,7 @@ int catch_moves(int key, void *p)
     exec = p;
     (void)exec;
     (void)p;
+    mlx_clear_window(exec->mlx.mlx, exec->mlx.mlx_w1);
     if (key == 124 || key == 65363)
         move_righ(exec);
     else if (key == 123 || key == 65361)
