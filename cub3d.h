@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/30 09:23:35 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:01:01 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 # define AOV 60
 # define PIXELS 30
-# define SPEED 5
-# define VIEW_SPEED 5
+# define SPEED 10
+# define VIEW_SPEED 5 * (M_PI / 180);
 # define P_2_PP 150
 
 typedef struct	s_mlx
@@ -58,18 +58,19 @@ typedef struct s_img
 
 typedef struct s_ply
 {
-	void	*img;
-	int		turn;
+	void		*img;
+	int			turn;
 	double		rotangle;
-	int		px;
-	int		py;
-	int		rds;
-	int		endlx;
-	int		endrx;
-	int		enduy;
-	int		enddy;
+	int			px;
+	int			py;
+	int			rds;
+	int			endlx;
+	int			endrx;
+	int			enduy;
+	int			enddy;
 	double		rays;
 	double		inc;
+	int			inc_move;
 } t_ply;
 
 typedef struct s_tex
@@ -134,7 +135,7 @@ double	rad_to_degree(double rad);
 void	bresenhams_line_algo(t_exec *exec,int endy,int endx);
 void	bresenham_line_algo2(int x0, int y0, int x1, int y1, t_exec *exec);
 void	draw_map(t_exec *exec);
-int trace_rays1(t_exec *exec);
+int		trace_rays1(t_exec *exec);
 
 #endif
 
