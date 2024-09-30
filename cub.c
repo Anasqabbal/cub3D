@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/29 15:36:13 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:37:01 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,11 +180,11 @@ int start_cub(char **av)
         return (-1);
     if (creat_and_start_awindow(&exec.mlx) < 0)
         return (-1);
-    draw_the_floor(&exec);
-    draw_the_walls(&exec);
-    draw_map(&exec);
+    // draw_the_floor(&exec);
+    // draw_the_walls(&exec);
+    // draw_map(&exec);
     draw_the_player(&exec);
-    mlx_hook(exec.mlx.mlx_w, 2, 0, catch_moves, &exec);
+    mlx_hook(exec.mlx.mlx_w1, 2, 0, catch_moves, &exec);
     // mlx_key_hook(exec.mlx.mlx_w, catch_moves, &exec);
     mlx_loop(exec.mlx.mlx);
     return (0);
