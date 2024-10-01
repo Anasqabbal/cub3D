@@ -2,7 +2,7 @@ NAME=cub3D
 CC=cc
 S=-fsanitize=address -g
 FLAGS=-Wall -Wextra -Werror $(S)
-PART2= ./part2/the_circle.c  ./part2/utils1.c cub_clean.c  utils1.c cub_clean.c creat_window.c init_structs.c creat_textures.c move_player.c moves.c ft_check_walls.c
+PART2= ./part2/the_circle.c  ./part2/utils1.c  ./part2/ray_casting.c cub_clean.c  utils1.c cub_clean.c creat_window.c init_structs.c creat_textures.c move_player.c moves.c ft_check_walls.c
 SRC=  cub.c $(PARSING) $(PART2)
 OBJ=$(SRC:.c=.o)
 LIBFT=./libft/libft.a

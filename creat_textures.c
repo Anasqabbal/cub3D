@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/30 15:31:20 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:29:41 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void set_pixels_to_image(t_img *img, t_exec *exec, int color)
 		x = 0;
 		while(x < (img->xlen))
 		{
-			if (y != 0 && x > 2)
+			if (y != 0 && x > 0)
 				*(int *)((image + ((y * img->line_) + (x * (img->bits_pp / 8))))) =  img->color;
 			else
 				*(int *)((image + ((y * img->line_) + (x * (img->bits_pp / 8))))) =  color;
@@ -46,7 +46,7 @@ int draw_the_floor(t_exec *exec)
 	img.color = exec->inf.flr_cl;
 	exec->tex.image = mlx_new_image(exec->mlx.mlx, (PIXELS), (PIXELS));
 	img.image_add = mlx_get_data_addr(exec->tex.image, &img.bits_pp, &img.line_, &img.endian);
-	set_pixels_to_image(&img, exec, img.color);
+	set_pixels_to_image(&img, exec, 0xCEC9C5);
 	exec->tex.flr = exec->tex.image;
 	return (0);
 }
@@ -145,7 +145,8 @@ int	draw_the_player(t_exec *exec)
 					exec->tex.ply.rotangle = degree_to_rad(180);
 				if (exec->inf.map[y][x] == 'E')
 					exec->tex.ply.rotangle = degree_to_rad(0);
-				trace_rays1(exec);
+				// trace_rays1(exec);
+				ray_casting(exec);
 				// mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr, x * (PIXELS), y * PIXELS);
 				// draw_circle(exec, &cir);
 				// mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.ply.px, exec->tex.ply.py, 0x000000);

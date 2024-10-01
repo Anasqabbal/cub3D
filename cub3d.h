@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/30 16:01:01 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:35:56 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # define AOV 60
 # define PIXELS 30
-# define SPEED 10
+# define SPEED 1
 # define VIEW_SPEED 5 * (M_PI / 180);
 # define P_2_PP 150
 
@@ -136,6 +136,7 @@ void	bresenhams_line_algo(t_exec *exec,int endy,int endx);
 void	bresenham_line_algo2(int x0, int y0, int x1, int y1, t_exec *exec);
 void	draw_map(t_exec *exec);
 int		trace_rays1(t_exec *exec);
+int		ray_casting(t_exec *exec);
 
 #endif
 

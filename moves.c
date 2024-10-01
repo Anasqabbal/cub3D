@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/30 18:06:07 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:30:04 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,28 @@ void draw_the_walls11(int rx, double ry, t_exec *exec, double angle, int nro)
     ah = (ry - exec->tex.ply.py) / cos((degree_to_rad(90) - angle));
     ah = abs((int)ah);
     nheigh  = ((PIXELS) / ah) * (PIXELS * 2); /* the new heigh of the wall that you want to draw */
-    t_img img;
-
-    img.image = mlx_new_image(exec->mlx.mlx, 1, exec->mlx.win_hei);
-    img.image_add = mlx_get_data_addr(img.image, &img.bits_pp, &img.line_, &img.endian);
-    img.ylen = exec->mlx.win_hei;
-    img.xlen = 1;
-    exec->tex.image = img.image;
     int y ;
     int x ;
     n = 0;
-        y = 0;
-        x = 0;
-        int clg = (exec->mlx.win_hei / 2) - (nheigh);
-        while(y < clg)
-            mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++,exec->inf.clg_cl);
-        while((int)x++ < nheigh) /* draw the new wall */
-            mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, 0xFB001D);
-        while(y < (int)exec->mlx.win_hei)
-            mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, exec->inf.flr_cl);
+    y = 0;
+    x = 0;
+    int clg = (exec->mlx.win_hei / 2) - (nheigh);
+    while(y < clg)
+        mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++,exec->inf.clg_cl);
+    while((int)x++ < nheigh)
+    {
+        /* draw the new wall */
+        // if (exec->tex.ply.rotangle > degree_to_rad(45) && exec->tex.ply.rotangle <= degree_to_rad(135))
+            mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, 0xFF0000);
+        // else if (exec->tex.ply.rotangle > degree_to_rad(135) && exec->tex.ply.rotangle <= degree_to_rad(225))
+        //     mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, 0xFB001D);
+        // else if (exec->tex.ply.rotangle > degree_to_rad(225) && exec->tex.ply.rotangle <= degree_to_rad(315))
+        //     mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, 0xE00606);
+        // else if (exec->tex.ply.rotangle > degree_to_rad(315) && exec->tex.ply.rotangle <= degree_to_rad(45))
+        //     mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, 0xC60404);
+    }
+    while(y < (int)exec->mlx.win_hei)
+        mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, exec->inf.flr_cl);
     (void)ry;
     (void)exec;
 }
@@ -92,23 +95,49 @@ int trace_rays1(t_exec *exec)
     double i = 1;
     double angle_;
     int cc = 0;
+    // int hr_inter;
+
     angle_ = degree_to_rad((AOV / 2));
-    double inc = exec->tex.ply.inc;
-    while((int)i < (AOV))
+        x  = exec->tex.ply.px;
+        double inc = exec->tex.ply.inc;
+        y = (exec->tex.ply.py / (PIXELS))  * PIXELS;
+        x -=  (exec->tex.ply.py - y) / tan(exec->tex.ply.rotangle);
+
+        // mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, (int)x, (int)y, 0x000000); // the same
+    while((int)i < 2)
     {
-        x = exec->tex.ply.px;
-        y = exec->tex.ply.py;
+        /* horizental increment */
         start_angle = (exec->tex.ply.rotangle - (angle_ - (i * (M_PI / 180))));
-        while(exec->inf.map[(int)y / PIXELS][(int)x / PIXELS] != '1')
+        y = (exec->tex.ply.py / (PIXELS))  * PIXELS;
+        x = exec->tex.ply.px - ((exec->tex.ply.py - y) / tan(start_angle));
+        int xinc = (exec->tex.ply.py - y)  / tan(start_angle);
+        while(x && y &&  x >  0 && y > 0 && x < exec->mlx.win_wid && y < exec->mlx.win_hei && exec->inf.map[(int)y / PIXELS][(int)x / PIXELS] != '1')
         {
-            x -= (cos(start_angle));
-            y -= (sin(start_angle));
-            // if (exec->inf.map[((int)y) / PIXELS][((int)x) / PIXELS] != '1') //TODO to destroy 2d map
-            //     mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, (int)x, (int)y, 0x000000); // the same
+            if (exec->inf.map[(int)y / PIXELS][(int)x / PIXELS] != '1')
+                mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, (int)x, (int)y, 0x000000);
+            else
+                break ;
+            y -= PIXELS;
+            x -= xinc;
+            printf("(%d, %d)\n", (int)y, (int)x);
         }
-        draw_the_walls11(cc++, y, exec, start_angle, i); // to destroy 3d map
+        /* vertical increment */
+        x = (exec->tex.ply.px / (PIXELS))  * PIXELS;
+        y = exec->tex.ply.py - (exec->tex.ply.px - x) * tan((start_angle));
+        xinc = (exec->tex.ply.px - x) * tan((start_angle));
+        while(x && y &&  x >  0 && y > 0  && x < exec->mlx.win_wid && y < exec->mlx.win_hei && exec->inf.map[(int)y / PIXELS][(int)x / PIXELS] != '1')
+        {
+            if (exec->inf.map[(int)y / PIXELS][(int)x / PIXELS] != '1')
+                mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, (int)x, (int)y, 0xC60404);
+            else
+                break ;
+            y -= xinc;
+            x -= PIXELS;
+            printf("(%d, %d)\n", (int)y, (int)x);
+        }
         i += inc;
     }
+        // draw_the_walls11(cc++, y, exec, start_angle, i); // to destroy 3d map
     (void)cc;
     return (0);
 }
@@ -240,7 +269,8 @@ int catch_moves(int key, void *p)
         move_up(exec);
     else if (key == 125 || key == 65364)
         move_down(exec);
-    // ft_move_player(exec);// to destroy 2d map
-    trace_rays1(exec);
+    ft_move_player(exec);// to destroy 2d map
+    // trace_rays1(exec);
+    ray_casting(exec);
     return (0);
 }
