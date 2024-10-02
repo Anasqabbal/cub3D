@@ -10,17 +10,19 @@ LIBFT_PATH=./libft
 LIBFT_LINUX=./libft_linux
 INCLUDES=./libft/libft.h cub3d.h
 FRAMEWORKS= -framework OpenGL -framework AppKit -lmlx
+# FRAMEWORK= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+NWMLX = MLX42/build/libmlx42.a
 MLX_PATH = ./minilibx-linux
 MLX=$(MLX_PATH)/libmlx_Linux.a
 LINUX= -lX11 -lXext -lXrandr
 SYSTEM=$(uname)
 
-all : libf $(NAME)
+all : libf  $(NAME)
 
 #  all : libf mlx  $(NAME)
 
-# mlx :
-# 	make -C $(MLX_PATH)
+mlx :
+	make -C ./MLX42/build
 
 libf :
 	make -C $(LIBFT_PATH)

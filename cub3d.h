@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/01 16:35:56 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:28:26 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # include <math.h>
 // # include <mlx.h>
 # include "./minilibx-linux/mlx.h"
+// # include "./MLX42/include/MLX42/MLX42.h"
 
 # define AOV 60
 # define PIXELS 30
-# define SPEED 1
+# define SPEED 10
 # define VIEW_SPEED 5 * (M_PI / 180);
 # define P_2_PP 150
 
@@ -137,6 +138,10 @@ void	bresenham_line_algo2(int x0, int y0, int x1, int y1, t_exec *exec);
 void	draw_map(t_exec *exec);
 int		trace_rays1(t_exec *exec);
 int		ray_casting(t_exec *exec);
+void	draw_the_walls11(int rx, double ry, t_exec *exec, double angle, int nro);
+void	draw_the_walls22(double rx, t_exec *exec, double angle, double ah);
+
+int	ft_abs(int nm);
 
 #endif
 

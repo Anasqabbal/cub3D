@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/01 16:30:04 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:34:53 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,37 @@ void draw_the_walls11(int rx, double ry, t_exec *exec, double angle, int nro)
     while(y < (int)exec->mlx.win_hei)
         mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, exec->inf.flr_cl);
     (void)ry;
+    (void)exec;
+}
+
+void draw_the_walls22(double rx, t_exec *exec, double angle, double ah)
+{
+    int nheigh;
+    int n;
+    
+    (void) angle;
+    nheigh  = ((PIXELS) / ah) * ((exec->mlx.win_wid / 5) / tan(degree_to_rad(AOV / 2))); /* the new heigh of the wall that you want to draw */
+    int y ;
+    int x ;
+    n = 0;
+    y = 0;
+    x = 0;
+    int clg = (exec->mlx.win_hei / 2) - (nheigh / 2);
+    int color;
+    while(y < clg)
+        mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++,exec->inf.clg_cl);
+       color = 0xFF0000;
+    // if ((int)rad_to_degree (angle) > (int)45 && (int)rad_to_degree (angle) <= (int)135)
+    // else if (rad_to_degree (angle) > 135 && rad_to_degree (angle) <= 225)
+    //    color = 0xFF0000;
+    // else if (angle > degree_to_rad(225) && angle <= degree_to_rad(315))
+    //     color = 0xFF0000;
+    // else if (angle > degree_to_rad(315) && angle <= degree_to_rad(45))
+    //    color = 0xFF0000;
+    while((int)x++ < nheigh)
+        mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, color);
+    while(y < (int)exec->mlx.win_hei)
+        mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, exec->inf.flr_cl);
     (void)exec;
 }
 
@@ -218,8 +249,8 @@ int ft_check_walls(t_exec *exec, int ind)
 
 int     move_up(t_exec *exec)
 {
-    if (ft_check_walls(exec, 0))
-        return (0);
+    // if (ft_check_walls(exec, 0))
+    //     return (0);
     exec->tex.ply.py -= sin(exec->tex.ply.rotangle) * exec->tex.ply.inc_move;
     exec->tex.ply.px -= cos(exec->tex.ply.rotangle) * exec->tex.ply.inc_move;
     return (0);
@@ -227,8 +258,8 @@ int     move_up(t_exec *exec)
 
 int move_down(t_exec *exec)
 {
-    if (ft_check_walls(exec, 1))
-        return (0);
+    // if (ft_check_walls(exec, 1))
+    //     return (0);
     exec->tex.ply.py += (sin(exec->tex.ply.rotangle) * exec->tex.ply.inc_move);
     exec->tex.ply.px += (cos(exec->tex.ply.rotangle) * exec->tex.ply.inc_move);
     return (0);
@@ -238,9 +269,9 @@ int move_down(t_exec *exec)
 
 int move_righ(t_exec *exec)
 {
+    exec->tex.ply.rotangle += VIEW_SPEED;
     if (exec->tex.ply.rotangle > (M_PI * 2))
         exec->tex.ply.rotangle -= 2 * M_PI;
-    exec->tex.ply.rotangle += VIEW_SPEED;
     return (0);
 }
 
@@ -248,9 +279,9 @@ int move_righ(t_exec *exec)
 
 int move_left(t_exec *exec)
 {
+    exec->tex.ply.rotangle -= VIEW_SPEED;
     if (exec->tex.ply.rotangle < 0)
         exec->tex.ply.rotangle += 2 * M_PI;
-    exec->tex.ply.rotangle -= VIEW_SPEED;
      return (0);
 }
 
@@ -259,8 +290,6 @@ int catch_moves(int key, void *p)
     t_exec *exec;
 
     exec = p;
-    (void)exec;
-    (void)p;
     if (key == 124 || key == 65363)
         move_righ(exec);
     else if (key == 123 || key == 65361)
@@ -269,8 +298,8 @@ int catch_moves(int key, void *p)
         move_up(exec);
     else if (key == 125 || key == 65364)
         move_down(exec);
-    ft_move_player(exec);// to destroy 2d map
-    // trace_rays1(exec);
+    // ft_move_player(exec);// to destroy 2d map
     ray_casting(exec);
+    // trace_rays1(exec);
     return (0);
 }

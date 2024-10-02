@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/01 16:30:50 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:34:22 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,15 +180,14 @@ int start_cub(char **av)
         return (-1);
     if (creat_and_start_awindow(&exec.mlx) < 0)
         return (-1);
-    // mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w); //TODO to destory 2d map uncomment this destroy
-    mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w1); //TODO to destory 3d map uncomment this destroy
-    draw_the_floor(&exec); // comment this if you want to destroy 2d map
-    draw_the_walls(&exec); // the same
-    draw_map(&exec);       // the same
+    mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w); //TODO to destory 2d map uncomment this destroy
+    // mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w1); //TODO to destory 3d map uncomment this destroy
+    // draw_the_floor(&exec); // comment this if you want to destroy 2d map
+    // draw_the_walls(&exec); // the same
+    // draw_map(&exec);       // the same
     draw_the_player(&exec);
     // ft_move_player(&exec);
-    ray_casting(&exec);
-    mlx_hook(exec.mlx.mlx_w, 2, 0, catch_moves, &exec); // switch the window pointer for which window you want to catch keys
+    mlx_hook(exec.mlx.mlx_w1, 2, 0, catch_moves, &exec); // switch the window pointer for which window you want to catch keys
     // mlx_key_hook(exec.mlx.mlx_w, catch_moves, &exec);
     mlx_loop(exec.mlx.mlx);
     return (0);
@@ -200,4 +199,5 @@ int	main(int ac, char **av)
         return (ft_putstr_fd("invalide argument\n", 2), 1);
     if (start_cub(av) < 0)
         return (1);
+    // mlx_put_pixel()
 }

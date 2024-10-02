@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/01 16:29:41 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:04:49 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int	draw_the_player(t_exec *exec)
 				exec->tex.ply.enddy = (y * PIXELS) / 2;
 				exec->tex.ply.rays = exec->mlx.win_wid;
 				exec->tex.ply.inc = AOV / exec->tex.ply.rays;
+				exec->tex.ply.inc_move = SPEED;
 				if (exec->inf.map[y][x] == 'N')
 				{
 					exec->tex.ply.rotangle = degree_to_rad(90);
