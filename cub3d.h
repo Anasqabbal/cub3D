@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/02 17:28:26 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/03 08:14:41 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdio.h>
 # include <math.h>
 // # include <mlx.h>
-# include "./minilibx-linux/mlx.h"
-// # include "./MLX42/include/MLX42/MLX42.h"
+// # include "./minilibx-linux/mlx.h"
+# include "./MLX42/include/MLX42/MLX42.h"
 
 # define AOV 60
 # define PIXELS 30
