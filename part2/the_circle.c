@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 10:43:13 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/22 16:35:23 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:40:10 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ static void fill_circle2(t_exec *exec, t_cir *cir, int ind, int fix)
 {
 	while (ind == 1 && cir->to_center != cir->cx)
 	{
-		mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, cir->to_center++, fix, exec->img.color);
+		mlx_put_pixel(exec->wind_image, cir->to_center++, fix, 0xB00000FF);
 	}
 	while (ind == 2 && cir->to_center != cir->cx)
 	{
-		mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, cir->to_center--, fix, exec->img.color);
+		mlx_put_pixel(exec->wind_image, cir->to_center--, fix, 0xB00000FF);
 	}
 	while (ind == 3 && cir->to_center != cir->cy)
 	{
-		mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, fix, cir->to_center++, exec->img.color);
+		mlx_put_pixel(exec->wind_image, fix, cir->to_center++, 0xB00000FF);
 	}
 	while (ind == 4 && cir->to_center != cir->cy)
 	{
-		mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, fix, cir->to_center--, exec->img.color);
+		mlx_put_pixel(exec->wind_image, fix, cir->to_center--, 0xB00000FF);
 	}
 }
 

@@ -6,62 +6,79 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/02 12:04:49 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:13:05 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void set_pixels_to_image(t_img *img, t_exec *exec, int color)
+void set_pixels_to_image(t_exec *exec, int color1, int color2)
 {
 	unsigned int	x;
 	unsigned int	y;
-	char			*image;
 
 	x = 0;
 	y = 0;
-	(void) exec;
-	image = img->image_add;
-	while (y < (img->ylen))
+	while (y < PIXELS)
 	{
 		x = 0;
-		while(x < (img->xlen))
+		while(x < PIXELS)
 		{
 			if (y != 0 && x > 0)
-				*(int *)((image + ((y * img->line_) + (x * (img->bits_pp / 8))))) =  img->color;
+				mlx_put_pixel(exec->image, x, y, color1);
 			else
-				*(int *)((image + ((y * img->line_) + (x * (img->bits_pp / 8))))) =  color;
+				mlx_put_pixel(exec->image, x, y, color2);
 			x++;
 		}
 		y++;
 	}
 }
 
-int draw_the_floor(t_exec *exec)
+int draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x)
 {
-	t_img	img;
+	int color2;
+	int	xx;
+	int	yy;
 
-	img.ylen =  PIXELS;
-	img.xlen = PIXELS;
-	img.color = exec->inf.flr_cl;
-	exec->tex.image = mlx_new_image(exec->mlx.mlx, (PIXELS), (PIXELS));
-	img.image_add = mlx_get_data_addr(exec->tex.image, &img.bits_pp, &img.line_, &img.endian);
-	set_pixels_to_image(&img, exec, 0xCEC9C5);
-	exec->tex.flr = exec->tex.image;
+	yy = 0;
+	color2 = exec->inf.flr_cl - 100;
+	while (yy < PIXELS)
+	{
+		xx = 0;
+		while(xx < PIXELS)
+		{
+			if (yy != 0 && xx > 0)
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, exec->inf.flr_cl);
+			else
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
+			xx++;
+		}
+		yy++;
+	}
 	return (0);
 }
 
-int draw_the_walls(t_exec *exec)
+int draw_the_walls(t_exec *exec, unsigned int y,  unsigned int x)
 {
-	t_img img;
+	int color2;
+	int	xx;
+	int	yy;
 
-	img.ylen = PIXELS;
-	img.xlen = PIXELS;
-	exec->tex.image = mlx_new_image(exec->mlx.mlx, PIXELS, PIXELS);
-	img.image_add = mlx_get_data_addr(exec->tex.image, &img.bits_pp, &img.line_, &img.endian);
-	img.color = 0xbbbbbb ;
-	set_pixels_to_image(&img, exec, 0x000000);
-	exec->tex.wall = exec->tex.image;
+	yy = 0;
+	color2 = 0x00000000;
+	while (yy < PIXELS)
+	{
+		xx = 0;
+		while(xx < PIXELS)
+		{
+			if (yy != 0 && xx > 0)
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, 0xbbbbbbbb);
+			else
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
+			xx++;
+		}
+		yy++;
+	}
 	return (0);
 }
 
@@ -84,33 +101,21 @@ void draw_map(t_exec *exec)
 		while(exec->inf.map[y][x])
 		{
 			if (exec->inf.map[y][x] == '1')
-				mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.wall, (x * PIXELS), (y * PIXELS));
+				draw_the_walls(exec, y * PIXELS, x * PIXELS);
 			else if (!one_of_this(exec->inf.map[y][x]))
-				mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr, (x * PIXELS), (y * PIXELS));
+				draw_the_floor(exec, y * PIXELS, x * PIXELS);
 			x++;
 		}
 		y++;
 	}
 }
 
-int	draw_the_player(t_exec *exec)
+int	set_player_info(t_exec *exec)
 {
-	t_img img;
-	t_cir	cir;
 	unsigned int x;
 	unsigned int y;
-	int			rds;
 
-	img.color = 0xDB0000;
 	y = 0;
-	x = 0;
-	if (PIXELS % 2 == 0)
-		rds = PIXELS / 6 - 1;
-	else
-		rds = PIXELS / 6;
-	exec->img = img;
-	cir.rds = rds;
-	cir.to_fill = 0;
 	while(exec->inf.map[y])
 	{
 		x = 0;
@@ -118,20 +123,15 @@ int	draw_the_player(t_exec *exec)
 		{
 			if (exec->inf.map[y][x] == 'N' || exec->inf.map[y][x] == 'S' || exec->inf.map[y][x] == 'E' || exec->inf.map[y][x] == 'W' || exec->inf.map[y][x] == 'P')
 			{
-				cir.cx = (x * PIXELS) + (PIXELS / 2);
-				cir.cy = (y * PIXELS) + (PIXELS / 2);
-				if (cir.to_fill)
-					exec->tex.ply.img = img.image;
-				else
-					exec->tex.ply.img = NULL;
-				exec->tex.ply.rds = rds;
+				exec->tex.ply.color = 0xB00000FF;
+				exec->tex.ply.rds = PIXELS / 6;
 				exec->tex.ply.px = (x * PIXELS) + (PIXELS / 2);
 				exec->tex.ply.py = (y * PIXELS) + (PIXELS / 2);
 				exec->tex.ply.endlx = (x * PIXELS) / 2;
 				exec->tex.ply.endrx = (x * PIXELS) / 2;
 				exec->tex.ply.enduy = (y * PIXELS) / 2;
 				exec->tex.ply.enddy = (y * PIXELS) / 2;
-				exec->tex.ply.rays = exec->mlx.win_wid;
+				exec->tex.ply.rays = exec->mlxx.win_wid;
 				exec->tex.ply.inc = AOV / exec->tex.ply.rays;
 				exec->tex.ply.inc_move = SPEED;
 				if (exec->inf.map[y][x] == 'N')
@@ -147,7 +147,7 @@ int	draw_the_player(t_exec *exec)
 				if (exec->inf.map[y][x] == 'E')
 					exec->tex.ply.rotangle = degree_to_rad(0);
 				// trace_rays1(exec);
-				ray_casting(exec);
+				// ray_casting(exec);
 				// mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr, x * (PIXELS), y * PIXELS);
 				// draw_circle(exec, &cir);
 				// mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.ply.px, exec->tex.ply.py, 0x000000);
