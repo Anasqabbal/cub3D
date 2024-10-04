@@ -6,109 +6,39 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/03 16:34:11 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:12:13 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
 
-// void set_pixels_to_image_pro(t_img *img, int nheigh, t_exec *exec)
-// {
-//     int x;
-//     int y;
-
-//     x = 0;
-//     y = 0;
-//     int clg = ((exec->inf.hei * PIXELS) / 2) - nheigh;
-//     char *image = exec->tex.image;
-//         while(y < clg)
-//         {
-//             x = 0;
-//             while(x < 4)
-//                 *(int *)((image + ((y * img->line_) + (x++ * (img->bits_pp / 8))))) =  exec->inf.clg_cl;
-//             y++;
-//         }
-// 		x = 0;
-//         int yy = 0;
-//         while(yy < nheigh)
-//         {
-//             x = 0;
-//             while(x < 4)
-//                 *(int *)((image + ((y * img->line_) + (x++ * (img->bits_pp / 8))))) =  0xFB001D;
-//             yy++;
-//             y++;
-//         }
-//         while(y < (int)exec->mlx.win_hei)
-// 		{
-//             x = 0;
-//             while(x < 4)
-//                 *(int *)((image + ((y * img->line_) + (x++ * (img->bits_pp / 8))))) =  exec->inf.flr_cl;
-// 		    y++;
-// 		}
-// }
-
-// void draw_the_walls11(int rx, double ry, t_exec *exec, double angle, int nro)
-// {
-//     int nheigh;
-//     double  ah;
-//     int n;
-   
-
-//     (void)nro;
-//     (void)n;
-    
-//     ah = (ry - exec->tex.ply.py) / cos((degree_to_rad(90) - angle));
-//     ah = abs((int)ah);
-//     nheigh  = ((PIXELS) / ah) * (PIXELS * 2); /* the new heigh of the wall that you want to draw */
-//     int y ;
-//     int x ;
-//     n = 0;
-//     y = 0;
-//     x = 0;
-//     int clg = (exec->mlx.win_hei / 2) - (nheigh);
-//     while(y < clg)
-//         mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++,exec->inf.clg_cl);
-//     while((int)x++ < nheigh)
-//     {
-//         /* draw the new wall */
-//         // if (exec->tex.ply.rotangle > degree_to_rad(45) && exec->tex.ply.rotangle <= degree_to_rad(135))
-//             mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, 0xFF0000);
-//         // else if (exec->tex.ply.rotangle > degree_to_rad(135) && exec->tex.ply.rotangle <= degree_to_rad(225))
-//         //     mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, 0xFB001D);
-//         // else if (exec->tex.ply.rotangle > degree_to_rad(225) && exec->tex.ply.rotangle <= degree_to_rad(315))
-//         //     mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, 0xE00606);
-//         // else if (exec->tex.ply.rotangle > degree_to_rad(315) && exec->tex.ply.rotangle <= degree_to_rad(45))
-//         //     mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, 0xC60404);
-//     }
-//     while(y < (int)exec->mlx.win_hei)
-//         mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w1, rx + n, y++, exec->inf.flr_cl);
-//     (void)ry;
-//     (void)exec;
-// }
-
-void draw_the_walls22(double rx, t_exec *exec, double angle, double ah)
+double fixing_fichbowl(double ds, double angle, t_exec *exec)
 {
-    int nheigh;
-    int n;
-    static int nh;
-    
-    (void) angle;
-    nheigh  = ((PIXELS) / ah) * ((exec->mlxx.win_wid / 5) / tan(degree_to_rad(AOV / 2))); /* the new heigh of the wall that you want to draw */
-    if (nheigh == 0)
-        nheigh = nh;
-    else
-        nh = nheigh;
+    // printf("the distance that your ray travels is %f and the new one is %d\n,", ds, ft_abs((int)(ds * cos(angle - exec->tex.ply.rotangle))));
+    return (ft_abs((ds * cos(exec->tex.ply.rotangle - angle))));
+}
+
+void draw_the_walls22(int rx, t_exec *exec, double angle, double ds)
+{
+    double nheigh;
+    static int n;
     int y ;
     int x ;
-    n = 0;
+    int color;
+
+    (void) angle;
+    ds = fixing_fichbowl(ds, angle, exec);
+    nheigh  = ((PIXELS) / ds) * ((exec->mlxx.win_wid / 5) / tan(degree_to_rad(AOV / 2))); /* the new heigh of the wall that you want to draw */
+    if (isinf(nheigh))
+        nheigh = n;
+    n = nheigh;
     y = 0;
     x = 0;
-    int clg = (exec->mlxx.win_hei / 2) - (nheigh / 2);
-    int color;
+    int clg = ((exec->mlxx.win_hei) / 2) - (nheigh / 2);
+    color = 0xFF0000FF;
     while(y < clg)
-        mlx_put_pixel(exec->wind_image, rx + n, y++,exec->inf.clg_cl);
-       color = 0xFF0000FF;
+        mlx_put_pixel(exec->wind_image, rx, y++,exec->inf.clg_cl);
     // if ((int)rad_to_degree (angle) > (int)45 && (int)rad_to_degree (angle) <= (int)135)
     // else if (rad_to_degree (angle) > 135 && rad_to_degree (angle) <= 225)
     //    color = 0xFF0000;
@@ -117,9 +47,9 @@ void draw_the_walls22(double rx, t_exec *exec, double angle, double ah)
     // else if (angle > degree_to_rad(315) && angle <= degree_to_rad(45))
     //    color = 0xFF0000;
     while((int)x++ < nheigh)
-        mlx_put_pixel(exec->wind_image, rx + n, y++, color);
+        mlx_put_pixel(exec->wind_image, rx, y++, color);
     while(y < (int)exec->mlxx.win_hei)
-        mlx_put_pixel(exec->wind_image, rx + n, y++, exec->inf.flr_cl);
+        mlx_put_pixel(exec->wind_image, rx, y++, exec->inf.flr_cl);
     (void)exec;
 }
 
@@ -178,93 +108,74 @@ void draw_the_walls22(double rx, t_exec *exec, double angle, double ah)
 //     return (0);
 // }
 
-// int ft_check_walls(t_exec *exec, int ind)
-// {
-//     int i;
-//     int x;
-//     int y;
-//     char    **map;
+int ft_check_walls(t_exec *exec, int ind)
+{
+    int i;
+    int y;
+    int x;
+    int j;
 
-//     map = exec->inf.map;
-//     i = 0;
-//     exec->tex.ply.inc_move = SPEED;
-//     if (ind == 0)
-//     {
-//         if(exec->tex.ply.rotangle < (M_PI))
-//         {
-//             if (exec->tex.ply.rotangle)
-//                 y = (exec->tex.ply.py - exec->tex.ply.rds);
-//             if (exec->tex.ply.rotangle < (M_PI / 2))
-//                 x = (exec->tex.ply.px + exec->tex.ply.rds);
-//             else
-//                 x = (exec->tex.ply.px - exec->tex.ply.rds);
-//         }
-//         else
-//         {
-//              y = (exec->tex.ply.py + exec->tex.ply.rds);
-//                 if (exec->tex.ply.rotangle < ((3 * M_PI) / 2))
-//                 x = (exec->tex.ply.px + exec->tex.ply.rds);
-//             else
-//                 x = (exec->tex.ply.px - exec->tex.ply.rds);
-//         }
-//     }
-//     else
-//     {
-//         if(exec->tex.ply.rotangle < (M_PI))
-//         {
-//             y = (exec->tex.ply.py - exec->tex.ply.rds);
-//             if (exec->tex.ply.rotangle < (M_PI / 2))
-//                 x = (exec->tex.ply.px - exec->tex.ply.rds);
-//             else
-//                 x = (exec->tex.ply.px + exec->tex.ply.rds);
-//         }
-//         else
-//         {
-//              y = (exec->tex.ply.py + exec->tex.ply.rds);
-//                 if (exec->tex.ply.rotangle < ((3 * M_PI) / 2))
-//                 x = (exec->tex.ply.px + exec->tex.ply.rds);
-//             else
-//                 x = (exec->tex.ply.px - exec->tex.ply.rds);
-//         }
-//     }
-
-//     /* loop */
-//     while(++i < SPEED)
-//     {
-//         if (ind == 0)
-//         {
-//             x -= cos(exec->tex.ply.rotangle) * i;
-//             y -= sin(exec->tex.ply.rotangle) * i;
-//         }
-//         else
-//         {
-//             x += cos(exec->tex.ply.rotangle) * i;
-//             y += sin(exec->tex.ply.rotangle) * i;
-//         }
-//         if (map[y / PIXELS][x / PIXELS] != '1')
-//             continue ;
-//         else if (i == 1)
-//             return (1);
-//         else
-//             break ;
-//     }
-//     exec->tex.ply.inc_move = i - 1;
-//     return(0);
-// }
+    i = 1;
+    j = 0;
+    while(i < SPEED)
+    {
+        if (ind == 1)
+        {
+            if (j++ == 0)
+                y = ((exec->tex.ply.py / PIXELS) * PIXELS ) + PIXELS;
+            y =  exec->tex.ply.py + (sin(exec->tex.ply.rotangle) * i);
+            if (exec->tex.ply.rotangle > degree_to_rad(90))
+                x = exec->tex.ply.px - (cos(exec->tex.ply.rotangle) * i);
+            else
+                x = exec->tex.ply.px + (cos(exec->tex.ply.rotangle) * i);
+            if (exec->inf.map[y / PIXELS][x / PIXELS] == '1')
+                return (0);
+            
+        }
+        else
+        {
+            if (j++ == 0)
+            {
+                 y = (exec->tex.ply.py / PIXELS) * PIXELS ;
+                if (exec->tex.ply.rotangle >= degree_to_rad(90) && exec->tex.ply.rotangle <= degree_to_rad(270))
+                    x = exec->tex.ply.px + (cos(exec->tex.ply.rotangle) * exec->tex.ply.rds);
+                else
+                    x = exec->tex.ply.px - (cos(exec->tex.ply.rotangle) * exec->tex.ply.rds);
+            }
+            draw_map(exec);
+            mlx_put_pixel(exec->wind_image, exec->tex.ply.px , y, 0x5AFF055A);
+            /*check up move*/
+            if (exec->tex.ply.rotangle >= degree_to_rad(90) && exec->tex.ply.rotangle <= degree_to_rad(270))
+                x += (cos(exec->tex.ply.rotangle) * i);
+            else
+                x -= (cos(exec->tex.ply.rotangle) * i);
+            if (exec->inf.map[y / PIXELS][x / PIXELS] == '1')
+            {
+                if (i == 1)
+                    return (0);
+                else
+                    return (printf("the value OFOF i == %d\n", i), i);
+            }
+            printf("the value of i == %d\n", i);
+        }
+        i++;
+    }
+    return (i);
+}
 
 int     move_up(t_exec *exec)
 {
-    // if (ft_check_walls(exec, 0))
-    //     return (0);
-    exec->tex.ply.py -= sin(exec->tex.ply.rotangle) * exec->tex.ply.inc_move;
-    exec->tex.ply.px -= cos(exec->tex.ply.rotangle) * exec->tex.ply.inc_move;
+    if (!ft_check_walls(exec, 0))
+        return (0);
+    exec->tex.ply.py -= (sin(exec->tex.ply.rotangle) * exec->tex.ply.inc_move);
+    exec->tex.ply.px -= (cos(exec->tex.ply.rotangle) * exec->tex.ply.inc_move);
     return (0);
 }
 
 int move_down(t_exec *exec)
 {
-    // if (ft_check_walls(exec, 1))
-    //     return (0);
+    if (!ft_check_walls(exec, 1))
+        return (0);
     exec->tex.ply.py += (sin(exec->tex.ply.rotangle) * exec->tex.ply.inc_move);
     exec->tex.ply.px += (cos(exec->tex.ply.rotangle) * exec->tex.ply.inc_move);
     return (0);
@@ -274,6 +185,8 @@ int move_down(t_exec *exec)
 
 int move_righ(t_exec *exec)
 {
+    if (!ft_check_walls(exec, 0))
+        return (0);
     exec->tex.ply.rotangle += VIEW_SPEED;
     if (exec->tex.ply.rotangle > (M_PI * 2))
         exec->tex.ply.rotangle -= 2 * M_PI;

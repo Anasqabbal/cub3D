@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:08:59 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/03 15:22:00 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:11:41 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int ft_move_player(t_exec *exec)
   if (cir.rds % 2 == 0)
     cir.rds -= 1;
   draw_map(exec);
-  draw_circle(exec, &cir);
+  // draw_circle(exec, &cir);
   return (0);
 }

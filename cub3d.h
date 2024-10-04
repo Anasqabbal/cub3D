@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/03 16:16:35 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:15:28 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 # define AOV 60
 # define PIXELS 30
-# define SPEED 1
-# define VIEW_SPEED 1 * (M_PI / 180);
+# define SPEED 10
+# define VIEW_SPEED 5 * (M_PI / 180);
 # define P_2_PP 150
 
 typedef struct	s_mlx
@@ -63,8 +63,8 @@ typedef struct s_ply
 	void		*img;
 	int			turn;
 	double		rotangle;
-	int			px;
-	int			py;
+	double		px;
+	double		py;
 	int			rds;
 	int			endlx;
 	int			endrx;
@@ -72,7 +72,7 @@ typedef struct s_ply
 	int			enddy;
 	double		rays;
 	double		inc;
-	int			inc_move;
+	double		inc_move;
 } t_ply;
 
 typedef struct s_tex
@@ -86,7 +86,7 @@ typedef struct s_tex
 
 typedef struct s_ray
 {
-	unsigned int ds;
+	double ds;
 	double dx;
 	double dy;
 } t_ray;
@@ -143,7 +143,7 @@ void	draw_map(t_exec *exec);
 int		trace_rays1(t_exec *exec);
 int		ray_casting(t_exec *exec);
 void	draw_the_walls11(int rx, double ry, t_exec *exec, double angle, int nro);
-void	draw_the_walls22(double rx, t_exec *exec, double angle, double ah);
+void	draw_the_walls22(int	rx, t_exec *exec, double angle, double ah);
 
 int	ft_abs(int nm);
 

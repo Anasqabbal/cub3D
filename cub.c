@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/03 15:38:01 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:26:54 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ int start_cub(char **av)
     // mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w1); //TODO to destory 3d map uncomment this destroy
     draw_map(&exec);       // the same
     set_player_info(&exec);
+    ray_casting(&exec);
     mlx_key_hook(exec.mlx, &catch_moves, &exec);
     // mlx_hook(exec.mlx.mlx_w1, 2, 0, catch_moves, &exec); // switch the window pointer for which window you want to catch keys
     mlx_loop(exec.mlx);

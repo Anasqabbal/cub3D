@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/03 12:13:05 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:05:06 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x)
 	int	yy;
 
 	yy = 0;
-	color2 = exec->inf.flr_cl - 100;
+	color2 = 0x00000000;
 	while (yy < PIXELS)
 	{
 		xx = 0;
@@ -131,7 +131,7 @@ int	set_player_info(t_exec *exec)
 				exec->tex.ply.endrx = (x * PIXELS) / 2;
 				exec->tex.ply.enduy = (y * PIXELS) / 2;
 				exec->tex.ply.enddy = (y * PIXELS) / 2;
-				exec->tex.ply.rays = exec->mlxx.win_wid;
+				exec->tex.ply.rays = (exec->mlxx.win_wid - 2);
 				exec->tex.ply.inc = AOV / exec->tex.ply.rays;
 				exec->tex.ply.inc_move = SPEED;
 				if (exec->inf.map[y][x] == 'N')
