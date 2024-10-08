@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/04 18:12:13 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:28:40 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,27 @@ double fixing_fichbowl(double ds, double angle, t_exec *exec)
 
 void draw_the_walls22(int rx, t_exec *exec, double angle, double ds)
 {
-    double nheigh;
+    double wall_heigh;
     static int n;
     int y ;
     int x ;
     int color;
 
     (void) angle;
+    wall_heigh  = ((PIXELS) / ds) * ((exec->mlxx.win_wid / 2) / tan(degree_to_rad(AOV / 2))); /* the new heigh of the wall that you want to draw */
     ds = fixing_fichbowl(ds, angle, exec);
-    nheigh  = ((PIXELS) / ds) * ((exec->mlxx.win_wid / 5) / tan(degree_to_rad(AOV / 2))); /* the new heigh of the wall that you want to draw */
-    if (isinf(nheigh))
-        nheigh = n;
-    n = nheigh;
+    if (isinf(wall_heigh))
+        wall_heigh = n;
+    n = wall_heigh;
     y = 0;
     x = 0;
-    int clg = ((exec->mlxx.win_hei) / 2) - (nheigh / 2);
+    if (wall_heigh > exec->mlxx.win_hei)
+        wall_heigh = exec->mlxx.win_hei;
+    int clg = ((exec->mlxx.win_hei) / 2) - (wall_heigh / 2);
     color = 0xFF0000FF;
     while(y < clg)
         mlx_put_pixel(exec->wind_image, rx, y++,exec->inf.clg_cl);
-    // if ((int)rad_to_degree (angle) > (int)45 && (int)rad_to_degree (angle) <= (int)135)
-    // else if (rad_to_degree (angle) > 135 && rad_to_degree (angle) <= 225)
-    //    color = 0xFF0000;
-    // else if (angle > degree_to_rad(225) && angle <= degree_to_rad(315))
-    //     color = 0xFF0000;
-    // else if (angle > degree_to_rad(315) && angle <= degree_to_rad(45))
-    //    color = 0xFF0000;
-    while((int)x++ < nheigh)
+    while((int)x++ < wall_heigh && x < (int)exec->mlxx.win_wid)
         mlx_put_pixel(exec->wind_image, rx, y++, color);
     while(y < (int)exec->mlxx.win_hei)
         mlx_put_pixel(exec->wind_image, rx, y++, exec->inf.flr_cl);
@@ -115,51 +110,27 @@ int ft_check_walls(t_exec *exec, int ind)
     int x;
     int j;
 
-    i = 1;
+    i = 0;
     j = 0;
-    while(i < SPEED)
+    (void) ind;
+    while(++i <= SPEED)
     {
-        if (ind == 1)
+        if (ind == 0)
         {
-            if (j++ == 0)
-                y = ((exec->tex.ply.py / PIXELS) * PIXELS ) + PIXELS;
-            y =  exec->tex.ply.py + (sin(exec->tex.ply.rotangle) * i);
-            if (exec->tex.ply.rotangle > degree_to_rad(90))
-                x = exec->tex.ply.px - (cos(exec->tex.ply.rotangle) * i);
-            else
-                x = exec->tex.ply.px + (cos(exec->tex.ply.rotangle) * i);
-            if (exec->inf.map[y / PIXELS][x / PIXELS] == '1')
-                return (0);
-            
+            x = exec->tex.ply.px - (cos(exec->tex.ply.rotangle) * i);
+            y = exec->tex.ply.py - (sin(exec->tex.ply.rotangle) * i);
         }
-        else
+        else if (ind == 1)
         {
-            if (j++ == 0)
-            {
-                 y = (exec->tex.ply.py / PIXELS) * PIXELS ;
-                if (exec->tex.ply.rotangle >= degree_to_rad(90) && exec->tex.ply.rotangle <= degree_to_rad(270))
-                    x = exec->tex.ply.px + (cos(exec->tex.ply.rotangle) * exec->tex.ply.rds);
-                else
-                    x = exec->tex.ply.px - (cos(exec->tex.ply.rotangle) * exec->tex.ply.rds);
-            }
-            draw_map(exec);
-            mlx_put_pixel(exec->wind_image, exec->tex.ply.px , y, 0x5AFF055A);
-            /*check up move*/
-            if (exec->tex.ply.rotangle >= degree_to_rad(90) && exec->tex.ply.rotangle <= degree_to_rad(270))
-                x += (cos(exec->tex.ply.rotangle) * i);
-            else
-                x -= (cos(exec->tex.ply.rotangle) * i);
-            if (exec->inf.map[y / PIXELS][x / PIXELS] == '1')
-            {
-                if (i == 1)
-                    return (0);
-                else
-                    return (printf("the value OFOF i == %d\n", i), i);
-            }
-            printf("the value of i == %d\n", i);
+            x = exec->tex.ply.px + (cos(exec->tex.ply.rotangle) * i);
+            y = exec->tex.ply.py + (sin(exec->tex.ply.rotangle) * i);
         }
-        i++;
+        if (i == 1 && exec->inf.map[(int)floor(y / PIXELS)][(int)floor(x / PIXELS)] == '1')
+            return (0);
+        else if (exec->inf.map[(int)floor(y / PIXELS)][(int)floor(x / PIXELS)] == '1')
+            return (exec->tex.ply.inc_move = i - 1 ,i);
     }
+    exec->tex.ply.inc_move =  i - 1;
     return (i);
 }
 
@@ -185,8 +156,6 @@ int move_down(t_exec *exec)
 
 int move_righ(t_exec *exec)
 {
-    if (!ft_check_walls(exec, 0))
-        return (0);
     exec->tex.ply.rotangle += VIEW_SPEED;
     if (exec->tex.ply.rotangle > (M_PI * 2))
         exec->tex.ply.rotangle -= 2 * M_PI;
@@ -208,6 +177,7 @@ void catch_moves(mlx_key_data_t key, void *p)
     t_exec *exec;
 
     exec = p;
+        draw_map(exec);
     if (key.key == MLX_KEY_RIGHT)
         move_righ(exec);
     else if (key.key == MLX_KEY_LEFT)
@@ -218,5 +188,14 @@ void catch_moves(mlx_key_data_t key, void *p)
         move_down(exec);
     ft_move_player(exec);// to destroy 2d map
     ray_casting(exec);
+    // if (key.key == MLX_KEY_1)
+    // {
+        mlx_put_pixel(exec->wind_image, exec->tex.ply.px, exec->tex.ply.py, 0xf54242f5);
+        mlx_put_pixel(exec->wind_image, exec->tex.ply.px - 1, exec->tex.ply.py, 0x5AFF055A);
+        mlx_put_pixel(exec->wind_image, exec->tex.ply.px + 1, exec->tex.ply.py, 0x5AFF055A);
+        mlx_put_pixel(exec->wind_image, exec->tex.ply.px, exec->tex.ply.py + 1, 0x5AFF055A);
+        mlx_put_pixel(exec->wind_image, exec->tex.ply.px, exec->tex.ply.py - 1, 0x5AFF055A);
+    // }
+    
     // trace_rays1(exec);
 }

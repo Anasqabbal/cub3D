@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/04 18:11:13 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:00:12 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ int find_horizontal_inter(double angle,t_exec *exec, t_ray *ray)
 
     cur_psx = (int)exec->tex.ply.px - (((int)exec->tex.ply.py - cur_psy) / tan(angle));
     // int c = 0;
-    while(cur_psy > 0 && cur_psx > 0 && cur_psx < exec->mlxx.win_wid && cur_psy < exec->mlxx.win_hei &&  exec->inf.map[(int)((cur_psy + b)/ PIXELS)][(int)((cur_psx) / PIXELS)] != '1')
+    while(cur_psx > 0 && cur_psx < exec->mlxx.win_wid && cur_psy > 0 && cur_psy < exec->mlxx.win_hei)
     {
+        mlx_put_pixel(exec->wind_image, (int)cur_psx, (int)cur_psy, 0xFF0505FF);
+        if (cur_psx > 0 && cur_psx < exec->mlxx.win_wid && cur_psy > 0 && cur_psy < exec->mlxx.win_hei && exec->inf.map[(int)floor(((cur_psy + b)/ PIXELS))][(int)floor(((cur_psx) / PIXELS))] == '1')
+            break ; 
         if (angle > degree_to_rad(0) && angle < degree_to_rad(180))
         {
             cur_psy -= PIXELS;
@@ -72,7 +75,7 @@ int find_vertical_inter(double angle, t_exec *exec, t_ray *ray)
     int     b;
 
     b = 0;
-    mlx_put_pixel(exec->wind_image, exec->tex.ply.px, exec->tex.ply.py, 0xB30000BB);
+    // mlx_put_pixel(exec->wind_image, exec->tex.ply.px, exec->tex.ply.py, 0xB30000BB);
     set_incy = PIXELS * tan(angle);
     if (angle >= degree_to_rad(90) && angle <= degree_to_rad(270))
         cur_psx = (((int)exec->tex.ply.px / PIXELS) * PIXELS) + PIXELS;
@@ -123,23 +126,23 @@ int ray_casting(t_exec *exec)
     i = 0;
     (void)dsh;
     (void)dsv;
-    while((int)i < (AOV + 1))
+    while((int)i < 1)
     {
         angle = exec->tex.ply.rotangle - (degree_to_rad((AOV / 2) - i));
         if (angle > degree_to_rad(360))
             angle -= (2 * M_PI);
         dsh = find_horizontal_inter(angle, exec, &ray[0]);
-        dsv = find_vertical_inter(angle, exec, &ray[1]);
-        // if (((dsh < dsv) && dsh != (INT_MIN)) || dsv == (INT_MIN))
-        //     bresenham_line_algo2((int)exec->tex.ply.py, (int)exec->tex.ply.px, (int)ray[0].dy, (int)ray[0].dx, exec);
-        // else
-        //     bresenham_line_algo2((int)exec->tex.ply.py, (int)exec->tex.ply.px , (int)ray[1].dy, (int)ray[1].dx, exec);
+        // dsv = find_vertical_inter(angle, exec, &ray[1]);
+        // // if (((dsh < dsv) && dsh != (INT_MIN)) || dsv == (INT_MIN))
+        // //     bresenham_line_algo2((int)exec->tex.ply.py, (int)exec->tex.ply.px, (int)ray[0].dy, (int)ray[0].dx, exec);
+        // // else
+        // //     bresenham_line_algo2((int)exec->tex.ply.py, (int)exec->tex.ply.px , (int)ray[1].dy, (int)ray[1].dx, exec);
         // if ((dsh < dsv && dsh != INT_MIN) || dsv == INT_MIN)
         //     draw_the_walls22(c, exec, angle, ray[0].ds);
         // else
         //     draw_the_walls22(c, exec, angle, ray[1].ds);
         i += inc;
-        c++;
+        // c++;
     }
     return (0);
 }

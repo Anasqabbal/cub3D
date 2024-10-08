@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/04 16:15:28 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:59:12 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define AOV 60
 # define PIXELS 30
 # define SPEED 10
-# define VIEW_SPEED 5 * (M_PI / 180);
+# define VIEW_SPEED 3 * (M_PI / 180);
 # define P_2_PP 150
 
 typedef struct	s_mlx

@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/04 16:05:06 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:32:10 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x)
 	int	yy;
 
 	yy = 0;
-	color2 = 0x00000000;
+	color2 = 0xc7c7c7c7;
 	while (yy < PIXELS)
 	{
 		xx = 0;
