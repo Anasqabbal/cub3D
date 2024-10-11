@@ -6,11 +6,11 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/08 16:32:10 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:13:59 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void set_pixels_to_image(t_exec *exec, int color1, int color2)
 {
@@ -41,7 +41,7 @@ int draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x)
 	int	yy;
 
 	yy = 0;
-	color2 = 0xc7c7c7c7;
+	color2 = 0xe6f1fae6;
 	while (yy < PIXELS)
 	{
 		xx = 0;
@@ -65,7 +65,7 @@ int draw_the_walls(t_exec *exec, unsigned int y,  unsigned int x)
 	int	yy;
 
 	yy = 0;
-	color2 = 0x00000000;
+	color2 = 0xfcba03fc;
 	while (yy < PIXELS)
 	{
 		xx = 0;
@@ -110,6 +110,7 @@ void draw_map(t_exec *exec)
 	}
 }
 
+
 int	set_player_info(t_exec *exec)
 {
 	unsigned int x;
@@ -131,28 +132,17 @@ int	set_player_info(t_exec *exec)
 				exec->tex.ply.endrx = (x * PIXELS) / 2;
 				exec->tex.ply.enduy = (y * PIXELS) / 2;
 				exec->tex.ply.enddy = (y * PIXELS) / 2;
-				exec->tex.ply.rays = (exec->mlxx.win_wid - 2);
-				exec->tex.ply.inc = AOV / exec->tex.ply.rays;
-				exec->tex.ply.inc_move = SPEED;
+				exec->tex.ply.rays = exec->mlxx.win_wid;
+				exec->tex.ply.rays_inc = AOV / exec->tex.ply.rays;
+				exec->tex.ply.move_inc = SPEED;
 				if (exec->inf.map[y][x] == 'N')
-				{
 					exec->tex.ply.rotangle = degree_to_rad(90);
-					// mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, xx, yy, 0x000000);
-
-				}
-				if (exec->inf.map[y][x] == 'S')
+				else if (exec->inf.map[y][x] == 'S')
 					exec->tex.ply.rotangle = degree_to_rad(270);
-				if (exec->inf.map[y][x] == 'W')
+				else if (exec->inf.map[y][x] == 'W')
 					exec->tex.ply.rotangle = degree_to_rad(180);
-				if (exec->inf.map[y][x] == 'E')
+				else if (exec->inf.map[y][x] == 'E')
 					exec->tex.ply.rotangle = degree_to_rad(0);
-				// trace_rays1(exec);
-				// ray_casting(exec);
-				// mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr, x * (PIXELS), y * PIXELS);
-				// draw_circle(exec, &cir);
-				// mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.ply.px, exec->tex.ply.py, 0x000000);
-				// trace_rays1(exec);
-				// bresenhams_line_algo(exec, yy, xx);
 			}
 			x++;
 		}

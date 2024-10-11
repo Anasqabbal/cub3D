@@ -6,11 +6,11 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:08:59 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/04 18:11:41 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:42:29 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+# include "../cub3d.h"
 
 int ft_move_player(t_exec *exec)
 {

@@ -563,11 +563,11 @@ PFNGLGETCOMPRESSEDTEXIMAGEPROC glad_glGetCompressedTexImage = NULL;
 PFNGLGETCOMPRESSEDTEXTUREIMAGEPROC glad_glGetCompressedTextureImage = NULL;
 PFNGLGETCOMPRESSEDTEXTURESUBIMAGEPROC glad_glGetCompressedTextureSubImage = NULL;
 PFNGLGETDEBUGMESSAGELOGPROC glad_glGetDebugMessageLog = NULL;
-PFNGLGETDOUBLEI_VPROC glad_glGetDoublei_v = NULL;
-PFNGLGETDOUBLEVPROC glad_glGetDoublev = NULL;
+PFNGLGETdoubleI_VPROC glad_glGetdoublei_v = NULL;
+PFNGLGETdoubleVPROC glad_glGetdoublev = NULL;
 PFNGLGETERRORPROC glad_glGetError = NULL;
-PFNGLGETFLOATI_VPROC glad_glGetFloati_v = NULL;
-PFNGLGETFLOATVPROC glad_glGetFloatv = NULL;
+PFNGLGETdoubleI_VPROC glad_glGetdoublei_v = NULL;
+PFNGLGETdoubleVPROC glad_glGetdoublev = NULL;
 PFNGLGETFRAGDATAINDEXPROC glad_glGetFragDataIndex = NULL;
 PFNGLGETFRAGDATALOCATIONPROC glad_glGetFragDataLocation = NULL;
 PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC glad_glGetFramebufferAttachmentParameteriv = NULL;
@@ -1359,9 +1359,9 @@ static void load_GL_VERSION_1_0(GLADloadproc load) {
 	glad_glReadBuffer = (PFNGLREADBUFFERPROC)load("glReadBuffer");
 	glad_glReadPixels = (PFNGLREADPIXELSPROC)load("glReadPixels");
 	glad_glGetBooleanv = (PFNGLGETBOOLEANVPROC)load("glGetBooleanv");
-	glad_glGetDoublev = (PFNGLGETDOUBLEVPROC)load("glGetDoublev");
+	glad_glGetdoublev = (PFNGLGETdoubleVPROC)load("glGetdoublev");
 	glad_glGetError = (PFNGLGETERRORPROC)load("glGetError");
-	glad_glGetFloatv = (PFNGLGETFLOATVPROC)load("glGetFloatv");
+	glad_glGetdoublev = (PFNGLGETdoubleVPROC)load("glGetdoublev");
 	glad_glGetIntegerv = (PFNGLGETINTEGERVPROC)load("glGetIntegerv");
 	glad_glGetString = (PFNGLGETSTRINGPROC)load("glGetString");
 	glad_glGetTexImage = (PFNGLGETTEXIMAGEPROC)load("glGetTexImage");
@@ -2223,8 +2223,8 @@ static void load_GL_VERSION_4_1(GLADloadproc load) {
 	glad_glScissorIndexedv = (PFNGLSCISSORINDEXEDVPROC)load("glScissorIndexedv");
 	glad_glDepthRangeArrayv = (PFNGLDEPTHRANGEARRAYVPROC)load("glDepthRangeArrayv");
 	glad_glDepthRangeIndexed = (PFNGLDEPTHRANGEINDEXEDPROC)load("glDepthRangeIndexed");
-	glad_glGetFloati_v = (PFNGLGETFLOATI_VPROC)load("glGetFloati_v");
-	glad_glGetDoublei_v = (PFNGLGETDOUBLEI_VPROC)load("glGetDoublei_v");
+	glad_glGetdoublei_v = (PFNGLGETdoubleI_VPROC)load("glGetdoublei_v");
+	glad_glGetdoublei_v = (PFNGLGETdoubleI_VPROC)load("glGetdoublei_v");
 }
 static void load_GL_VERSION_4_2(GLADloadproc load) {
 	if(!GLAD_GL_VERSION_4_2) return;

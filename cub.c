@@ -6,11 +6,12 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/07 14:53:22 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:24:08 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 
 void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec)
  {
@@ -86,14 +87,6 @@ void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec)
 //     return (0);
 // }
 
-// void ft_draw_rays(t_exec *exec)
-// {
-//     exec->line.x = exec->tex.ply.px + (cos(exec->tex.ply.rotangle) * SPEED);
-//     exec->line.y = exec->tex.ply.py + (sin(exec->tex.ply.rotangle) * SPEED);
-//     mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, exec->line.x, exec->line.y, 0x000000);
-//     printf("TRGET (%d, %d)\n",  exec->line.y,  exec->line.x);
-//     ft_dda_algo(exec, exec->line.y,  exec->line.y);
-// }
 
 int start_cub(char **av)
 {
@@ -103,6 +96,7 @@ int start_cub(char **av)
         return (-1);
     if (creat_and_start_awindow(&exec) < 0)
         return (-1);
+    
     // mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w); //TODO to destory 2d map uncomment this destroy
     // mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w1); //TODO to destory 3d map uncomment this destroy
     draw_map(&exec);       // the same
@@ -120,5 +114,9 @@ int	main(int ac, char **av)
         return (ft_putstr_fd("invalide argument\n", 2), 1);
     if (start_cub(av) < 0)
         return (1);
+    printf("values between 0 and 90 == %f\n", tan(19));
+    printf("values between 90 and 180 == %f\n", tan(140));
+    printf("values between 180 and 270 == %f\n", tan(210));
+    printf("values between 270 and 360 == %f\n", tan(300));
     // mlx_put_pixel()
 }

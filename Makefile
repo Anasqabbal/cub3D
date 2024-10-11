@@ -2,15 +2,15 @@ NAME=cub3D
 CC=cc
 S=-fsanitize=address -g
 FLAGS=-Wall -Wextra -Werror $(S)
-PART2= ./part2/the_circle.c  ./part2/utils1.c  ./part2/ray_casting.c cub_clean.c  utils1.c cub_clean.c creat_window.c init_structs.c creat_textures.c move_player.c moves.c ft_check_walls.c
-SRC=  cub.c init_structs.c utils1.c creat_window.c creat_textures.c ./part2/utils1.c move_player.c moves.c ./part2/the_circle.c\
-		./part2/ray_casting.c
+PART2=	./part2/the_circle.c  ./part2/utils1.c  ./part2/ray_casting.c ./part2/cub_clean.c\
+		./part2/utils2.c ./part2/cub_clean.c ./part2/creat_window.c ./part2/init_structs.c\
+		./part2/creat_textures.c ./part2/move_player.c ./part2/moves.c ./part2/ft_check_walls.c
+SRC=  cub.c  $(PART2)
 OBJ=$(SRC:.c=.o)
 LIBFT=./libft/libft.a
 LIBFT_PATH=./libft
 LIBFT_LINUX=./libft_linux
 INCLUDES=./libft/libft.h cub3d.h
-# FRAMEWORKS= -framework OpenGL -framework AppKit -lmlx
 USER=$(echo ($USER))
 FRAMEWORK= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/anqabbal/.brew/opt/glfw/lib/"
 NWMLX = ./MLX42/build/libmlx42.a

@@ -6,11 +6,11 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:05:30 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/07 14:54:01 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:28:07 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include"cub3d.h"
+# include"../cub3d.h"
 
 int creat_and_start_awindow(t_exec *exec)
 {

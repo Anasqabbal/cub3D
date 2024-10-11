@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_init.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/06/08 18:16:19 by XEDGit        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_init.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/28 00:24:30 by W2Wizard          #+#    #+#             */
+/*   Updated: 2024/10/11 16:21:21 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ static bool mlx_create_buffers(mlx_t* mlx)
 	glBindBuffer(GL_ARRAY_BUFFER, mlxctx->vbo);
 
 	// Vertex XYZ coordinates
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex_t), NULL);
+	glVertexAttribPointer(0, 3, GL_double, GL_FALSE, sizeof(vertex_t), NULL);
 	glEnableVertexAttribArray(0);
 
 	// UV Coordinates
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex_t), (void *)(sizeof(float) * 3));
+	glVertexAttribPointer(1, 2, GL_double, GL_FALSE, sizeof(vertex_t), (void *)(sizeof(double) * 3));
 	glEnableVertexAttribArray(1);
 
 	// Texture index
-	glVertexAttribIPointer(2, 1, GL_BYTE, sizeof(vertex_t), (void *)(sizeof(float) * 5));
+	glVertexAttribIPointer(2, 1, GL_BYTE, sizeof(vertex_t), (void *)(sizeof(double) * 5));
 	glEnableVertexAttribArray(2);
 
 	glEnable(GL_BLEND);

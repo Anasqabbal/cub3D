@@ -6,11 +6,11 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:14:44 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/03 10:16:41 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:27:58 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+# include "../cub3d.h"
 
 int     init_info_struct(t_info *inf, char **av)
 {
