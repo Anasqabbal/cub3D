@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:07:07 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/09 11:28:13 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 11:07:39 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ int file_len(t_info *info)
     return (i);
 }
 
-char **cub_get_map(t_info *inf, int i)
+char **cub_get_map(t_info *info, int i)
 {
     int     fd;
     char     **res;
     int     len;
     char    *res1;
 
-    len = file_len(inf);
+    len = file_len(info);
     if (len == 0)
         return (0);
-    fd = open(inf->path, O_RDONLY);
+    fd = open(info->path, O_RDONLY);
     if (fd < 0)
         return (perror("open"), NULL);
     res = malloc(sizeof(char *) * (len + 1));
@@ -61,5 +61,5 @@ char **cub_get_map(t_info *inf, int i)
         free(res1);
     }
     res[len] = NULL;
-    return (close (fd), inf->hei = len, res);
+    return (close (fd), info->win_hei = len * PIXELS, res);
 }

@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/11 15:13:59 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 11:06:47 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x)
 		while(xx < PIXELS)
 		{
 			if (yy != 0 && xx > 0)
-				mlx_put_pixel(exec->wind_image, x + xx, y + yy, exec->inf.flr_cl);
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, exec->info.flr_cl);
 			else
 				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
 			xx++;
@@ -95,14 +95,14 @@ void draw_map(t_exec *exec)
 	int x;
 
 	y = 0;
-	while(exec->inf.map[y])
+	while(exec->info.map[y])
 	{
 		x = 0;
-		while(exec->inf.map[y][x])
+		while(exec->info.map[y][x])
 		{
-			if (exec->inf.map[y][x] == '1')
+			if (exec->info.map[y][x] == '1')
 				draw_the_walls(exec, y * PIXELS, x * PIXELS);
-			else if (!one_of_this(exec->inf.map[y][x]))
+			else if (!one_of_this(exec->info.map[y][x]))
 				draw_the_floor(exec, y * PIXELS, x * PIXELS);
 			x++;
 		}
@@ -117,12 +117,12 @@ int	set_player_info(t_exec *exec)
 	unsigned int y;
 
 	y = 0;
-	while(exec->inf.map[y])
+	while(exec->info.map[y])
 	{
 		x = 0;
-		while(exec->inf.map[y][x])
+		while(exec->info.map[y][x])
 		{
-			if (exec->inf.map[y][x] == 'N' || exec->inf.map[y][x] == 'S' || exec->inf.map[y][x] == 'E' || exec->inf.map[y][x] == 'W' || exec->inf.map[y][x] == 'P')
+			if (exec->info.map[y][x] == 'N' || exec->info.map[y][x] == 'S' || exec->info.map[y][x] == 'E' || exec->info.map[y][x] == 'W' || exec->info.map[y][x] == 'P')
 			{
 				exec->tex.ply.color = 0xB00000FF;
 				exec->tex.ply.rds = PIXELS / 6;
@@ -132,16 +132,16 @@ int	set_player_info(t_exec *exec)
 				exec->tex.ply.endrx = (x * PIXELS) / 2;
 				exec->tex.ply.enduy = (y * PIXELS) / 2;
 				exec->tex.ply.enddy = (y * PIXELS) / 2;
-				exec->tex.ply.rays = exec->mlxx.win_wid;
+				exec->tex.ply.rays = exec->info.win_wid;
 				exec->tex.ply.rays_inc = AOV / exec->tex.ply.rays;
 				exec->tex.ply.move_inc = SPEED;
-				if (exec->inf.map[y][x] == 'N')
+				if (exec->info.map[y][x] == 'N')
 					exec->tex.ply.rotangle = degree_to_rad(90);
-				else if (exec->inf.map[y][x] == 'S')
+				else if (exec->info.map[y][x] == 'S')
 					exec->tex.ply.rotangle = degree_to_rad(270);
-				else if (exec->inf.map[y][x] == 'W')
+				else if (exec->info.map[y][x] == 'W')
 					exec->tex.ply.rotangle = degree_to_rad(180);
-				else if (exec->inf.map[y][x] == 'E')
+				else if (exec->info.map[y][x] == 'E')
 					exec->tex.ply.rotangle = degree_to_rad(0);
 			}
 			x++;

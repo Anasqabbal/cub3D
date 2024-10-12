@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/11 16:24:08 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 11:03:17 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,45 +47,44 @@ void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec)
             err += dx;
             y0 += sy; 
         }
-        if ((x0 < 0 || y0 < 0 || x0 >= (int)exec->mlxx.win_wid  || y0 >= (int)exec->mlxx.win_hei) ||  (x0 == x1 && y0 == y1))
+        if ((x0 < 0 || y0 < 0 || x0 >= (int)exec->info.win_wid  || y0 >= (int)exec->info.win_hei) ||  (x0 == x1 && y0 == y1))
             break;
         mlx_put_pixel(exec->wind_image, x0, y0, 0x00000000);
     }
 }
 
-// int ft_dda_algo(t_exec *exec, double endy, double endx)
-// {
-//     double m;
-//     double starty;
-//     double startx;
+int ft_dda_algo(t_exec *exec, double endy, double endx)
+{
+    double m;
+    double starty;
+    double startx;
 
-//     starty = exec->tex.ply.py;
-//     startx = exec->tex.ply.px;
-//     m = (endy - starty) / (endx - startx);
-//     int i = 1;
-//     while(i < 30)
-//     {
-//         printf("(y == %d x == %f)\n", (int)starty, startx);
-//         if (m < 1)
-//         {
-//             startx += 1;
-//             starty += m;
-//         }
-//         else if (m > (double)1)
-//         {
-//             startx += 1;
-//             starty += (1 / m);
-//         }
-//         else
-//         {
-//             startx += 1;
-//             starty += 1;
-//         }
-//         mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, startx, starty, 0x000000);
-//         i++;
-//     }
-//     return (0);
-// }
+    starty = exec->tex.ply.py;
+    startx = exec->tex.ply.px;
+    m = (endy - starty) / (endx - startx);
+    int i = 1;
+    while(i < 30)
+    {
+        if (m < 1)
+        {
+            startx += 1;
+            starty += m;
+        }
+        else if (m > (double)1)
+        {
+            startx += 1;
+            starty += (1 / m);
+        }
+        else
+        {
+            startx += 1;
+            starty += 1;
+        }
+        mlx_put_pixel (exec->wind_image, startx, starty, 0x000000);
+        i++;
+    }
+    return (0);
+}
 
 
 int start_cub(char **av)
@@ -96,15 +95,11 @@ int start_cub(char **av)
         return (-1);
     if (creat_and_start_awindow(&exec) < 0)
         return (-1);
-    
-    // mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w); //TODO to destory 2d map uncomment this destroy
-    // mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w1); //TODO to destory 3d map uncomment this destroy
-    draw_map(&exec);       // the same
+    draw_map(&exec);
     set_player_info(&exec);
     ray_casting(&exec);
     mlx_key_hook(exec.mlx, &catch_moves, &exec);
     mlx_loop(exec.mlx);
-    // mlx_hook(exec.mlx.mlx_w1, 2, 0, catch_moves, &exec); // switch the window pointer for which window you want to catch keys
     return (0);
 }
 
@@ -114,9 +109,4 @@ int	main(int ac, char **av)
         return (ft_putstr_fd("invalide argument\n", 2), 1);
     if (start_cub(av) < 0)
         return (1);
-    printf("values between 0 and 90 == %f\n", tan(19));
-    printf("values between 90 and 180 == %f\n", tan(140));
-    printf("values between 180 and 270 == %f\n", tan(210));
-    printf("values between 270 and 360 == %f\n", tan(300));
-    // mlx_put_pixel()
 }

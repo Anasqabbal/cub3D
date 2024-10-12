@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/11 17:52:33 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 11:47:35 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,14 @@
 
 # define AOV 60
 # define PIXELS 60
-# define SPEED 10
-# define VIEW_SPEED 0.5 * (M_PI / 180);
-
-typedef struct	s_mlx
-{
-	unsigned int	win_hei;
-	unsigned int	win_wid;
-}	t_mlx;
+# define SPEED 5
+# define VIEW_SPEED 5 * (M_PI / 180);
 
 typedef struct s_info
 {
 	char		*path;
-	unsigned int hei;
-	unsigned int wid;
+	unsigned int win_hei;
+	unsigned int win_wid;
 	char		**map;
 	int			flr_cl;
 	int			clg_cl;
@@ -84,7 +78,7 @@ typedef struct s_ray
 	double	ds;
 	double	dx;
 	double	dy;
-	double	hv;
+	char	hv;
 } t_ray;
 
 typedef struct s_cir
@@ -103,8 +97,7 @@ typedef struct s_exec
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 	mlx_image_t	*wind_image;
-	t_mlx		mlxx;
-	t_info		inf;
+	t_info		info;
 	t_img		img;
 	t_tex		tex;
 	t_ray		*ray;
@@ -120,25 +113,37 @@ int ft_check_walls(t_exec *exec, int ind);
 
 int     init_info_struct(t_info *inf, char **av);
 int		init_structs(void *ptr, int ind, char **av);
-int		init_mlx_struct(t_exec *exec);
+int		file_len(t_info *info);
+char	**cub_get_map(t_info *inf, int i);
+int		creat_and_start_awindow(t_exec *exec);
 int		draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x);
 int		draw_the_walls(t_exec *exec, unsigned int y,  unsigned int x);
+int		set_player_info(t_exec *exec);
 void	draw_map(t_exec *exec);
-void	ft_draw_rays(t_exec *exec);
-char	**cub_get_map(t_info *inf, int i);
+void	catch_moves(mlx_key_data_t key, void *p);
+void	move_left(t_exec *exec, char ind);
+void    move_up(t_exec *exec);
+void	move_right(t_exec *exec, char ind);
+void	move_down(t_exec *exec);
+void	ft_clean_and_exit(t_exec *exec);
+
+
 double	degree_to_rad(double deg);
 void	to_free_cub(char **av);
-int		file_len(t_info *info);
-int		creat_and_start_awindow(t_exec *exec);
 void	set_pixels_to_image(t_exec *exec, int color1,  int color2);
-int		set_player_info(t_exec *exec);
-void	catch_moves(mlx_key_data_t key, void *p);
 int		ft_move_player(t_exec *exec);
 void	draw_circle(t_exec *exec, t_cir *cir);
 int 	ft_dda_algo(t_exec *exec, double endy, double endx);
 double	rad_to_degree(double rad);
 void	bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec);
 int		ray_casting(t_exec *exec);
+void	fill_ray_information(t_exec *exec, t_ray *ray, double angle);
+void	it_is_left_or_right(double angle, char *value);
+void	fix_current_angle(double *angle);
+double	ft_abs(double nm);
+void	it_is_up_or_down(double angle, char *value);
+int		find_vertical_inter(double angle, t_exec *exec, t_ray *ray);
+int		find_horizontal_inter(double angle,t_exec *exec, t_ray *ray);
 double	fixing_fichbowl(double ds, double angle, t_exec *exec);
 void	draw_the_walls22(int rx, t_exec *exec, double angle, t_ray *ray);
 

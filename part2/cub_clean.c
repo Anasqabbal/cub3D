@@ -6,21 +6,21 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 10:30:58 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/09 11:28:04 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 11:40:55 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-// void to_free_cub(char **av)
-// {
-//     int i;
+void to_free_cub(char **av)
+{
+    int i;
 
-//     i = -1;
-//     if (av)
-//     {
-//         while(av[++i])
-//             free(av[i]);
-//         free(av);
-//     }
-// }
+    i = -1;
+    if (av)
+    {
+        while(av[++i])
+            free(av[i]);
+        free(av);
+    }
+}

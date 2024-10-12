@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:13:48 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/11 17:56:25 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 11:06:47 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int ft_check_walls(t_exec *exec, int ind)
     while(++i <= SPEED)
     {
         set_the_right_value(ind, &x, &y, i, exec);
-        if (i == 1 && exec->inf.map[(int)floor(y / PIXELS)][(int)floor(x / PIXELS)] == '1')
+        if (i == 1 && exec->info.map[(int)floor(y / PIXELS)][(int)floor(x / PIXELS)] == '1')
             return (0);
-        else if (exec->inf.map[(int)floor(y / PIXELS)][(int)floor(x / PIXELS)] == '1')
+        else if (exec->info.map[(int)floor(y / PIXELS)][(int)floor(x / PIXELS)] == '1')
             return (exec->tex.ply.move_inc = i - 1 ,i);
     }
     exec->tex.ply.move_inc =  i - 1;

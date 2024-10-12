@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:05:30 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/09 11:28:07 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 11:03:17 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int creat_and_start_awindow(t_exec *exec)
 {
-    exec->mlx = mlx_init(exec->mlxx.win_wid, exec->mlxx.win_hei, "cub3D", true);
+    exec->mlx = mlx_init(exec->info.win_wid, exec->info.win_hei, "cub3D", true);
 	if (!exec->mlx)
 		return (printf("failed to init mlx\n"), -1);
-	exec->wind_image = mlx_new_image(exec->mlx, exec->mlxx.win_wid, exec->mlxx.win_hei);
+	exec->wind_image = mlx_new_image(exec->mlx, exec->info.win_wid, exec->info.win_hei);
     if (!exec->wind_image)
     {
         printf("new image failed\n");
