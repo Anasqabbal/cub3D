@@ -6,26 +6,26 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 11:49:46 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:33:10 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cub3d.h"
 
 
-double fixing_fichbowl(double ds, double angle, t_exec *exec)
+float fixing_fichbowl(float ds, float angle, t_exec *exec)
 {
     return (ft_abs((ds * cos(exec->tex.ply.rotangle - angle))));
 }
 
-void draw_the_walls22(int rx, t_exec *exec, double angle, t_ray *ray)
+void draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray)
 {
-    double wall_heigh;
+    float wall_heigh;
     static int n;
     int y ;
     int x ;
     int color;
-    double no, e,w,s;
+    float no, e,w,s;
 
     
     wall_heigh  =((PIXELS) / (ray->ds)) * (((exec->info.win_wid / 2) / tan(degree_to_rad(AOV / 2))));
@@ -57,11 +57,10 @@ void draw_the_walls22(int rx, t_exec *exec, double angle, t_ray *ray)
         mlx_put_pixel(exec->wind_image, rx, y++, exec->info.flr_cl);
     (void)exec;
 }
-/*to remove */
+
 void show_2dmap(t_exec *exec)
 {
     ft_move_player(exec);
-    bresenham_line_algo2(exec->tex.ply.py, exec->tex.ply.px, exec->ray90.dy, exec->ray90.dx, exec);
     mlx_put_pixel(exec->wind_image, exec->tex.ply.px, exec->tex.ply.py, 0xf54242f5);
     mlx_put_pixel(exec->wind_image, exec->tex.ply.px - 1, exec->tex.ply.py, 0x5AFF055A);
     mlx_put_pixel(exec->wind_image, exec->tex.ply.px + 1, exec->tex.ply.py, 0x5AFF055A);
@@ -87,7 +86,7 @@ void catch_moves(mlx_key_data_t key, void *p)
     else if (key.key == MLX_KEY_A)
         move_left(exec, 0);
     else if (key.key == MLX_KEY_ESCAPE)
-        ft_clean_and_exit(exec);
+        clean_and_exit(exec);
     ray_casting(exec);
     if (key.key == MLX_KEY_E)
         show_2dmap(exec);

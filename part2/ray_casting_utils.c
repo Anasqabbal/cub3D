@@ -6,13 +6,13 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:24:24 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 10:36:20 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 14:53:48 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void fill_ray_information(t_exec *exec, t_ray *ray, double angle)
+void fill_ray_information(t_exec *exec, t_ray *ray, float angle)
 {
 	t_ray	rays[2];
 
@@ -36,7 +36,7 @@ void fill_ray_information(t_exec *exec, t_ray *ray, double angle)
 	}
 }
 
-void it_is_left_or_right(double angle, char *value)
+void it_is_left_or_right(float angle, char *value)
 {
     if (angle < degree_to_rad(90) || angle > degree_to_rad(270))
         *value = 1;
@@ -44,15 +44,15 @@ void it_is_left_or_right(double angle, char *value)
         *value = 0;
 }
 
-void fix_current_angle(double *angle)
+void fix_current_angle(float *angle)
 {
     if (*angle > (M_PI * 2))
         *angle -= 2 * M_PI;
-    else if (*angle < (double)0)
+    else if (*angle < (float)0)
         *angle += 2 * M_PI;
 }
 
-double ft_abs(double nm)
+float ft_abs(float nm)
 {
     if (nm < 0)
         return (nm *= -1);
@@ -60,7 +60,7 @@ double ft_abs(double nm)
         return (nm);
 }
 
-void it_is_up_or_down(double angle, char *value)
+void it_is_up_or_down(float angle, char *value)
 {
     if (angle > degree_to_rad(0) && angle < degree_to_rad(180))
         *value = 1;

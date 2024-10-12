@@ -12,16 +12,16 @@
 
 #include "libft.h"
 
-char	**split_free(char **strings, int j)
-{
-	while (j > 0)
-	{
-		free(strings[--j]);
-	}
-	free(strings);
-	strings = NULL;
-	return (strings);
-}
+// char	**split_free(char **strings, int j)
+// {
+// 	while (j > 0)
+// 	{
+// 		free(strings[--j]);
+// 	}
+// 	free(strings);
+// 	strings = NULL;
+// 	return (strings);
+// }
 
 int	split_strlen(const char *s, char c, int indice)
 {
@@ -69,7 +69,8 @@ static char	**cal_alloc_set(const char *s, char c, char **strings, int s_len)
 		{
 			strings[j] = ft_calloc(res + 1, sizeof(char));
 			if (!(strings[j]))
-				return (split_free(strings, j));
+				return NULL;
+				// return (split_free(strings, j));
 		}
 		if (res != 0 && strings && j < len && i < s_len)
 			ft_memmove(strings[j++], s + i, res);

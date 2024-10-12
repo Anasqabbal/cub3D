@@ -60,7 +60,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	b_len = cal_b(s1, set);
 	e_len = cal_e(s1 + b_len, set, (s_len - b_len - 1));
 	f_len = (s_len - (b_len + e_len));
-	arr = malloc((f_len + 1) * sizeof(char));
+	arr = (char *)gc_malloc((f_len + 1) * sizeof(char));
 	if (!arr)
 		return (0);
 	ft_memmove(arr, s1 + b_len, f_len);

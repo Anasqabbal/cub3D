@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 10:43:13 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 11:16:48 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:10:10 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static void fill_circle2(t_exec *exec, t_cir *cir, int ind, int fix)
 {
 	while (ind == 1 && cir->to_center != cir->cx)
-		mlx_put_pixel(exec->wind_image, cir->to_center++, fix, 0xB00000FF);
+		mlx_put_pixel(exec->wind_image, cir->to_center++, fix, cir->color);
 	while (ind == 2 && cir->to_center != cir->cx)
-		mlx_put_pixel(exec->wind_image, cir->to_center--, fix, 0xB00000FF);
+		mlx_put_pixel(exec->wind_image, cir->to_center--, fix, cir->color);
 	while (ind == 3 && cir->to_center != cir->cy)
-		mlx_put_pixel(exec->wind_image, fix, cir->to_center++, 0xB00000FF);
+		mlx_put_pixel(exec->wind_image, fix, cir->to_center++, cir->color);
 	while (ind == 4 && cir->to_center != cir->cy)
-		mlx_put_pixel(exec->wind_image, fix, cir->to_center--, 0xB00000FF);
+		mlx_put_pixel(exec->wind_image, fix, cir->to_center--, cir->color);
 }
 
 static void	complete_fill(t_exec *exec, t_cir *cir)

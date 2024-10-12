@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 15:18:54 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/03/10 15:56:11 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:13:27 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,26 +76,25 @@ static char	*read_until_n_line(int fd, char *t_r)
 		buffer[n] = '\0';
 		line = to_join(line, buffer, 3);
 		if (!line)
-			return (free(buffer), NULL);
+			return ( NULL);
 		if (buffer && my_strchr(buffer, '\n'))
 			break ;
 	}
 	if (line && *line == '\0')
 		return (to_join(buffer, NULL, 0), line = to_join(line, NULL, 0), NULL);
-	return (free(buffer), line);
+	return ( line);
 }
 
 static char	*cut_the_rest(char **t_r, char **tmp, char **line)
 {
 	*tmp = cut_(*t_r, 1);
 	if (!(*tmp))
-		return (free(*t_r), *t_r = NULL, NULL);
+		return (*t_r = NULL, NULL);
 	if (*tmp && **tmp == '\0')
 		*tmp = to_join(*tmp, NULL, 0);
 	*line = cut_(*t_r, 0);
 	if (!(*line))
-		return (free(*tmp), free(*t_r), *t_r = NULL, NULL);
-	free(*t_r);
+		return ( *t_r = NULL, NULL);
 	*t_r = *tmp;
 	return (*line);
 }
@@ -119,12 +118,11 @@ char	*get_next_line(int fd)
 			return (line = to_join(line, NULL, 0), to_join(t_r[fd], NULL, 0));
 		t_r[fd] = cut_(line, 1);
 		if (!t_r[fd])
-			return (free(line), line = NULL, NULL);
+			return (line = NULL, NULL);
 		tmp = line;
 		line = cut_(line, 0);
 		if (!line)
-			return (free(tmp), free(t_r[fd]), t_r[fd] = NULL, NULL);
-		free(tmp);
+			return (t_r[fd] = NULL, NULL);
 		return (line);
 	}
 }

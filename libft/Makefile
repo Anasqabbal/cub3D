@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+         #
+#    By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 18:28:40 by anqabbal          #+#    #+#              #
-#    Updated: 2024/09/15 09:39:43 by anqabbal         ###   ########.fr        #
+#    Updated: 2024/09/27 14:23:15 by ael-mejh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ FILES = ft_isalpha.c ft_isdigit.c \
 		ft_atoi.c ft_calloc.c \
 		ft_strdup.c ft_substr.c \
 		ft_strjoin.c ft_strtrim.c \
-		ft_split.c ft_itoa.c \
+		ft_split.c ft_itoa.c ft_split1.c\
 		ft_strmapi.c ft_striteri.c \
 		ft_putchar_fd.c ft_putstr_fd.c \
 		ft_putendl_fd.c ft_putnbr_fd.c\
@@ -37,7 +37,7 @@ FILES = ft_isalpha.c ft_isdigit.c \
 		ft_lstlast_bonus.c ft_lstadd_front_bonus.c \
 		ft_lstadd_back_bonus.c  ft_lstdelone_bonus.c \
 		ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c\
-		get_next_line_bonus.c get_next_line_utils_bonus.c
+		get_next_line_bonus.c get_next_line_utils_bonus.c garbege.c
 OBJF  = $(FILES:.c=.o)
 
 all: $(NAME)

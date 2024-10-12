@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 11:03:17 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:26:53 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec)
     }
 }
 
-int ft_dda_algo(t_exec *exec, double endy, double endx)
+int ft_dda_algo(t_exec *exec, float endy, float endx)
 {
-    double m;
-    double starty;
-    double startx;
+    float m;
+    float starty;
+    float startx;
 
     starty = exec->tex.ply.py;
     startx = exec->tex.ply.px;
@@ -70,7 +70,7 @@ int ft_dda_algo(t_exec *exec, double endy, double endx)
             startx += 1;
             starty += m;
         }
-        else if (m > (double)1)
+        else if (m > (float)1)
         {
             startx += 1;
             starty += (1 / m);
@@ -86,6 +86,13 @@ int ft_dda_algo(t_exec *exec, double endy, double endx)
     return (0);
 }
 
+void my_close(void *ptr)
+{
+    t_exec *exec;
+
+    exec = ptr;
+    exit (0);
+}
 
 int start_cub(char **av)
 {
@@ -95,18 +102,34 @@ int start_cub(char **av)
         return (-1);
     if (creat_and_start_awindow(&exec) < 0)
         return (-1);
-    draw_map(&exec);
+    // draw_map(&exec, PIXELS);
     set_player_info(&exec);
     ray_casting(&exec);
     mlx_key_hook(exec.mlx, &catch_moves, &exec);
+    mlx_close_hook(exec.mlx, clean_and_exit, &exec);
     mlx_loop(exec.mlx);
     return (0);
+}
+/* FOR PARSING */
+int check_extention(char *str)
+{
+	int i;
+	
+	i = 0;
+	while(str[i])
+		i++;
+	if (str[i - 1] != 'b' || str[i - 2] != 'u'
+		|| str[i - 3] != 'c' || str[i - 4] != '.')
+		return (1);
+	return 0;
 }
 
 int	main(int ac, char **av)
 {
-    if (ac == 1 || ac > 2)
-        return (ft_putstr_fd("invalide argument\n", 2), 1);
+	if (ac != 2)
+		return (write(0, "error\ninvalid argument\n", 23), 1);
+	if (check_extention(av[1]))
+		return (write(0, "error\ninvalid extention\n", 24), 1);
     if (start_cub(av) < 0)
         return (1);
 }

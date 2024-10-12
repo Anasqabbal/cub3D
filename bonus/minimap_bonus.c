@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_player.c                                      :+:      :+:    :+:   */
+/*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 14:08:59 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 18:32:32 by anqabbal         ###   ########.fr       */
+/*   Created: 2024/10/12 18:04:16 by anqabbal          #+#    #+#             */
+/*   Updated: 2024/10/12 18:33:36 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../cub3d.h"
+#include "cub3d_bonus.h"
 
-int ft_move_player(t_exec *exec)
+void    draw_mini_map(t_exec *exec)
 {
-  t_cir cir;
-
-  cir.cx = exec->tex.ply.px;
-  cir.cy =  exec->tex.ply.py;
-  cir.rds = exec->tex.ply.rds;
-  cir.color = 0x000000ff;
-  if (cir.rds % 2 == 0)
-    cir.rds -= 1;
-  draw_map(exec, PIXELS, 0);
-  // draw_circle(exec, &cir);
-  return (0);
+    draw_map(exec, 10, 700);
 }

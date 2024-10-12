@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:40:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2023/12/16 10:12:36 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:00:53 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_calloc(size_t count, size_t size)
 
 	if (((int)count < 0 && (int)size < 0))
 		return (0);
-	arr = malloc(size * count);
+	arr = gc_malloc(size * count);
 	if (!arr)
 		return (0);
 	ft_bzero(arr, count * size);

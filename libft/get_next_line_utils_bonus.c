@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 15:18:12 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/03/08 15:54:02 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:13:39 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*my_calloc(size_t count, size_t size)
 
 	if (((int)count < 0 && (int)size < 0))
 		return (0);
-	arr = malloc(size * count);
+	arr = gc_malloc(size * count);
 	if (!arr)
 		return (NULL);
 	i = 0;
@@ -40,18 +40,15 @@ char	*to_join(char *s1, char *s2, int indice)
 	str2 = s2;
 	if (indice == 0)
 	{
-		free(s1);
 		s1 = NULL;
 		return (NULL);
 	}
 	s1 = my_strjoin(s1, s2);
 	if (!s1)
 		return (to_join(str1, NULL, 0));
-	free(str1);
 	str1 = NULL;
 	if (indice == 1)
 	{
-		free (str2);
 		str2 = NULL;
 	}
 	return (s1);
@@ -92,7 +89,7 @@ char	*my_strjoin(char *s1, char *s2)
 		len++;
 	while (s2[len2])
 		len2++;
-	arr = malloc(sizeof(char) * len + len2 + 1);
+	arr = (char *)gc_malloc(sizeof(char) * len + len2 + 1);
 	if (!arr)
 		return (NULL);
 	my_memcpy(arr, s1, len);

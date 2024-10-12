@@ -6,15 +6,18 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:18:47 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 11:47:18 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:05:27 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void ft_clean_and_exit(t_exec *exec)
+void clean_and_exit(void *ptr)
 {
-    to_free_cub(exec->info.map);
+    t_exec *exec;
+
+    exec = ptr;
+    gc_free_all();
     mlx_delete_image(exec->mlx, exec->wind_image);
     exit (0);
 }
@@ -31,7 +34,7 @@ void move_left(t_exec *exec, char ind)
     else
     {
         exec->tex.ply.rotangle -= VIEW_SPEED;
-        if (exec->tex.ply.rotangle < (double)0)
+        if (exec->tex.ply.rotangle < (float)0)
             exec->tex.ply.rotangle += 2 * M_PI;
     }
 }

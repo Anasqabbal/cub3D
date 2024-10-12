@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 11:06:47 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:32:00 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ void set_pixels_to_image(t_exec *exec, int color1, int color2)
 	}
 }
 
-int draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x)
+int draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x, int var)
 {
 	int color2;
 	int	xx;
 	int	yy;
 
 	yy = 0;
-	color2 = 0xe6f1fae6;
-	while (yy < PIXELS)
+	color2 = 0x04ed93aa;
+	while (yy < var)
 	{
 		xx = 0;
-		while(xx < PIXELS)
+		while(xx < var)
 		{
 			if (yy != 0 && xx > 0)
-				mlx_put_pixel(exec->wind_image, x + xx, y + yy, exec->info.flr_cl);
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, 0x04ed93ff);
 			else
 				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
 			xx++;
@@ -58,21 +58,21 @@ int draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x)
 	return (0);
 }
 
-int draw_the_walls(t_exec *exec, unsigned int y,  unsigned int x)
+int draw_the_walls(t_exec *exec, unsigned int y,  unsigned int x, int var)
 {
 	int color2;
 	int	xx;
 	int	yy;
 
 	yy = 0;
-	color2 = 0xfcba03fc;
-	while (yy < PIXELS)
+	color2 = 0x00190f55;
+	while (yy < var)
 	{
 		xx = 0;
-		while(xx < PIXELS)
+		while(xx < var)
 		{
 			if (yy != 0 && xx > 0)
-				mlx_put_pixel(exec->wind_image, x + xx, y + yy, 0xbbbbbbbb);
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, 0x00190fff);
 			else
 				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
 			xx++;
@@ -80,6 +80,30 @@ int draw_the_walls(t_exec *exec, unsigned int y,  unsigned int x)
 		yy++;
 	}
 	return (0);
+}
+
+void draw_empty_space(t_exec *exec, unsigned int y,  unsigned int x, int var)
+{
+	int color2;
+	int	xx;
+	int	yy;
+
+	yy = 0;
+	printf("here (%d, %d)\n", y / PIXELS, x / PIXELS);
+	color2 = 0x000000ff;
+	while (yy < var)
+	{
+		xx = 0;
+		while(xx < var)
+		{
+			if (yy != 0 && xx > 0)
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, 0x000000ff);
+			else
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
+			xx++;
+		}
+		yy++;
+	}
 }
 
 int one_of_this(char c)
@@ -89,7 +113,7 @@ int one_of_this(char c)
 	return (1);
 }
 
-void draw_map(t_exec *exec)
+void draw_map(t_exec *exec, int var, int new_y)
 {
 	int y;
 	int x;
@@ -101,9 +125,11 @@ void draw_map(t_exec *exec)
 		while(exec->info.map[y][x])
 		{
 			if (exec->info.map[y][x] == '1')
-				draw_the_walls(exec, y * PIXELS, x * PIXELS);
+				draw_the_walls(exec, (y * var) + new_y, x * var, var);
 			else if (!one_of_this(exec->info.map[y][x]))
-				draw_the_floor(exec, y * PIXELS, x * PIXELS);
+				draw_the_floor(exec, (y * var) + new_y , x * var, var);
+			else
+				draw_empty_space(exec, (y * var) + new_y , x * var, var);
 			x++;
 		}
 		y++;

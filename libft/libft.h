@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:09:28 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/15 09:39:29 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:54:35 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 int		split_strlen(const char *s, char c, int indice);
-char	**split_free(char **strings, int j);
+// char	**split_free(char **strings, int j);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
@@ -77,4 +77,18 @@ char	*my_strjoin(char *s1, char *s2);
 void	*my_memcpy(void *dst, const void *src, size_t n);
 char	*to_join(char *s1, char *s2, int indice);
 void	*my_calloc(size_t count, size_t size);
+
+/*-----------------------------*/
+typedef struct s_garb
+{
+	void *ptr;
+	struct s_garb *next;
+}	t_garb;
+
+void	*gc_malloc(int size);
+t_garb  **get_last_node();
+void   gc_free_all();
+char	*ft_strdup1(const char *s1);
+char	*ft_strjoin1(char *s1, char *s2);
+char	**ft_split1(char const *s, char c, int len);
 #endif

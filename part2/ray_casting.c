@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 11:06:47 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 14:53:48 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@
     
 // }
 
-// static void set_first_inter(double *cur_psy, double *cur_psy, double angle, t_exec *exec)
+// static void set_first_inter(float *cur_psy, float *cur_psy, float angle, t_exec *exec)
 // {
     
 // }
 
-int find_horizontal_inter(double angle,t_exec *exec, t_ray *ray)
+int find_horizontal_inter(float angle,t_exec *exec, t_ray *ray)
 {
-    double cur_psx;   
-    double cur_psy;
-    double xinc;
-    double yinc;
+    float cur_psx;   
+    float cur_psy;
+    float xinc;
+    float yinc;
     char     b;
     char     up;
     char     right;
@@ -64,12 +64,12 @@ int find_horizontal_inter(double angle,t_exec *exec, t_ray *ray)
     return (ray->ds);
 }
 
-int find_vertical_inter(double angle, t_exec *exec, t_ray *ray)
+int find_vertical_inter(float angle, t_exec *exec, t_ray *ray)
 {
-    double  cur_psx;   
-    double  cur_psy;
-    double  yinc;
-    double  xinc;
+    float  cur_psx;   
+    float  cur_psy;
+    float  yinc;
+    float  xinc;
     char		up;
     char		right;
     char		b;
@@ -110,9 +110,9 @@ int find_vertical_inter(double angle, t_exec *exec, t_ray *ray)
 
 int ray_casting(t_exec *exec)
 {
-    double  angle;
-    double  i ;
-    double  inc;
+    float  angle;
+    float  i ;
+    float  inc;
     t_ray ray[exec->info.win_wid];
 
     int     c;
