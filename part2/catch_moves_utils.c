@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:18:47 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 16:05:27 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:54:02 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void clean_and_exit(void *ptr)
     t_exec *exec;
 
     exec = ptr;
-    gc_free_all();
-    mlx_delete_image(exec->mlx, exec->wind_image);
+    // gc_free_all();
+    // mlx_delete_image(exec->mlx, exec->wind_image);
     exit (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 18:32:15 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:59:44 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ void	move_right(t_exec *exec, char ind);
 void	move_down(t_exec *exec);
 void	clean_and_exit(void *ptr);
 
-
 float	degree_to_rad(float deg);
 void	to_free_cub(char **av);
 void	set_pixels_to_image(t_exec *exec, int color1,  int color2);
@@ -166,6 +165,10 @@ int		find_vertical_inter(float angle, t_exec *exec, t_ray *ray);
 int		find_horizontal_inter(float angle,t_exec *exec, t_ray *ray);
 float	fixing_fichbowl(float ds, float angle, t_exec *exec);
 void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray);
+
+/*bonus part to remove from this mandatory */
+void    draw_mini_map(t_exec *exec);
+int     get_persent(float value, float new);
 
 float	ft_abs(float nm);
 

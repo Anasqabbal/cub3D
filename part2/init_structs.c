@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:14:44 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 17:37:54 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:12:45 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int     init_info_struct(t_info *info, t_cub *cub, t_texture *text)
     info->map = text->map;
     info->win_wid = cub->len * PIXELS;
     info->win_hei = cub->len_h * PIXELS;
-    info->flr_cl = 0x6e022c6e;
-    info->clg_cl = 0x00190f00;
+    info->flr_cl = 0x04ed93ff;
+    info->clg_cl = 0x00190fff;
     return (0);
 }
 

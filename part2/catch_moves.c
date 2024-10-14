@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 18:33:10 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:09:19 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray)
     e = (angle < (0.5) * M_PI) || (angle > 1.5 * M_PI);
     w = !e;
     if (ray->hv == 0 && w)
-        color = 0xE9FF97;
+        color = 0x015f3aff;
     else if (ray->hv == 0 && e)
-        color = 0xFFD18E;
+        color = 0x015030ff;
     else if (ray->hv == 1 && no)
-        color = 0xFFA38F;
+        color = 0x026e44ff;
     else if (ray->hv == 1 && s)
-        color = 0xFF7EE2;
+        color = 0x014126ff;
     while(y < clg)
         mlx_put_pixel(exec->wind_image, rx, y++,exec->info.clg_cl);
     while((int)x++ < wall_heigh && x < (int)exec->info.win_wid)
@@ -88,6 +88,7 @@ void catch_moves(mlx_key_data_t key, void *p)
     else if (key.key == MLX_KEY_ESCAPE)
         clean_and_exit(exec);
     ray_casting(exec);
+    draw_mini_map(exec);
     if (key.key == MLX_KEY_E)
         show_2dmap(exec);
 }

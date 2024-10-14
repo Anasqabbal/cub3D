@@ -6,7 +6,11 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:04:58 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 18:04:59 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:18:30 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../cub3d.h"
+
+void    draw_mini_map(t_exec *exec);
+int     get_persent(float value, float new);

@@ -1,4 +1,5 @@
 NAME=cub3D
+BONUS=cub3D_bonus
 CC=cc
 S=-fsanitize=address -g
 FLAGS=-Wall -Wextra -Werror $(S)
@@ -7,14 +8,17 @@ PART2=	./part2/the_circle.c  ./part2/utils1.c ./part2/ray_casting_utils.c ./part
 		 ./part2/utils2.c ./part2/creat_window.c\
 		./part2/init_structs.c ./part2/creat_textures.c ./part2/move_player.c ./part2/catch_moves.c\
 		./part2/catch_moves_utils.c ./part2/ft_check_walls.c
-BONUS= ./bonus/minimap_bonus.c
+
+BONUSF= ./bonus/minimap_bonus.c
+
 SRC=  cub.c  $(PART2) $(PART1)
 OBJ=$(SRC:.c=.o)
+BOUNUSO=$(BONUSF:.c=.o)
 LIBFT=./libft/libft.a
 LIBFT_PATH=./libft
 LIBFT_LINUX=./libft_linux
 INCLUDES=./libft/libft.h cub3d.h
-USER=$(echo ($USER))
+USE=$(echo anqabbal)
 FRAMEWORK= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/anqabbal/.brew/opt/glfw/lib/"
 NWMLX = ./MLX42/build/libmlx42.a
 MLX_PATH = ./minilibx-linux
@@ -24,6 +28,7 @@ SYSTEM=$(uname)
 
 all : libf  $(NAME)
 
+bonus : libf  $(BONUS)
 #  all : libf mlx  $(NAME)
 
 mlx :
@@ -35,11 +40,18 @@ libf :
 # libf :
 # 	make -C $(LIBFT_LINUX)
 
+$(BONUS) : $(OBJ) $(BOUNUSO)
+	$(CC) $(FLAGS) $(OBJ) $(BOUNUSO) $(LIBFT) $(FRAMEWORK) $(NWMLX) -o $@
+
 $(NAME) : $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(FRAMEWORK) $(NWMLX) -o $@
 
+
 # $(NAME) : $(OBJ)
 # 	$(CC) $(FLAGS) $(OBJ) $(LIBFT_LINUX)/libft.a  $(MLX) $(LINUX) -o $@
+
+%_bonus.o : %_bonus.c
+	$(CC) $(FLAGS) -c $< -o $@
 
 %.o : %.c $(INCLUDES)
 	$(CC) $(FLAGS) -c $< -o $@

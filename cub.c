@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 18:26:53 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:53:57 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,6 @@ int ft_dda_algo(t_exec *exec, float endy, float endx)
     return (0);
 }
 
-void my_close(void *ptr)
-{
-    t_exec *exec;
-
-    exec = ptr;
-    exit (0);
-}
 
 int start_cub(char **av)
 {
@@ -102,7 +95,7 @@ int start_cub(char **av)
         return (-1);
     if (creat_and_start_awindow(&exec) < 0)
         return (-1);
-    // draw_map(&exec, PIXELS);
+    draw_map(&exec, PIXELS, 0);
     set_player_info(&exec);
     ray_casting(&exec);
     mlx_key_hook(exec.mlx, &catch_moves, &exec);
