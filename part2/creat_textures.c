@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/14 18:14:47 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:59:10 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void draw_empty_space(t_exec *exec, unsigned int y,  unsigned int x, int var)
 	int	yy;
 
 	yy = 0;
-	printf("here (%d, %d)\n", y / PIXELS, x / PIXELS);
 	color2 = 0x000000ff;
 	while (yy < var)
 	{
@@ -127,7 +126,6 @@ void draw_the_player(t_exec *exec, unsigned int y,  unsigned int x, int var, int
 	// }
 	(void)var;
 	(void)new_y;
-	printf("(%d, %d)\n", y, x);
 	mlx_put_pixel(exec->wind_image, x , y, 0x6e022cff);
 	double i;
 	double nx = x;
@@ -145,7 +143,7 @@ void draw_the_player(t_exec *exec, unsigned int y,  unsigned int x, int var, int
 		i = 0.01;
 		ny = y;
 		nx = x;
-		while(i < 6 && nx > 0 && ny > 0 && nx < exec->info.win_wid && ny < exec->info.win_hei)
+		while(i < get_persent(PIXELS, 5) && nx > 0 && ny > 0 && nx < exec->info.win_wid && ny < exec->info.win_hei && exec->info.map[(int)floor((ny - new_y) / var)][(int)floor(nx / var)] != '1')
 		{
 			// printf("your map %c\n", exec->info.map[(int)floor((ny - new_y) / var)][(int)floor(nx / var)]);
 			if (nx != x )
@@ -181,9 +179,7 @@ void draw_map(t_exec *exec, int var, int new_y)
 			else if (exec->info.map[y][x] == '0')
 				draw_the_floor(exec, (y * var) + new_y , x * var, var);
 			else if (!one_of_these(exec->info.map[y][x]))
-			{
 				draw_the_floor(exec, (y * var) + new_y , x * var, var);
-			}
 			else
 				draw_empty_space(exec, (y * var) + new_y , x * var, var);
 			x++;

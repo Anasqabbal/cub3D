@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/14 17:59:44 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:25:10 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct s_exec
 
 
 typedef void (*mlx_closefunc)(void* param);
+typedef void (*mlx_scrollfunc)(float xdelta, float ydelta, void* param);
 
 
 

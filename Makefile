@@ -2,7 +2,7 @@ NAME=cub3D
 BONUS=cub3D_bonus
 CC=cc
 S=-fsanitize=address -g
-FLAGS=-Wall -Wextra -Werror $(S)
+FLAGS= -Wall -Wextra -Werror $(S)
 PART1= ./part1/read_file.c
 PART2=	./part2/the_circle.c  ./part2/utils1.c ./part2/ray_casting_utils.c ./part2/ray_casting.c\
 		 ./part2/utils2.c ./part2/creat_window.c\

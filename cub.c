@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/14 17:53:57 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:26:32 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,26 @@ int ft_dda_algo(t_exec *exec, float endy, float endx)
     return (0);
 }
 
+void scroll_func(float xdelta, float ydelta, void* ptr)
+{
+    (void)xdelta;
+    (void)ydelta;
+    (void)ptr;
+    puts("Scroll event detected!");  // Simple debug statement
+    fflush(stdout);
+    
+}
+
+void my_mouse_hook(enum mouse_key key, enum action act, enum modifier_key mods, void* param)
+{
+    (void)param; // Unused in this example
+    (void)act;
+    (void)mods;
+    (void)key;
+    puts("here");
+}
+
+typedef void (*mlx_scrollfunc)(float xdelta, float ydelta, void* param);
 
 int start_cub(char **av)
 {
@@ -98,6 +118,8 @@ int start_cub(char **av)
     draw_map(&exec, PIXELS, 0);
     set_player_info(&exec);
     ray_casting(&exec);
+    mlx_scroll_hook(exec.mlx, scroll_func, &exec);
+    // mlx_mouse_hook(exec.mlx, my_mouse_hook, NULL);
     mlx_key_hook(exec.mlx, &catch_moves, &exec);
     mlx_close_hook(exec.mlx, clean_and_exit, &exec);
     mlx_loop(exec.mlx);
