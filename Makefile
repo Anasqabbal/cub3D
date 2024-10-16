@@ -9,7 +9,7 @@ PART2=	./part2/the_circle.c  ./part2/utils1.c ./part2/ray_casting_utils.c ./part
 		./part2/init_structs.c ./part2/creat_textures.c ./part2/move_player.c ./part2/catch_moves.c\
 		./part2/catch_moves_utils.c ./part2/ft_check_walls.c
 
-BONUSF= ./bonus/minimap_bonus.c
+BONUSF= ./bonus/minimap_bonus.c ./bonus/mouse_bonus.c
 
 SRC=  cub.c  $(PART2) $(PART1)
 OBJ=$(SRC:.c=.o)

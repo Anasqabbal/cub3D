@@ -24,8 +24,16 @@ void my_scrollhook(float xdelta, float ydelta, void* param)
 
 void mouse_hook(void *ptr)
 {
+    mlx_t *mlx;
 
+    mlx = ptr;
+    int     x;
+    int     y;
+     printf("your ptr == %p\n", mlx);
+    mlx_set_mouse_pos(mlx, WIDTH / 2, HEIGHT / 2);
 
+    mlx_get_mouse_pos(mlx, &x, &y);
+    printf("your pos on x == %d\n and your pos on y == %d\n", x, y);
 }
 
 int32_t	main(void)
@@ -36,13 +44,8 @@ int32_t	main(void)
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (EXIT_FAILURE);
     
-    mlx_set_mouse_pos(mlx, WIDTH / 2, HEIGHT / 2);
-    int     x;
-    int     y;
-
-    mlx_get_mouse_pos(mlx, &x, &y);
-    printf("your pos on x == %d\n and your pos on y == %d\n", x, y);
-    // mlx_loop_hook(mlx, mouse_hook, &mlx);
+    printf("your mlx ptr == %p\n", mlx);
+    mlx_loop_hook(mlx, mouse_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);

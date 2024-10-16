@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/16 17:26:32 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:55:40 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,13 @@ int start_cub(char **av)
     draw_map(&exec, PIXELS, 0);
     set_player_info(&exec);
     ray_casting(&exec);
-    mlx_scroll_hook(exec.mlx, scroll_func, &exec);
-    // mlx_mouse_hook(exec.mlx, my_mouse_hook, NULL);
+    exec.ms.xangle = exec.tex.ply.rotangle;
+    exec.ms.sensitivity = 0.001;
+    mlx_loop_hook(exec.mlx, mouse_fun, &exec);
     mlx_key_hook(exec.mlx, &catch_moves, &exec);
     mlx_close_hook(exec.mlx, clean_and_exit, &exec);
     mlx_loop(exec.mlx);
+    mlx_terminate(exec.mlx);
     return (0);
 }
 /* FOR PARSING */

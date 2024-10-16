@@ -6,12 +6,11 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/16 16:33:59 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:59:52 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cub3d.h"
-
 
 float fixing_fichbowl(float ds, float angle, t_exec *exec)
 {
@@ -85,7 +84,7 @@ void catch_moves(mlx_key_data_t key, void *p)
         move_right(exec, 0);
     else if (key.key == MLX_KEY_A)
         move_left(exec, 0);
-    else if (key.key == MLX_KEY_ESCAPE)
+    else if (key.key == MLX_KEY_ESCAPE || key.key == MLX_KEY_Q)
         clean_and_exit(exec);
     ray_casting(exec);
     draw_mini_map(exec);

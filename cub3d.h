@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/16 16:25:10 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:52:44 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,16 @@ typedef struct s_cir
 	int	color;
 } t_cir;
 
+typedef struct s_ms
+{
+	int		prevx;
+	int		prevy;
+	int		curx;
+	int		cury;
+	float	sensitivity;
+	float	xangle;
+}t_ms;
+
 typedef struct s_exec
 {
 	mlx_t		*mlx;
@@ -116,7 +126,9 @@ typedef struct s_exec
 	t_texture	text;
 	t_cub		cub;
 	t_ray		*ray;
-	t_ray		ray90;
+	/* bonus */
+	t_ray		ray90; /*for door*/
+	t_ms		ms;    /*for mouse*/
 	char		**av;
 }	t_exec;
 
@@ -166,10 +178,12 @@ int		find_vertical_inter(float angle, t_exec *exec, t_ray *ray);
 int		find_horizontal_inter(float angle,t_exec *exec, t_ray *ray);
 float	fixing_fichbowl(float ds, float angle, t_exec *exec);
 void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray);
+void	fix_current_angle(float *angle);
 
 /*bonus part to remove from this mandatory */
 void    draw_mini_map(t_exec *exec);
 int     get_persent(float value, float new);
+void	mouse_fun(void *ptr);
 
 float	ft_abs(float nm);
 
