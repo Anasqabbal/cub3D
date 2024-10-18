@@ -52,7 +52,7 @@ $(NAME) : $(OBJ)
 
 clean :
 	@make -C $(LIBFT_PATH) $@
-	# rm -f $(OBJ)
+	rm -f $(OBJ)
 
 fclean : clean
 	@make -C $(LIBFT_PATH) $@
