@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   garbege.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:03:28 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/09/30 13:51:37 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:04:26 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
 
 t_garb **get_last_node()
 {

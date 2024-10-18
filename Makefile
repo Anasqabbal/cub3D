@@ -3,15 +3,15 @@ BONUS=cub3D_bonus
 CC=cc
 S=-fsanitize=address -g
 FLAGS= -Wall -Wextra -Werror $(S)
-PART1= ./part1/read_file.c
-PART2=	./part2/utils1.c ./part2/ray_casting_utils.c ./part2/ray_casting.c\
-		./part2/creat_window.c ./part2/creat_element.c\
-		./part2/init_structs.c ./part2/catch_moves.c\
-		./part2/catch_moves_utils.c ./part2/ft_check_walls.c
+PART1= ./mandatory/part1/read_file.c
+PART2=	./mandatory/part2/utils1.c ./mandatory/part2/ray_casting_utils.c ./mandatory/part2/ray_casting.c\
+		./mandatory/part2/creat_window.c ./mandatory/part2/creat_element.c\
+		./mandatory/part2/init_structs.c ./mandatory/part2/catch_moves.c\
+		./mandatory/part2/catch_moves_utils.c ./mandatory/part2/ft_check_walls.c
 
 BONUSF= ./bonus/minimap_bonus.c ./bonus/mouse_bonus.c
 
-SRC=  cub.c  $(PART2) $(PART1)
+SRC=  ./mandatory/cub.c  $(PART2) $(PART1)
 OBJ=$(SRC:.c=.o)
 BOUNUSO=$(BONUSF:.c=.o)
 LIBFT=./libft/libft.a
@@ -43,7 +43,6 @@ $(BONUS) : $(OBJ) $(BOUNUSO)
 $(NAME) : $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(FRAMEWORK) $(NWMLX) -o $@
 
-
 %_bonus.o : %_bonus.c
 	$(CC) $(FLAGS) -c $< -o $@
 
@@ -52,7 +51,6 @@ $(NAME) : $(OBJ)
 
 clean :
 	@make -C $(LIBFT_PATH) $@
-	rm -f $(OBJ)
 
 fclean : clean
 	@make -C $(LIBFT_PATH) $@
