@@ -4,9 +4,9 @@ CC=cc
 S=-fsanitize=address -g
 FLAGS= -Wall -Wextra -Werror $(S)
 PART1= ./part1/read_file.c
-PART2=	./part2/the_circle.c  ./part2/utils1.c ./part2/ray_casting_utils.c ./part2/ray_casting.c\
-		 ./part2/utils2.c ./part2/creat_window.c\
-		./part2/init_structs.c ./part2/creat_textures.c ./part2/move_player.c ./part2/catch_moves.c\
+PART2=	./part2/utils1.c ./part2/ray_casting_utils.c ./part2/ray_casting.c\
+		./part2/creat_window.c ./part2/creat_element.c\
+		./part2/init_structs.c ./part2/catch_moves.c\
 		./part2/catch_moves_utils.c ./part2/ft_check_walls.c
 
 BONUSF= ./bonus/minimap_bonus.c ./bonus/mouse_bonus.c
@@ -29,7 +29,6 @@ SYSTEM=$(uname)
 all : libf  $(NAME)
 
 bonus : libf  $(BONUS)
-#  all : libf mlx  $(NAME)
 
 mlx :
 	make -C ./MLX42/build
@@ -37,8 +36,6 @@ mlx :
 libf :
 	make -C $(LIBFT_PATH)
 
-# libf :
-# 	make -C $(LIBFT_LINUX)
 
 $(BONUS) : $(OBJ) $(BOUNUSO)
 	$(CC) $(FLAGS) $(OBJ) $(BOUNUSO) $(LIBFT) $(FRAMEWORK) $(NWMLX) -o $@
@@ -46,9 +43,6 @@ $(BONUS) : $(OBJ) $(BOUNUSO)
 $(NAME) : $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(FRAMEWORK) $(NWMLX) -o $@
 
-
-# $(NAME) : $(OBJ)
-# 	$(CC) $(FLAGS) $(OBJ) $(LIBFT_LINUX)/libft.a  $(MLX) $(LINUX) -o $@
 
 %_bonus.o : %_bonus.c
 	$(CC) $(FLAGS) -c $< -o $@
@@ -58,13 +52,20 @@ $(NAME) : $(OBJ)
 
 clean :
 	@make -C $(LIBFT_PATH) $@
-	rm -f $(OBJ)
+	# rm -f $(OBJ)
 
 fclean : clean
 	@make -C $(LIBFT_PATH) $@
-	rm -f $(NAME)
+	# rm -f $(NAME)
 
 re : fclean all
 
 .PHONY : clean
 
+#  all : libf mlx  $(NAME)
+
+# libf :
+# 	make -C $(LIBFT_LINUX)
+
+# $(NAME) : $(OBJ)
+# 	$(CC) $(FLAGS) $(OBJ) $(LIBFT_LINUX)/libft.a  $(MLX) $(LINUX) -o $@

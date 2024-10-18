@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/16 19:55:40 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:42:45 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int ft_dda_algo(t_exec *exec, float endy, float endx)
     float starty;
     float startx;
 
-    starty = exec->tex.ply.py;
-    startx = exec->tex.ply.px;
+    starty = exec->ply.py;
+    startx = exec->ply.px;
     m = (endy - starty) / (endx - startx);
     int i = 1;
     while(i < 30)
@@ -105,7 +105,6 @@ void my_mouse_hook(enum mouse_key key, enum action act, enum modifier_key mods, 
     puts("here");
 }
 
-typedef void (*mlx_scrollfunc)(float xdelta, float ydelta, void* param);
 
 int start_cub(char **av)
 {
@@ -118,7 +117,7 @@ int start_cub(char **av)
     draw_map(&exec, PIXELS, 0);
     set_player_info(&exec);
     ray_casting(&exec);
-    exec.ms.xangle = exec.tex.ply.rotangle;
+    exec.ms.xangle = exec.ply.rotangle;
     exec.ms.sensitivity = 0.001;
     mlx_loop_hook(exec.mlx, mouse_fun, &exec);
     mlx_key_hook(exec.mlx, &catch_moves, &exec);

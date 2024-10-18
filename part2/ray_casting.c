@@ -6,21 +6,11 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 14:53:48 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:39:20 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-// static int adjust_calculation(t_exec *exec)
-// {
-    
-// }
-
-// static void set_first_inter(float *cur_psy, float *cur_psy, float angle, t_exec *exec)
-// {
-    
-// }
 
 int find_horizontal_inter(float angle,t_exec *exec, t_ray *ray)
 {
@@ -38,10 +28,10 @@ int find_horizontal_inter(float angle,t_exec *exec, t_ray *ray)
     fix_current_angle(&angle);
     it_is_up_or_down(angle, &up);
     it_is_left_or_right(angle, &right);
-    cur_psy = floor(exec->tex.ply.py / PIXELS) * PIXELS;
+    cur_psy = floor(exec->ply.py / PIXELS) * PIXELS;
     if (!up)
         cur_psy += (PIXELS);
-    cur_psx = exec->tex.ply.px - ((exec->tex.ply.py - cur_psy) / tan(angle));
+    cur_psx = exec->ply.px - ((exec->ply.py - cur_psy) / tan(angle));
     if (up)
     {
         b = -1;
@@ -58,7 +48,7 @@ int find_horizontal_inter(float angle,t_exec *exec, t_ray *ray)
            cur_psy += yinc;
            cur_psx += xinc;
     }
-    ray->ds = (sqrt((pow((cur_psx - exec->tex.ply.px), 2)) + (pow((cur_psy - exec->tex.ply.py), 2))));
+    ray->ds = (sqrt((pow((cur_psx - exec->ply.px), 2)) + (pow((cur_psy - exec->ply.py), 2))));
     ray->dx = cur_psx;
     ray->dy = cur_psy;
     return (ray->ds);
@@ -80,10 +70,10 @@ int find_vertical_inter(float angle, t_exec *exec, t_ray *ray)
     b = 0;
     yinc = PIXELS * tan(angle);
 	xinc = PIXELS;
-    cur_psx = floor(exec->tex.ply.px / PIXELS) * PIXELS;
+    cur_psx = floor(exec->ply.px / PIXELS) * PIXELS;
     if (!right)
 		cur_psx += PIXELS;
-    cur_psy = exec->tex.ply.py - ((exec->tex.ply.px - cur_psx) * tan(angle));
+    cur_psy = exec->ply.py - ((exec->ply.px - cur_psx) * tan(angle));
 	if (up)
 		yinc *= -1;
 	if (right)
@@ -102,7 +92,7 @@ int find_vertical_inter(float angle, t_exec *exec, t_ray *ray)
 		cur_psx += xinc;
 		cur_psy += yinc;
     }
-    ray->ds = (sqrt((pow((cur_psx - exec->tex.ply.px), 2)) + (pow((cur_psy - exec->tex.ply.py), 2))));
+    ray->ds = (sqrt((pow((cur_psx - exec->ply.px), 2)) + (pow((cur_psy - exec->ply.py), 2))));
     ray->dx = cur_psx;
     ray->dy = cur_psy;
     return (ray->ds);
@@ -117,12 +107,12 @@ int ray_casting(t_exec *exec)
 
     int     c;
 
-    inc = exec->tex.ply.rays_inc;
+    inc = exec->ply.rays_inc;
     c = 0;
     i = 0;
     while((int)i <= (AOV) && c < (int)exec->info.win_wid)
     {
-        angle = exec->tex.ply.rotangle - (degree_to_rad((AOV / 2) - i));
+        angle = exec->ply.rotangle - (degree_to_rad((AOV / 2) - i));
 		fill_ray_information(exec, &ray[c], angle);
         if ((int)i == 30){
             exec->ray90.ds = ray[c].ds;

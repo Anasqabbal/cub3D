@@ -6,17 +6,16 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 15:43:35 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:23:12 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# include "./libft/libft.h"
+# include "../libft/libft.h"
 # include <stdio.h>
 # include <math.h>
-# include "./MLX42/include/MLX42/MLX42.h"
-
+# include "../MLX42/include/MLX42/MLX42.h"
 # define AOV 60
 # define PIXELS 60
 # define SPEED 10
@@ -60,10 +59,12 @@ typedef struct s_info
 
 typedef struct s_ply
 {
+	int			color;
+	void		*img;
+	int			turn;
 	float		rotangle;
 	float		px;
 	float		py;
-	int			rds;
 	float		rays;
 	float		rays_inc;
 	float		move_inc;
@@ -77,15 +78,6 @@ typedef struct s_ray
 	char	hv;
 } t_ray;
 
-typedef struct s_tex
-{
-	void	*image;
-	void	*flr;
-	void	*wall;
-	t_ply	ply;
-
-} t_tex;
-
 typedef struct s_ms
 {
 	int		prevx;
@@ -93,7 +85,6 @@ typedef struct s_ms
 	int		curx;
 	int		cury;
 	float	sensitivity;
-	float	xangle;
 }t_ms;
 
 typedef struct s_exec
@@ -101,9 +92,9 @@ typedef struct s_exec
 	mlx_t		*mlx;
 	mlx_image_t	*wind_image;
 	t_info		info;
-	t_ply		ply;
 	t_texture	text;
 	t_cub		cub;
+	t_ply		ply;
 	/* bonus */
 	t_ray		ray90; /*for door*/
 	t_ms		ms;    /*for mouse*/
@@ -111,16 +102,17 @@ typedef struct s_exec
 	int			i;
 }	t_exec;
 
+/*PART1*/
 
-int ft_check_walls(t_exec *exec, int ind);
 
-
+/*PART 2*/
+int		ft_check_walls(t_exec *exec, int ind);
 int		read_file(char **av, t_cub *cub, t_texture *texture);
 int     init_info_struct(t_info *info, t_cub *cub, t_texture *text);
-void	init_structs(void *ptr, int ind, char **av);
+int		init_structs(void *ptr, char **av);
 int		creat_and_start_awindow(t_exec *exec);
-int		draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x, int var);
-int		draw_the_walls(t_exec *exec, unsigned int y,  unsigned int x, int var);
+void	draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x, int var);
+void	draw_the_walls(t_exec *exec, unsigned int y,  unsigned int x, int var);
 void	set_player_info(t_exec *exec);
 void	draw_map(t_exec *exec, int var, int new_y);
 void	catch_moves(mlx_key_data_t key, void *p);
@@ -129,27 +121,27 @@ void    move_up(t_exec *exec);
 void	move_right(t_exec *exec, char ind);
 void	move_down(t_exec *exec);
 void	clean_and_exit(void *ptr);
-
+int		one_of_these(char c);
 float	degree_to_rad(float deg);
 int 	ft_dda_algo(t_exec *exec, float endy, float endx);
 float	rad_to_degree(float rad);
 void	bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec);
-int		ray_casting(t_exec *exec);
+void	ray_casting(t_exec *exec);
 void	fill_ray_information(t_exec *exec, t_ray *ray, float angle);
 void	it_is_left_or_right(float angle, char *value);
 void	fix_current_angle(float *angle);
 float	ft_abs(float nm);
 void	it_is_up_or_down(float angle, char *value);
-int		find_vertical_inter(float angle, t_exec *exec, t_ray *ray);
-int		find_horizontal_inter(float angle,t_exec *exec, t_ray *ray);
+void	find_vertical_inter(float angle, t_exec *exec, t_ray *ray, char b);
+void	find_horizontal_inter(float angle,t_exec *exec, t_ray *ray, char b);
 float	fixing_fichbowl(float ds, float angle, t_exec *exec);
 void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray);
 void	fix_current_angle(float *angle);
-int		one_of_these(char c);
 
 /*bonus part to remove from this mandatory */
 void    draw_mini_map(t_exec *exec);
-float		get_persent(float value, float new);
+void	draw_the_player(t_exec *exec, int var, int new_y)
+int     get_persent(float value, float new);
 void	mouse_fun(void *ptr);
 
 float	ft_abs(float nm);

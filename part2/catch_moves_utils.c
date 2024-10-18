@@ -6,69 +6,73 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:18:47 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/16 19:56:01 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:16:03 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void clean_and_exit(void *ptr)
+void	clean_and_exit(void *ptr)
 {
-    t_exec *exec;
+	t_exec	*exec;
 
-    exec = ptr;
-    gc_free_all();
-    mlx_delete_image(exec->mlx, exec->wind_image);
-    mlx_terminate(exec->mlx);
-    exit (0);
+	exec = ptr;
+	gc_free_all();
+	mlx_delete_image(exec->mlx, exec->wind_image);
+	mlx_terminate(exec->mlx);
+	exit (0);
 }
 
-void move_left(t_exec *exec, char ind)
+void	move_left(t_exec *exec, char ind)
 {
-    if (ind == 0)
-    {
-        if (!ft_check_walls(exec, 0))
-            return ;
-        exec->tex.ply.py -= (sin(exec->tex.ply.rotangle - degree_to_rad(90)) * exec->tex.ply.move_inc);
-        exec->tex.ply.px -= (cos(exec->tex.ply.rotangle - degree_to_rad(90)) * exec->tex.ply.move_inc);
-    }
-    else
-    {
-        exec->tex.ply.rotangle -= VIEW_SPEED;
-        if (exec->tex.ply.rotangle < (float)0)
-            exec->tex.ply.rotangle += 2 * M_PI;
-    }
+	if (ind == 0)
+	{
+		if (!ft_check_walls(exec, 0))
+			return ;
+		exec->ply.py -= (sin(exec->ply.rotangle
+					- degree_to_rad(90)) * exec->ply.move_inc);
+		exec->ply.px -= (cos(exec->ply.rotangle
+					- degree_to_rad(90)) * exec->ply.move_inc);
+	}
+	else
+	{
+		exec->ply.rotangle -= VIEW_SPEED;
+		if (exec->ply.rotangle < (float)0)
+			exec->ply.rotangle += 2 * M_PI;
+	}
 }
 
-void     move_up(t_exec *exec)
+void	move_up(t_exec *exec)
 {
-    if (!ft_check_walls(exec, 1))
-        return ;
-    exec->tex.ply.py -= (sin(exec->tex.ply.rotangle) * exec->tex.ply.move_inc);
-    exec->tex.ply.px -= (cos(exec->tex.ply.rotangle) * exec->tex.ply.move_inc);
+	if (!ft_check_walls(exec, 1))
+		return ;
+	exec->ply.py -= (sin(exec->ply.rotangle) * exec->ply.move_inc);
+	exec->ply.px -= (cos(exec->ply.rotangle) * exec->ply.move_inc);
 }
 
-void move_right(t_exec *exec, char ind)
+void	move_right(t_exec *exec, char ind)
 {
-    if (ind == 0)
-    {
-        if (!ft_check_walls(exec, 2))
-            return ;
-        exec->tex.ply.py -= (sin(exec->tex.ply.rotangle + degree_to_rad(90)) * exec->tex.ply.move_inc);
-        exec->tex.ply.px -= (cos(exec->tex.ply.rotangle + degree_to_rad(90)) * exec->tex.ply.move_inc);
-    }
-    else
-    {
-        if (exec->tex.ply.rotangle > (M_PI * 2))
-            exec->tex.ply.rotangle -= 2 * M_PI;
-        exec->tex.ply.rotangle += VIEW_SPEED;
-    }
+	if (ind == 0)
+	{
+		if (!ft_check_walls(exec, 2))
+			return ;
+		exec->ply.py -= (sin(exec->ply.rotangle
+					+ degree_to_rad(90)) * exec->ply.move_inc);
+		exec->ply.px -= (cos(exec->ply.rotangle
+					+ degree_to_rad(90)) * exec->ply.move_inc);
+	}
+	else
+	{
+		if (exec->ply.rotangle > (M_PI * 2))
+			exec->ply.rotangle -= 2 * M_PI;
+		exec->ply.rotangle += VIEW_SPEED;
+	}
 }
 
-void move_down(t_exec *exec)
+void	move_down(t_exec *exec)
 {
-    if (!ft_check_walls(exec, 3))
-        return ;
-    exec->tex.ply.py += (sin(exec->tex.ply.rotangle) * exec->tex.ply.move_inc);
-    exec->tex.ply.px += (cos(exec->tex.ply.rotangle) * exec->tex.ply.move_inc);
+	if (!ft_check_walls(exec, 3))
+		return ;
+	exec->ply.py += (sin(exec->ply.rotangle) * exec->ply.move_inc);
+	exec->ply.px += (cos(exec->ply.rotangle) * exec->ply.move_inc);
 }
