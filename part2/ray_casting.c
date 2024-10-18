@@ -6,122 +6,131 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 14:39:20 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:27:29 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int find_horizontal_inter(float angle,t_exec *exec, t_ray *ray)
+static void	fix_hinc_status(float *xinc, float *yinc, float angle, float *py)
 {
-    float cur_psx;   
-    float cur_psy;
-    float xinc;
-    float yinc;
-    char     b;
-    char     up;
-    char     right;
+	char	up;
+	char	right;
 
-    b = 0;
-    xinc = PIXELS / tan(angle);
-    yinc = PIXELS;
-    fix_current_angle(&angle);
-    it_is_up_or_down(angle, &up);
-    it_is_left_or_right(angle, &right);
-    cur_psy = floor(exec->ply.py / PIXELS) * PIXELS;
-    if (!up)
-        cur_psy += (PIXELS);
-    cur_psx = exec->ply.px - ((exec->ply.py - cur_psy) / tan(angle));
-    if (up)
-    {
-        b = -1;
-        yinc *= -1;
-    }
-    if (!right && xinc < 0)
-        xinc *= -1;
-    else if (right && xinc > 0)
-        xinc *= -1;
-    while(cur_psx > 0 && cur_psx < exec->info.win_wid && cur_psy > 0 && cur_psy < exec->info.win_hei)
-    {
-        if (exec->info.map[(int)floor(((cur_psy + b)/ PIXELS))][(int)floor(((cur_psx) / PIXELS))] == '1')
-            break ;
-           cur_psy += yinc;
-           cur_psx += xinc;
-    }
-    ray->ds = (sqrt((pow((cur_psx - exec->ply.px), 2)) + (pow((cur_psy - exec->ply.py), 2))));
-    ray->dx = cur_psx;
-    ray->dy = cur_psy;
-    return (ray->ds);
+	*xinc = PIXELS / tan(angle);
+	*yinc = PIXELS;
+	it_is_up_or_down(angle, &up);
+	it_is_left_or_right(angle, &right);
+	if (!up)
+		*py += (PIXELS);
+	if (up)
+		*yinc *= -1;
+	if (!right && *xinc < 0)
+		*xinc *= -1;
+	else if (right && *xinc > 0)
+		*xinc *= -1;
 }
 
-int find_vertical_inter(float angle, t_exec *exec, t_ray *ray)
+void	find_horizontal_inter(float angle, t_exec *exec, t_ray *ray, char b)
 {
-    float  cur_psx;   
-    float  cur_psy;
-    float  yinc;
-    float  xinc;
-    char		up;
-    char		right;
-    char		b;
+	float	cur_psx;
+	float	cur_psy;
+	float	xinc;
+	float	yinc;
 
-    fix_current_angle(&angle);
-    it_is_up_or_down(angle, &up);
-    it_is_left_or_right(angle, &right);
-    b = 0;
-    yinc = PIXELS * tan(angle);
-	xinc = PIXELS;
-    cur_psx = floor(exec->ply.px / PIXELS) * PIXELS;
-    if (!right)
-		cur_psx += PIXELS;
-    cur_psy = exec->ply.py - ((exec->ply.px - cur_psx) * tan(angle));
-	if (up)
-		yinc *= -1;
-	if (right)
-	{
+	fix_current_angle(&angle);
+	cur_psy = floor(exec->ply.py / PIXELS) * PIXELS;
+	fix_hinc_status(&xinc, &yinc, angle, &cur_psy);
+	cur_psx = exec->ply.px - ((exec->ply.py - cur_psy) / tan(angle));
+	if (yinc < 0)
 		b = -1;
-		xinc *= -1;
+	while (cur_psx > 0 && cur_psx < exec->info.win_wid
+		&& cur_psy > 0 && cur_psy < exec->info.win_hei)
+	{
+		if (exec->info.map[(int)floor(((cur_psy + b) / PIXELS))]
+			[(int)floor(((cur_psx) / PIXELS))] == '1')
+			break ;
+		cur_psy += yinc;
+		cur_psx += xinc;
 	}
+	ray->ds = (sqrt((pow((cur_psx - exec->ply.px), 2))
+				+ (pow((cur_psy - exec->ply.py), 2))));
+	ray->dx = cur_psx;
+	ray->dy = cur_psy;
+}
+
+static void	fix_vinc_status(float *xinc, float *yinc, float angle, float *px)
+{
+	char	up;
+	char	right;
+
+	it_is_up_or_down(angle, &up);
+	it_is_left_or_right(angle, &right);
+	*yinc = PIXELS * tan(angle);
+	*xinc = PIXELS;
+	if (!right)
+		*px += PIXELS;
+	if (up)
+		*yinc *= -1;
+	if (right)
+		*xinc *= -1;
 	if (up && tan(angle) < 0)
-		yinc *= -1;
+		*yinc *= -1;
 	else if (!up && tan(angle) < 0)
-		yinc *= -1;
-    while(cur_psy > 0 && cur_psx > 0 && cur_psx < exec->info.win_wid && cur_psy < exec->info.win_hei)
-    {
-        if (exec->info.map[(int)floor(((cur_psy)/ PIXELS))][(int)floor(((cur_psx + b) / PIXELS))] == '1')
-            break ; 
+		*yinc *= -1;
+}
+
+void	find_vertical_inter(float angle, t_exec *exec, t_ray *ray, char b)
+{
+	float	cur_psx;
+	float	cur_psy;
+	float	yinc;
+	float	xinc;
+
+	fix_current_angle(&angle);
+	cur_psx = floor(exec->ply.px / PIXELS) * PIXELS;
+	fix_vinc_status(&xinc, &yinc, angle, &cur_psx);
+	cur_psy = exec->ply.py - ((exec->ply.px - cur_psx) * tan(angle));
+	if (xinc < 0)
+		b = -1;
+	while (cur_psy > 0 && cur_psx > 0 && cur_psx < exec->info.win_wid
+		&& cur_psy < exec->info.win_hei)
+	{
+		if (exec->info.map[(int)floor(((cur_psy) / PIXELS))]
+			[(int)floor(((cur_psx + b) / PIXELS))] == '1')
+			break ;
 		cur_psx += xinc;
 		cur_psy += yinc;
-    }
-    ray->ds = (sqrt((pow((cur_psx - exec->ply.px), 2)) + (pow((cur_psy - exec->ply.py), 2))));
-    ray->dx = cur_psx;
-    ray->dy = cur_psy;
-    return (ray->ds);
+	}
+	ray->ds = (sqrt((pow((cur_psx - exec->ply.px), 2))
+				+ (pow((cur_psy - exec->ply.py), 2))));
+	ray->dx = cur_psx;
+	ray->dy = cur_psy;
 }
 
-int ray_casting(t_exec *exec)
+void	ray_casting(t_exec *exec)
 {
-    float  angle;
-    float  i ;
-    float  inc;
-    t_ray ray[exec->info.win_wid];
+	float			angle;
+	float			i;
+	float			inc;
+	t_ray			ray[1];
+	unsigned int	c;
 
-    int     c;
-
-    inc = exec->ply.rays_inc;
-    c = 0;
-    i = 0;
-    while((int)i <= (AOV) && c < (int)exec->info.win_wid)
-    {
-        angle = exec->ply.rotangle - (degree_to_rad((AOV / 2) - i));
-		fill_ray_information(exec, &ray[c], angle);
-        if ((int)i == 30){
-            exec->ray90.ds = ray[c].ds;
-            exec->ray90.dx = ray[c].dx;
-            exec->ray90.dy = ray[c].dy;
-        }
-        draw_the_walls22(c, exec, angle, &ray[c]);
-        c++;
-        i += inc;
-    }
-    return (0);
+	inc = exec->ply.rays_inc;
+	c = 0;
+	i = 0;
+	while ((int)i <= (AOV) && c < exec->info.win_wid)
+	{
+		angle = exec->ply.rotangle - (degree_to_rad((AOV / 2) - i));
+		fill_ray_information(exec, &ray[0], angle);
+		if ((int)i == 30)
+		{
+			exec->ray90.ds = ray[0].ds;
+			exec->ray90.dx = ray[0].dx;
+			exec->ray90.dy = ray[0].dy;
+		}
+		draw_the_walls22(c, exec, angle, &ray[0]);
+		c++;
+		i += inc;
+	}
 }
