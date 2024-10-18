@@ -6,15 +6,49 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:17:41 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/16 14:18:19 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:23:39 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
+int	start_cub(char **av)
+{
+	t_exec	exec;
+
+	if (init_structs(&exec, av) < 0)
+		return (-1);
+	if (creat_and_start_awindow(&exec) < 0)
+		return (gc_free_all(), -1);
+	draw_map(&exec, PIXELS, 0);
+	set_player_info(&exec);
+	ray_casting(&exec);
+	exec.ms.xangle = exec.ply.rotangle;
+	exec.ms.sensitivity = 0.001;
+	mlx_loop_hook(exec.mlx, mouse_fun, &exec);
+	mlx_key_hook(exec.mlx, &catch_moves, &exec);
+	mlx_close_hook(exec.mlx, clean_and_exit, &exec);
+	mlx_loop(exec.mlx);
+	mlx_terminate(exec.mlx);
+	return (0);
+}
+
+int	check_extention(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	if (str[i - 1] != 'b' || str[i - 2] != 'u'
+		|| str[i - 3] != 'c' || str[i - 4] != '.')
+		return (1);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
-	if (ac != 2)
+	if (ac != 2 || ac > 3)
 		return (write(0, "error\ninvalid argument\n", 23), 1);
 	if (check_extention(av[1]))
 		return (write(0, "error\ninvalid extention\n", 24), 1);
