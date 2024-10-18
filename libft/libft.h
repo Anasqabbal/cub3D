@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:09:28 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/30 13:54:35 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:04:40 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	*my_memcpy(void *dst, const void *src, size_t n);
 char	*to_join(char *s1, char *s2, int indice);
 void	*my_calloc(size_t count, size_t size);
 
-/*-----------------------------*/
 typedef struct s_garb
 {
 	void *ptr;

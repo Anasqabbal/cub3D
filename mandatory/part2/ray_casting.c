@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 16:27:29 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:55:32 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,6 @@ void	ray_casting(t_exec *exec)
 	{
 		angle = exec->ply.rotangle - (degree_to_rad((AOV / 2) - i));
 		fill_ray_information(exec, &ray[0], angle);
-		if ((int)i == 30)
-		{
-			exec->ray90.ds = ray[0].ds;
-			exec->ray90.dx = ray[0].dx;
-			exec->ray90.dy = ray[0].dy;
-		}
 		draw_the_walls22(c, exec, angle, &ray[0]);
 		c++;
 		i += inc;

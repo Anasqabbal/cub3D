@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:03:28 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/10/18 17:04:26 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:49:31 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,5 @@ void *gc_malloc(int size)
     *head = node;
     return ptr;
 }
+
 

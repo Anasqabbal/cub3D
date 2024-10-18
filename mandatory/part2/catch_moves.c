@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 15:17:16 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:52:23 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	catch_moves(mlx_key_data_t key, void *p)
 	else if (key.key == MLX_KEY_ESCAPE || key.key == MLX_KEY_Q)
 		clean_and_exit(exec);
 	ray_casting(exec);
-	draw_mini_map(exec);
 	if (key.key == MLX_KEY_E)
 		show_2dmap(exec);
 }

@@ -6,11 +6,11 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:21:40 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 14:39:20 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:45:53 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "../cub3d_bonus.h"
 
 void mouse_fun(void *ptr)
 {

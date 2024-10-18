@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 17:06:09 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:55:03 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,7 @@ typedef struct s_tex
 	void	*flr;
 	void	*wall;
 	t_ply	ply;
-
 } t_tex;
-
-typedef struct s_ms
-{
-	int		prevx;
-	int		prevy;
-	int		curx;
-	int		cury;
-	float	sensitivity;
-	float	xangle;
-}t_ms;
 
 typedef struct s_exec
 {
@@ -104,17 +93,12 @@ typedef struct s_exec
 	t_ply		ply;
 	t_texture	text;
 	t_cub		cub;
-	/* bonus */
-	t_ray		ray90; /*for door*/
-	t_ms		ms;    /*for mouse*/
 	char		**av;
 	int			i;
 }	t_exec;
 
 
-int ft_check_walls(t_exec *exec, int ind);
-
-
+int		ft_check_walls(t_exec *exec, int ind);
 int		read_file(char **av, t_cub *cub, t_texture *texture);
 int     init_info_struct(t_info *info, t_cub *cub, t_texture *text);
 int		init_structs(void *ptr, char **av);
@@ -129,11 +113,8 @@ void    move_up(t_exec *exec);
 void	move_right(t_exec *exec, char ind);
 void	move_down(t_exec *exec);
 void	clean_and_exit(void *ptr);
-
 float	degree_to_rad(float deg);
-int 	ft_dda_algo(t_exec *exec, float endy, float endx);
 float	rad_to_degree(float rad);
-void	bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec);
 void	ray_casting(t_exec *exec);
 void	fill_ray_information(t_exec *exec, t_ray *ray, float angle);
 void	it_is_left_or_right(float angle, char *value);
@@ -146,12 +127,6 @@ float	fixing_fichbowl(float ds, float angle, t_exec *exec);
 void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray);
 void	fix_current_angle(float *angle);
 int		one_of_these(char c);
-
-/*bonus part to remove from this mandatory */
-void    draw_mini_map(t_exec *exec);
-float		get_persent(float value, float new);
-void	mouse_fun(void *ptr);
-
 float	ft_abs(float nm);
 
 #endif

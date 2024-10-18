@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:35:55 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/10/18 17:23:59 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:53:58 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,6 @@ int parsing_map(t_cub *cub, int len)
 		i++;
 	}
 	cub->len_h = i;
-	printf("%d\n\n\n", i);
 	return 0;	
 }
 int read_textures_colors(t_cub *cub, int fd ,t_texture *texture)

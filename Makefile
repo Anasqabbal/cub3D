@@ -20,55 +20,49 @@ SRC=  ./mandatory/cub.c  $(PART2) $(PART1)
 SRCB = ./bonus/cub_bonus.c $(PART1B) $(PART2B)
 OBJ=$(SRC:.c=.o)
 OBJB=$(SRCB:.c=.o)
-LIBFT=./libft/libft.a
-LIBFT_PATH=./libft
-LIBFT_LINUX=./libft_linux
-INCLUDES=./libft/libft.h cub3d.h
-USE=$(echo anqabbal)
-FRAMEWORK= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/anqabbal/.brew/opt/glfw/lib/"
+LIBFT=./libft
+INCLUDES= ./mandatory/cub3d.h
+INCLUDESB= ./mandatory/cub3d_bonus.h
+FRAMEWORK= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 NWMLX = ./MLX42/build/libmlx42.a
-MLX_PATH = ./minilibx-linux
-MLX=$(MLX_PATH)/libmlx_Linux.a
-LINUX= -lX11 -lXext -lXrandr
-SYSTEM=$(uname)
 
-all : libf  $(NAME)
+all : mlx libf  $(NAME)
 
-bonus : libf  $(BONUS)
+bonus : mlx libf $(BONUS)
 
 mlx :
 	make -C ./MLX42/build
 
 libf :
-	make -C $(LIBFT_PATH)
-
-
-$(BONUS) : $(OBJB)
-	$(CC) $(FLAGS) $(OBJB) $(LIBFT) $(FRAMEWORK) $(NWMLX) -o $@
+	@make -C $(LIBFT)
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(FRAMEWORK) $(NWMLX) -o $@
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT)/libft.a $(FRAMEWORK) $(NWMLX) -o $@
 
-%_bonus.o : %_bonus.c
+$(BONUS) : $(OBJB)
+	$(CC) $(FLAGS) $(OBJB) $(LIBFT)/libft.a $(FRAMEWORK) $(NWMLX) -o $@
+
+%_bonus.o : $(INCLUDESB) $(NWMLX) $(LIBFT)/libft.a
 	$(CC) $(FLAGS) -c $< -o $@
 
-%.o : %.c $(INCLUDES)
+%.o : %.c $(INCLUDES) $(NWMLX) $(LIBFT)/libft.a
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean :
-	@make -C $(LIBFT_PATH) $@
-	rm -f $(OBJ)
-	rm -f $(OBJB)
+	@make -C $(LIBFT) $@
+	@rm -f $(OBJ)
+	@rm -f $(OBJB)
 
 fclean : clean
-	@make -C $(LIBFT_PATH) $@
-	# rm -f $(NAME)
+	@make -C $(LIBFT) $@
+	@rm -f $(NAME)
+	@rm -f $(BONUS)
 
 re : fclean all
 
 .PHONY : clean
 
-#  all : libf mlx  $(NAME)
+# LINUX= -lX11 -lXext -lXrandr
 
 # libf :
 # 	make -C $(LIBFT_LINUX)
