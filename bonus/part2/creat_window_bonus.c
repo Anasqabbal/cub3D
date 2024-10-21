@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:05:30 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 17:19:40 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:39:23 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	creat_and_start_awindow(t_exec *exec)
 {
+	exec->info.win_hei = 720;
+	exec->info.win_wid = 1280;
 	exec->mlx = mlx_init(exec->info.win_wid, exec->info.win_hei, "cub3D", true);
 	if (!exec->mlx)
 		return (-1);

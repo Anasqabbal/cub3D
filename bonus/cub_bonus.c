@@ -6,11 +6,27 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:17:41 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 17:23:39 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:05:20 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
+
+mlx_image_t *ft_texture(t_exec *exec, char *path_texture)
+{
+    mlx_texture_t *texture;
+    mlx_image_t *image;
+    texture = mlx_load_png(path_texture);
+    if (!texture)
+	{
+		write(2,"Error\nIn valid path",19);
+		printf("'%s'", path_texture);
+		clean_and_exit(exec);
+	}
+    image = mlx_texture_to_image(exec->mlx, texture);
+	mlx_delete_texture(texture);
+    return image;
+}
 
 int	start_cub(char **av)
 {
@@ -20,13 +36,17 @@ int	start_cub(char **av)
 		return (-1);
 	if (creat_and_start_awindow(&exec) < 0)
 		return (gc_free_all(), -1);
-	draw_map(&exec, PIXELS, 0);
 	set_player_info(&exec);
+	exec.no = ft_texture(&exec, exec.text.NO);
+    exec.so = ft_texture(&exec, exec.text.SO);
+    exec.we = ft_texture(&exec, exec.text.WE);
+    exec.ea = ft_texture(&exec, exec.text.EA);
+    exec.d = ft_texture(&exec, "./png/door.png");
+	exec.wp = ft_texture(&exec, "./png/wp.png");
 	ray_casting(&exec);
-	exec.ms.xangle = exec.ply.rotangle;
 	exec.ms.sensitivity = 0.001;
-	mlx_loop_hook(exec.mlx, mouse_fun, &exec);
 	mlx_key_hook(exec.mlx, &catch_moves, &exec);
+	mlx_loop_hook(exec.mlx, mouse_fun, &exec);
 	mlx_close_hook(exec.mlx, clean_and_exit, &exec);
 	mlx_loop(exec.mlx);
 	mlx_terminate(exec.mlx);

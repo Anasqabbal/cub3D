@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:05:30 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 15:36:24 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/20 09:47:16 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	creat_and_start_awindow(t_exec *exec)
 {
-	exec->mlx = mlx_init(exec->info.win_wid, exec->info.win_hei, "cub3D", true);
+	exec->mlx = mlx_init(exec->info.map_wid, exec->info.map_hei, "cub3D", true);
 	if (!exec->mlx)
 		return (-1);
 	exec->wind_image = mlx_new_image(exec->mlx,
-			exec->info.win_wid, exec->info.win_hei);
+			exec->info.map_wid, exec->info.map_hei);
 	if (!exec->wind_image)
 		return (mlx_terminate(exec->mlx), -1);
 	if (mlx_image_to_window(exec->mlx, exec->wind_image, 0, 0))

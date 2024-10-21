@@ -22,7 +22,7 @@ OBJ=$(SRC:.c=.o)
 OBJB=$(SRCB:.c=.o)
 LIBFT=./libft
 INCLUDES= ./mandatory/cub3d.h
-INCLUDESB= ./mandatory/cub3d_bonus.h
+INCLUDESB= ./bonus/cub3d_bonus.h
 FRAMEWORK= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 NWMLX = ./MLX42/build/libmlx42.a
 
@@ -42,7 +42,7 @@ $(NAME) : $(OBJ)
 $(BONUS) : $(OBJB)
 	$(CC) $(FLAGS) $(OBJB) $(LIBFT)/libft.a $(FRAMEWORK) $(NWMLX) -o $@
 
-%_bonus.o : $(INCLUDESB) $(NWMLX) $(LIBFT)/libft.a
+%_bonus.o : %_bonus.c $(INCLUDESB) $(NWMLX) $(LIBFT)/libft.a
 	$(CC) $(FLAGS) -c $< -o $@
 
 %.o : %.c $(INCLUDES) $(NWMLX) $(LIBFT)/libft.a

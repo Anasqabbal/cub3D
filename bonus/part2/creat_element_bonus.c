@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 17:19:38 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:11:20 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	draw_the_walls(t_exec *exec, unsigned int y, unsigned int x, int var)
 			if (yy != 0 && xx > 0)
 				mlx_put_pixel(exec->wind_image, x + xx, y + yy, 0x00190fff);
 			else
-				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
+					mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
 			xx++;
 		}
 		yy++;
@@ -94,11 +94,15 @@ void	draw_map(t_exec *exec, int var, int new_y)
 {
 	int	y;
 	int	x;
+	int i;
+	int px;
 
 	y = 0;
+	i = 0;
 	while (exec->info.map[y])
 	{
 		x = 0;
+		i = 0;
 		while (exec->info.map[y][x])
 		{
 			if (exec->info.map[y][x] == '1')
@@ -106,10 +110,14 @@ void	draw_map(t_exec *exec, int var, int new_y)
 			else if (exec->info.map[y][x] == '0')
 				draw_the_floor(exec, (y * var) + new_y, x * var, var);
 			else if (!one_of_these(exec->info.map[y][x]))
+			{
+				px = i * var;
 				draw_the_floor(exec, (y * var) + new_y, x * var, var);
+			}
 			else
 				draw_empty_space(exec, (y * var) + new_y, x * var, var);
 			x++;
+			i++;
 		}
 		y++;
 	}

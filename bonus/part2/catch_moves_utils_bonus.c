@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:18:47 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 17:19:35 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:37:52 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,36 @@ void	clean_and_exit(void *ptr)
 	mlx_terminate(exec->mlx);
 	exit (0);
 }
+char the_old_one(t_exec *exec, float oldy, float oldx)
+{
+	if (exec->info.old_map[(int)floor(oldy / PIXELS)][(int)floor(oldx / PIXELS)] == 'D')
+		return ('D');
+	else
+		return ('0');
+}
+
+void update_player_pos(t_exec *exec, float oldx, float oldy)
+{
+	exec->info.map[(int)floor(oldy / PIXELS)][(int)floor(oldx / PIXELS)] = the_old_one(exec, oldy, oldx);
+	exec->info.map[(int)floor(exec->ply.py / PIXELS)][(int)floor(exec->ply.px / PIXELS)] = exec->ply.ply_char;
+}
 
 void	move_left(t_exec *exec, char ind)
 {
 	if (ind == 0)
 	{
+		float	oldx;
+		float	oldy;
+
 		if (!ft_check_walls(exec, 0))
 			return ;
+		oldx = exec->ply.px;
+		oldy = exec->ply.py;
 		exec->ply.py -= (sin(exec->ply.rotangle
 					- degree_to_rad(90)) * exec->ply.move_inc);
 		exec->ply.px -= (cos(exec->ply.rotangle
 					- degree_to_rad(90)) * exec->ply.move_inc);
+		update_player_pos(exec, oldx, oldy);
 	}
 	else
 	{
@@ -42,24 +61,37 @@ void	move_left(t_exec *exec, char ind)
 	}
 }
 
+
 void	move_up(t_exec *exec)
 {
+	float	oldx;
+	float	oldy;
+
 	if (!ft_check_walls(exec, 1))
 		return ;
+	oldx = exec->ply.px;
+	oldy = exec->ply.py;
 	exec->ply.py -= (sin(exec->ply.rotangle) * exec->ply.move_inc);
 	exec->ply.px -= (cos(exec->ply.rotangle) * exec->ply.move_inc);
+	update_player_pos(exec, oldx, oldy);
 }
 
 void	move_right(t_exec *exec, char ind)
 {
 	if (ind == 0)
 	{
+		float	oldx;
+		float	oldy;
+
 		if (!ft_check_walls(exec, 2))
 			return ;
+		oldx = exec->ply.px;
+		oldy = exec->ply.py;
 		exec->ply.py -= (sin(exec->ply.rotangle
 					+ degree_to_rad(90)) * exec->ply.move_inc);
 		exec->ply.px -= (cos(exec->ply.rotangle
 					+ degree_to_rad(90)) * exec->ply.move_inc);
+		update_player_pos(exec, oldx, oldy);
 	}
 	else
 	{
@@ -71,8 +103,14 @@ void	move_right(t_exec *exec, char ind)
 
 void	move_down(t_exec *exec)
 {
+	float	oldx;
+	float	oldy;
+
 	if (!ft_check_walls(exec, 3))
 		return ;
+	oldx = exec->ply.px;
+	oldy = exec->ply.py;
 	exec->ply.py += (sin(exec->ply.rotangle) * exec->ply.move_inc);
 	exec->ply.px += (cos(exec->ply.rotangle) * exec->ply.move_inc);
+	update_player_pos(exec, oldx, oldy);
 }

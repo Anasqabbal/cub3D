@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:24:24 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 17:19:51 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:49:09 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	fill_ray_information(t_exec *exec, t_ray *ray, float angle)
 {
 	t_ray	rays[2];
 
+	rays[0].d = 0;
+	rays[1].d = 0;
 	find_horizontal_inter(angle, exec, &rays[0], 0);
 	find_vertical_inter(angle, exec, &rays[1], 0);
 	rays[0].ds = fixing_fichbowl(rays[0].ds, angle, exec);
@@ -26,6 +28,7 @@ void	fill_ray_information(t_exec *exec, t_ray *ray, float angle)
 		ray->dx = rays[0].dx;
 		ray->dy = rays[0].dy;
 		ray->ds = rays[0].ds;
+		ray->d = rays[0].d;
 		ray->hv = 1;
 	}
 	else
@@ -33,6 +36,7 @@ void	fill_ray_information(t_exec *exec, t_ray *ray, float angle)
 		ray->dx = rays[1].dx;
 		ray->dy = rays[1].dy;
 		ray->ds = rays[1].ds;
+		ray->d = rays[1].d;
 		ray->hv = 0;
 	}
 }

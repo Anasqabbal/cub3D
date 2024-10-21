@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:14:44 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 17:19:46 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:58:04 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	set_player_angle(t_exec *exec, char c)
 		exec->ply.rotangle = degree_to_rad(180);
 	else if (c == 'E')
 		exec->ply.rotangle = degree_to_rad(0);
+	exec->ply.ply_char = c;
 }
 
 void	set_player_info(t_exec *exec)
@@ -53,9 +54,14 @@ void	set_player_info(t_exec *exec)
 
 int	init_info_struct(t_info *info, t_cub *cub, t_texture *text)
 {
+	int	i;
+
+	i = -1;
 	info->map = text->map;
-	info->win_wid = cub->len * PIXELS;
-	info->win_hei = cub->len_h * PIXELS;
+	while(info->map[++i])
+		info->old_map[i] = ft_strdup1(info->map[i]);
+	info->map_wid = cub->len * PIXELS;
+	info->map_hei = cub->len_h * PIXELS;
 	info->flr_cl = 0x04ed93ff;
 	info->clg_cl = 0x00190fff;
 	return (0);

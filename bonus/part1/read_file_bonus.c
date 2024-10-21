@@ -6,15 +6,15 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:35:55 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/10/18 17:53:58 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:13:25 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d_bonus.h"
 
-int switch_RGB_hex(int color[3])
+int switch_RGB_hex(int color[3], int a)
 {
-	return ((color[0] << 16 | color[1] << 8) | color[2]);
+	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | a);
 }
 
 int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
@@ -87,8 +87,7 @@ int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
 				return (printf("error\nthis number {%d} > 255\n",texture->F[i]), 1);
 			i++;
 		}
-		// texture->F_color = switch_RGB_hex(texture->F);
-		// printf("Hexadecimal: 0x%X\n", texture->F_color);
+		texture->F_color = switch_RGB_hex(texture->F, 255);
 	}
 	if (str[j] == 'C')
 	{
@@ -100,6 +99,7 @@ int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
 				return (printf("error\nthis number {%d} > 255\n",texture->C[i]), 1);
 			i++;
 		}
+		texture->C_color = switch_RGB_hex(texture->C, 255);
 	}
 	return 0;
 }
@@ -173,11 +173,11 @@ int check_valid_map(char **map, int i, int count)
 		j = 0;
 		while (map[i][j])
 		{
-			/*count map is have this caracters '1' '0' ' ' 'S' 'W' 'N' 'E' */
+			/*count map is have this caracters '1' '0' ' ' 'S' 'W' 'N' 'E' 'D'*/
 			if (map[i][j] != '1' && map[i][j] != '0'
 				&& map[i][j] != ' ' && map[i][j] != 'N'
 				&& map[i][j] != 'S' && map[i][j] != 'E'
-				&& map[i][j] != 'W')
+				&& map[i][j] != 'W' && map[i][j] != 'D')
 				return (printf("Error\ninvalid caracter '%c' in map\n", map[i][j]),1);
 			/*count player*/
 			if (map[i][j] == 'S'
@@ -197,7 +197,7 @@ int check_valid_map(char **map, int i, int count)
 int is_invalid(char **map, int i, size_t j)
 {
     return (
-        ((i == 0 || j == 0) && map[i][j] == '0') ||
+        ((i == 0 || j == 0) && (map[i][j] != '1')) ||
         (map[i][j + 1] == ' ' || map[i][j - 1] == ' '|| map[i][j + 1] == '\0') ||
         ((map[i - 1][j] == ' ' || map[i - 1][j] == '\0')) ||
         (map[i + 1] == NULL || (map[i + 1][j] == ' ' || map[i + 1][j] == '\0'))
@@ -237,12 +237,16 @@ int parsing_map(t_cub *cub, int len)
 		}
 		while (cub->map1[i][j])
 		{
+			
 			if ((cub->map1[i][j] == '0' 
-				|| cub->map1[i][j] == 'N' 
+				|| cub->map1[i][j] == 'N'
 				|| cub->map1[i][j] == 'W' 
 				|| cub->map1[i][j] == 'E' 
-				|| cub->map1[i][j] == 'S')
+				|| cub->map1[i][j] == 'S'
+				|| cub->map1[i][j] == 'D')
 				&& is_invalid(cub->map1, i ,j))
+				return (printf("NOT VALID ==> %s\n", cub->map1[i]),1);
+			else if (cub->map1[i][j] == 'D' && (cub->map1[i][j + 1] == '0' && cub->map1[i][j - 1] == '0'&& cub->map1[i + 1][j] == '0' &&  cub->map1[i - 1][j]  == '0' ))
 				return (printf("NOT VALID ==> %s\n", cub->map1[i]),1);
 			j++;
 		}

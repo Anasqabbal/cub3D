@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 17:55:03 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:18:24 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ typedef struct s_texture
 typedef struct s_info
 {
 	char			*path;
-	unsigned int	win_hei;
-	unsigned int	win_wid;
+	unsigned int	map_hei;
+	unsigned int	map_wid;
 	char			**map;
 	int				flr_cl;
 	int				clg_cl;
@@ -95,6 +95,12 @@ typedef struct s_exec
 	t_cub		cub;
 	char		**av;
 	int			i;
+	mlx_image_t	*image;
+	mlx_image_t *we;
+    mlx_image_t *no;
+    mlx_image_t *so;
+    mlx_image_t *ea;
+    mlx_image_t *d;
 }	t_exec;
 
 

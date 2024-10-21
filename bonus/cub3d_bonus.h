@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:04:58 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 17:21:07 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:39:37 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # define AOV 60
 # define PIXELS 60
-# define SPEED 10
+# define SPEED 15
 # define VIEW_SPEED 10 * (M_PI / 180);
 
 typedef struct s_cub
@@ -51,8 +51,11 @@ typedef struct s_texture
 typedef struct s_info
 {
 	char			*path;
+	unsigned int	map_hei;
+	unsigned int	map_wid;
 	unsigned int	win_hei;
 	unsigned int	win_wid;
+	char			**old_map;
 	char			**map;
 	int				flr_cl;
 	int				clg_cl;
@@ -67,6 +70,7 @@ typedef struct s_ply
 	float		rays;
 	float		rays_inc;
 	float		move_inc;
+	char		ply_char;
 } t_ply;
 
 typedef struct s_ray
@@ -75,16 +79,8 @@ typedef struct s_ray
 	float	dx;
 	float	dy;
 	char	hv;
+	int		d;
 } t_ray;
-
-typedef struct s_tex
-{
-	void	*image;
-	void	*flr;
-	void	*wall;
-	t_ply	ply;
-
-} t_tex;
 
 typedef struct s_ms
 {
@@ -93,7 +89,6 @@ typedef struct s_ms
 	int		curx;
 	int		cury;
 	float	sensitivity;
-	float	xangle;
 }t_ms;
 
 typedef struct s_exec
@@ -104,17 +99,22 @@ typedef struct s_exec
 	t_ply		ply;
 	t_texture	text;
 	t_cub		cub;
-	/* bonus */
-	t_ray		ray90; /*for door*/
-	t_ms		ms;    /*for mouse*/
+	mlx_image_t	*image;
+	mlx_image_t *we;
+    mlx_image_t *no;
+    mlx_image_t *so;
+    mlx_image_t *ea;
+    mlx_image_t *d;
+	mlx_image_t *wp;
+	t_ms		ms;
 	char		**av;
 	int			i;
+	char 		dopen;
 }	t_exec;
 
+void	draw_the_player(t_exec *exec, int var, int new_y);
 
-int ft_check_walls(t_exec *exec, int ind);
-
-
+int		ft_check_walls(t_exec *exec, int ind);
 int		read_file(char **av, t_cub *cub, t_texture *texture);
 int     init_info_struct(t_info *info, t_cub *cub, t_texture *text);
 int		init_structs(void *ptr, char **av);
@@ -131,9 +131,7 @@ void	move_down(t_exec *exec);
 void	clean_and_exit(void *ptr);
 
 float	degree_to_rad(float deg);
-int 	ft_dda_algo(t_exec *exec, float endy, float endx);
 float	rad_to_degree(float rad);
-void	bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec);
 void	ray_casting(t_exec *exec);
 void	fill_ray_information(t_exec *exec, t_ray *ray, float angle);
 void	it_is_left_or_right(float angle, char *value);
@@ -149,7 +147,7 @@ int		one_of_these(char c);
 
 /*bonus part to remove from this mandatory */
 void    draw_mini_map(t_exec *exec);
-float		get_persent(float value, float new);
+float	get_persent(float value, float new);
 void	mouse_fun(void *ptr);
 
 float	ft_abs(float nm);
