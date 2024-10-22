@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:04:16 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/22 17:50:31 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:13:37 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,28 @@ float adj_dimensions(t_exec *exec, int ind, int fl)
 	return (get_persent(dt, 16));
 }
 
+float bx(float angle)
+{
+	char righ;
+
+	it_is_left_or_right(angle, &righ);
+	if (righ)
+		return (-1);
+	else 
+		return (1);
+}
+
+float by(float angle)
+{
+	char up;
+
+	it_is_up_or_down(angle, &up);
+	if (up)
+		return (-1);
+	else 
+		return (1);
+}
+
 void	draw_the_player(t_exec *exec, int var, int new_y)
 {
 	float	i;
@@ -70,12 +92,13 @@ void	draw_the_player(t_exec *exec, int var, int new_y)
 		nx = exec->ply.px / get_persent(PIXELS, 10);
 		nxxx = exec->mm.px + (adj_dimensions(exec, 0, 0));
 		pyyy = exec->mm.py + (adj_dimensions(exec, 1, 0)) + new_y;
+		mlx_put_pixel(exec->wind_image, (int)nxxx, (int)pyyy, 0x6e022cff);
 		while (i < get_persent(PIXELS, 3) && nx > 0 && ny > 0  && nx < exec->info.win_wid)
 		{
-			if (!floor_or_door(exec->info.map[(int)floor((ny - new_y) / var)][(int)floor((nx) / var)]))
+			if (!floor_or_door(exec->info.map[(int)floor(((ny - new_y) + (by(new_angle) / 10)) / var)][(int)floor((nx + (bx(new_angle) / 10)) / var)]))
 				break ;
 			// if (floor_or_door(exec->info.map[(int)floor((pyyy - new_y) / var)][(int)floor((nxxx) / var)]))
-				mlx_put_pixel(exec->wind_image, (int)nxxx, (int)pyyy, 0x6e022cff);
+			mlx_put_pixel(exec->wind_image, (int)nxxx, (int)pyyy, 0x6e022cff);
 			nx -= cos(new_angle) * 0.1;
 			nxxx -= cos(new_angle) * 0.1;
 			pyyy -= sin(new_angle) * 0.1;
