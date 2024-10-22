@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:14:44 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/21 17:58:04 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:09:40 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,11 @@ int	init_info_struct(t_info *info, t_cub *cub, t_texture *text)
 
 	i = -1;
 	info->map = text->map;
+	info->old_map = gc_malloc(sizeof(char *) * cub->len_h);
+		if (!info->old_map)
+			return (-1);
 	while(info->map[++i])
-		info->old_map[i] = ft_strdup1(info->map[i]);
+		info->old_map[i] = ft_strdup1(text->map[i]);
 	info->map_wid = cub->len * PIXELS;
 	info->map_hei = cub->len_h * PIXELS;
 	info->flr_cl = 0x04ed93ff;

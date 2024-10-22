@@ -14,7 +14,7 @@ PART2B = ./bonus/part2/utils1_bonus.c ./bonus/part2/ray_casting_utils_bonus.c ./
 		 ./bonus/part2/creat_window_bonus.c ./bonus/part2/creat_element_bonus.c\
 		 ./bonus/part2/init_structs_bonus.c ./bonus/part2/catch_moves_bonus.c\
 		 ./bonus/part2/catch_moves_utils_bonus.c ./bonus/part2/ft_check_walls_bonus.c\
-		 ./bonus/part2/minimap_bonus.c ./bonus/part2/mouse_bonus.c
+		 ./bonus/part2/minimap_bonus.c ./bonus/part2/mouse_bonus.c ./bonus/part2/minimap_utils_bonus.c
 
 SRC=  ./mandatory/cub.c  $(PART2) $(PART1)
 SRCB = ./bonus/cub_bonus.c $(PART1B) $(PART2B)
@@ -24,25 +24,25 @@ LIBFT=./libft
 INCLUDES= ./mandatory/cub3d.h
 INCLUDESB= ./bonus/cub3d_bonus.h
 FRAMEWORK= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
-NWMLX = ./MLX42/build/libmlx42.a
+MLX = ./MLX42/build
 
 all : mlx libf  $(NAME)
 
 bonus : mlx libf $(BONUS)
 
 mlx :
-	make -C ./MLX42/build
+	make -C $(MLX)
 
 libf :
 	@make -C $(LIBFT)
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT)/libft.a $(FRAMEWORK) $(NWMLX) -o $@
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT)/libft.a $(FRAMEWORK) $(MLX)/libmlx42.a -o $@
 
 $(BONUS) : $(OBJB)
-	$(CC) $(FLAGS) $(OBJB) $(LIBFT)/libft.a $(FRAMEWORK) $(NWMLX) -o $@
+	$(CC) $(FLAGS) $(OBJB) $(LIBFT)/libft.a $(FRAMEWORK) $(MLX)/libmlx42.a -o $@
 
-%_bonus.o : %_bonus.c $(INCLUDESB) $(NWMLX) $(LIBFT)/libft.a
+%_bonus.o : %_bonus.c $(INCLUDESB) $(MLX)/libmlx42.a $(LIBFT)/libft.a
 	$(CC) $(FLAGS) -c $< -o $@
 
 %.o : %.c $(INCLUDES) $(NWMLX) $(LIBFT)/libft.a
@@ -50,6 +50,7 @@ $(BONUS) : $(OBJB)
 
 clean :
 	@make -C $(LIBFT) $@
+	@make -C $(MLX) $@
 	@rm -f $(OBJ)
 	@rm -f $(OBJB)
 

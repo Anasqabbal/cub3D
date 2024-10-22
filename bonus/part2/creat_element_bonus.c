@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/21 18:11:20 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:47:47 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,31 +94,27 @@ void	draw_map(t_exec *exec, int var, int new_y)
 {
 	int	y;
 	int	x;
-	int i;
-	int px;
 
-	y = 0;
-	i = 0;
-	while (exec->info.map[y])
+	y = exec->mm.starty - 1;
+	exec->mm.j = -1;
+	while (exec->info.map[++y] && ++exec->mm.j < exec->mm.endy)
 	{
-		x = 0;
-		i = 0;
-		while (exec->info.map[y][x])
+		x = exec->mm.startx - 1;
+		exec->mm.i = 0;
+		while (exec->info.map[y][++x] && x < exec->mm.endx)
 		{
 			if (exec->info.map[y][x] == '1')
-				draw_the_walls(exec, (y * var) + new_y, x * var, var);
+				draw_the_walls(exec, (exec->mm.j * var) + new_y, (exec->mm.i++ * var), var);
 			else if (exec->info.map[y][x] == '0')
-				draw_the_floor(exec, (y * var) + new_y, x * var, var);
-			else if (!one_of_these(exec->info.map[y][x]))
+				draw_the_floor(exec, (exec->mm.j * var) + new_y, (exec->mm.i++ * var), var);
+			else if (exec->info.map[y][x] == exec->ply.ply_char)
 			{
-				px = i * var;
-				draw_the_floor(exec, (y * var) + new_y, x * var, var);
+				exec->mm.px = exec->mm.i * var;
+				exec->mm.py = exec->mm.j * var;
+				draw_the_floor(exec, (exec->mm.j * var) + new_y, (exec->mm.i++ * var), var);
 			}
 			else
-				draw_empty_space(exec, (y * var) + new_y, x * var, var);
-			x++;
-			i++;
+				draw_empty_space(exec, (exec->mm.j * var) + new_y, (exec->mm.i++ * var), var);
 		}
-		y++;
 	}
 }
