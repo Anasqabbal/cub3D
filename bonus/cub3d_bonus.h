@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:04:58 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/22 17:43:06 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:11:19 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define AOV 60
 # define PIXELS 60
 # define SPEED 10
-# define VIEW_SPEED 5 * (M_PI / 180);
+# define VIEW_SPEED 1 * (M_PI / 180);
 
 typedef struct s_cub
 {
@@ -161,6 +161,7 @@ int		one_of_these(char c);
 /*bonus part to remove from this mandatory */
 void    draw_mini_map(t_exec *exec);
 float	get_persent(float value, float new_v);
+// void	mouse_fun(void *ptr);
 void	mouse_fun(void *ptr);
 void	fill_xstart_end(t_exec *exec, int *start, int *end, int diff);
 void	fill_ystart_end(t_exec *exec, int *start, int *end, int diff);

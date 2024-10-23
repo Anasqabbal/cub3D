@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/22 14:01:33 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:22:18 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray)
     int y ;
     int x ;
     int color;
-    wall_heigh = ((PIXELS) / (ray->ds)) * (((exec->info.win_wid / 2) / tan(degree_to_rad(AOV / 2)))); /* the new heigh of the wall that you want to draw */
+    wall_heigh = ((PIXELS) / (ray->ds)) * (((exec->info.win_wid / 2) / tan(degree_to_rad(AOV / 2))));
     if (isinf(wall_heigh))
         wall_heigh = n;
     n = wall_heigh;
@@ -48,7 +48,7 @@ void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray)
     while((int)x++ < wall_heigh && x < (int)exec->info.win_hei)
     { 
         int top = y + (wall_heigh / 2) - (exec->info.win_hei / 2);
-        int ofsetY = top * ((double)PIXELS / wall_heigh);
+        int ofsetY = top * ((float)PIXELS / wall_heigh);
         o = ((PIXELS * ofsetY) + ofsetX) * 4;
         if (ray->hv == 0 && ((angle >= 0 && angle < M_PI_2) || (angle >= 3 * M_PI_2 && angle < 2 * M_PI)))
             color = (int)ft_pixel(exec->we->pixels[o], exec->we->pixels[o + 1], exec->we->pixels[o + 2], exec->we->pixels[o + 3]);
@@ -61,21 +61,9 @@ void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray)
         if (ray->d == 2)
             color = (int)ft_pixel(exec->d->pixels[o], exec->d->pixels[o + 1], exec->d->pixels[o + 2], exec->d->pixels[o + 3]);
         mlx_put_pixel(exec->wind_image, rx, y++, color);
-        
     }
-    while(y <= (int)exec->info.win_hei && y > x)
+    while(y <= (int)exec->info.win_hei && y >= x)
         mlx_put_pixel(exec->wind_image, rx, y++, exec->info.flr_cl);
-    (void)exec;
-}
-
-void	show_2dmap(t_exec *exec)
-{
-	draw_map(exec, PIXELS, 0);
-	mlx_put_pixel(exec->wind_image, exec->ply.px, exec->ply.py, 0xf54242f5);
-	mlx_put_pixel(exec->wind_image, exec->ply.px - 1, exec->ply.py, 0x5AFF055A);
-	mlx_put_pixel(exec->wind_image, exec->ply.px + 1, exec->ply.py, 0x5AFF055A);
-	mlx_put_pixel(exec->wind_image, exec->ply.px, exec->ply.py + 1, 0x5AFF055A);
-	mlx_put_pixel(exec->wind_image, exec->ply.px, exec->ply.py - 1, 0x5AFF055A);
 }
 
 void	catch_moves(mlx_key_data_t key, void *p)
@@ -97,6 +85,5 @@ void	catch_moves(mlx_key_data_t key, void *p)
 		move_left(exec, 0);
 	else if (key.key == MLX_KEY_ESCAPE || key.key == MLX_KEY_Q)
 		clean_and_exit(exec);
-	if (key.key == MLX_KEY_E)
-		show_2dmap(exec);
+    // mouse_fun(exec);
 }

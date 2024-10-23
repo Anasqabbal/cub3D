@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/19 15:42:36 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:27:49 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	start_cub(char **av)
     exec.d = ft_texture(&exec, "./png/door.png");
 	set_player_info(&exec);
 	ray_casting(&exec);
-	mlx_key_hook(exec.mlx, &catch_moves, &exec);
+	mlx_loop_hook(exec.mlx, &catch_moves, &exec);
 	mlx_close_hook(exec.mlx, clean_and_exit, &exec);
 	mlx_loop(exec.mlx);
 	mlx_terminate(exec.mlx);

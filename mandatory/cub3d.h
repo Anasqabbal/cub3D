@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/21 10:18:24 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:35:57 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 # define AOV 60
 # define PIXELS 60
-# define SPEED 10
-# define VIEW_SPEED 10 * (M_PI / 180);
+# define SPEED 5
+# define VIEW_SPEED 2 * (M_PI / 180);
 
 typedef struct s_cub
 {
@@ -53,6 +53,8 @@ typedef struct s_info
 	char			*path;
 	unsigned int	map_hei;
 	unsigned int	map_wid;
+	unsigned int	win_hei;
+	unsigned int	win_wid;
 	char			**map;
 	int				flr_cl;
 	int				clg_cl;
@@ -113,7 +115,7 @@ int		draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x, int var);
 int		draw_the_walls(t_exec *exec, unsigned int y,  unsigned int x, int var);
 void	set_player_info(t_exec *exec);
 void	draw_map(t_exec *exec, int var, int new_y);
-void	catch_moves(mlx_key_data_t key, void *p);
+void	catch_moves(void *p);
 void	move_left(t_exec *exec, char ind);
 void    move_up(t_exec *exec);
 void	move_right(t_exec *exec, char ind);

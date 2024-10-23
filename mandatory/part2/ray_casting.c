@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/20 09:47:16 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:15:14 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	ray_casting(t_exec *exec)
 	inc = exec->ply.rays_inc;
 	c = 0;
 	i = 0;
-	while ((int)i <= (AOV) && c < exec->info.map_wid)
+	while ((int)i <= (AOV) && c < exec->info.win_wid)
 	{
 		angle = exec->ply.rotangle - (degree_to_rad((AOV / 2) - i));
 		fix_current_angle(&angle);

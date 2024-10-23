@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:17:41 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/21 10:05:20 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:26:20 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@ int	start_cub(char **av)
 	if (creat_and_start_awindow(&exec) < 0)
 		return (gc_free_all(), -1);
 	set_player_info(&exec);
+	exec.ms.sensitivity = 0.1 / 30;
+	exec.ms.prevx = exec.info.win_wid / 2;
+    exec.ms.prevy = exec.info.win_hei / 2;
 	exec.no = ft_texture(&exec, exec.text.NO);
     exec.so = ft_texture(&exec, exec.text.SO);
     exec.we = ft_texture(&exec, exec.text.WE);
     exec.ea = ft_texture(&exec, exec.text.EA);
     exec.d = ft_texture(&exec, "./png/door.png");
 	exec.wp = ft_texture(&exec, "./png/wp.png");
-	ray_casting(&exec);
-	exec.ms.sensitivity = 0.001;
 	mlx_key_hook(exec.mlx, &catch_moves, &exec);
 	mlx_loop_hook(exec.mlx, mouse_fun, &exec);
 	mlx_close_hook(exec.mlx, clean_and_exit, &exec);
@@ -66,8 +67,11 @@ int	check_extention(char *str)
 	return (0);
 }
 
+void f(void){system("leaks cub3D_bonus");}
+
 int	main(int ac, char **av)
 {
+	// atexit(f);
 	if (ac != 2 || ac > 3)
 		return (write(0, "error\ninvalid argument\n", 23), 1);
 	if (check_extention(av[1]))
