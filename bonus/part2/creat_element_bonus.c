@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/23 12:09:36 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:27:08 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	draw_map(t_exec *exec, int var, int new_y)
 	int	x;
 
 	y = exec->mm.starty - 1;
-	exec->mm.j = -1;
-	while (exec->info.map[++y] && ++exec->mm.j < exec->mm.endy)
+	exec->mm.j = 0;
+	while (exec->mm.j < (exec->mm.endy - 1) && exec->info.map[++y])
 	{
 		x = exec->mm.startx - 1;
 		exec->mm.i = 0;
@@ -116,5 +116,6 @@ void	draw_map(t_exec *exec, int var, int new_y)
 			else
 				draw_empty_space(exec, (exec->mm.j * var) + new_y, (exec->mm.i++ * var), var);
 		}
+		exec->mm.j++;
 	}
 }

@@ -6,11 +6,19 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:24:24 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/23 16:14:37 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:00:23 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void to_bresenhams(t_exec *exec, t_ray *ray)
+{
+	exec->brs.ds = ray->ds;
+	exec->brs.hv = ray->hv;
+	exec->brs.dx = ray->dx;
+	exec->brs.dy = ray->dy;
+}
 
 void	fill_ray_information(t_exec *exec, t_ray *ray, float angle)
 {
@@ -35,6 +43,7 @@ void	fill_ray_information(t_exec *exec, t_ray *ray, float angle)
 		ray->ds = rays[1].ds;
 		ray->hv = 0;
 	}
+	to_bresenhams(exec, ray);
 }
 
 void	it_is_left_or_right(float angle, char *value)

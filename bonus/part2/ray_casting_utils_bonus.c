@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:24:24 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/19 18:49:09 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/24 09:43:14 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void	fill_ray_information(t_exec *exec, t_ray *ray, float angle)
 
 	rays[0].d = 0;
 	rays[1].d = 0;
-	find_horizontal_inter(angle, exec, &rays[0], 0);
-	find_vertical_inter(angle, exec, &rays[1], 0);
+	int n = 0;
+	find_horizontal_inter(angle, exec, &rays[0], n);
+	find_vertical_inter(angle, exec, &rays[1], n);
 	rays[0].ds = fixing_fichbowl(rays[0].ds, angle, exec);
 	rays[1].ds = fixing_fichbowl(rays[1].ds, angle, exec);
 	if ((rays[0].ds < rays[1].ds && rays[0].ds != (INT_MIN))

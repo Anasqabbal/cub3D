@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:14:44 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/22 10:09:40 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/24 12:10:51 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ void	set_player_info(t_exec *exec)
 				exec->ply.rays = exec->info.win_wid;
 				exec->ply.rays_inc = AOV / exec->ply.rays;
 				exec->ply.move_inc = SPEED;
+				if (PIXELS > SPEED)
+				{
+					if (PIXELS % SPEED == 0)
+					{
+						if ((int)exec->ply.rays_inc % 2 == 0)
+							exec->ply.move_inc++;
+					}
+				}
+				else
+				{
+					if (SPEED % PIXELS == 0)
+					{
+						if ((int)exec->ply.rays_inc % 2 == 0)
+							exec->ply.move_inc++;
+					}	
+				}
 				set_player_angle(exec, exec->info.map[y][x]);
 			}
 			x++;

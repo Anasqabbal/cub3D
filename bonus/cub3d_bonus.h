@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:04:58 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/23 13:11:19 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:07:41 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 
 # define AOV 60
 # define PIXELS 60
+# define TILE_SIZE 60
 # define SPEED 10
-# define VIEW_SPEED 1 * (M_PI / 180);
+# define VIEW_SPEED 10 * (M_PI / 180);
 
 typedef struct s_cub
 {
@@ -118,6 +119,7 @@ typedef struct s_exec
     mlx_image_t *ea;
     mlx_image_t *d;
 	mlx_image_t *wp;
+	mlx_image_t *wpsht;
 	t_mm		mm;
 	t_ms		ms;
 	char		**av;

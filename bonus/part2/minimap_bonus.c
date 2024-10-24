@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:04:16 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/22 18:13:37 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/24 09:52:50 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	draw_the_player(t_exec *exec, int var, int new_y)
 		{
 			if (!floor_or_door(exec->info.map[(int)floor(((ny - new_y) + (by(new_angle) / 10)) / var)][(int)floor((nx + (bx(new_angle) / 10)) / var)]))
 				break ;
-			// if (floor_or_door(exec->info.map[(int)floor((pyyy - new_y) / var)][(int)floor((nxxx) / var)]))
 			mlx_put_pixel(exec->wind_image, (int)nxxx, (int)pyyy, 0x6e022cff);
 			nx -= cos(new_angle) * 0.1;
 			nxxx -= cos(new_angle) * 0.1;

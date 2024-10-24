@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:17:41 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/23 12:26:20 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:39:03 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	start_cub(char **av)
     exec.ea = ft_texture(&exec, exec.text.EA);
     exec.d = ft_texture(&exec, "./png/door.png");
 	exec.wp = ft_texture(&exec, "./png/wp.png");
-	mlx_key_hook(exec.mlx, &catch_moves, &exec);
+	exec.wpsht = ft_texture(&exec, "./png/wpsht.png");
 	mlx_loop_hook(exec.mlx, mouse_fun, &exec);
 	mlx_close_hook(exec.mlx, clean_and_exit, &exec);
 	mlx_loop(exec.mlx);

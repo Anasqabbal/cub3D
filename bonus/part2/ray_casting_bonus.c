@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/21 17:58:33 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/24 09:33:39 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,22 @@ void	find_vertical_inter(float angle, t_exec *exec, t_ray *ray, char b)
 	float	xinc;
 
 	fix_current_angle(&angle);
-	cur_psx = floor(exec->ply.px / PIXELS) * PIXELS;
+	cur_psx = floor(exec->ply.px / PIXELS) * (PIXELS);
 	fix_vinc_status(&xinc, &yinc, angle, &cur_psx);
 	cur_psy = exec->ply.py - ((exec->ply.px - cur_psx) * tan(angle));
 	if (xinc < 0)
 		b = -1;
+	// printf("xinc == %f %d %f\n", xinc , b , xinc + b);
 	while (cur_psy > 0 && cur_psx > 0 && cur_psx < exec->info.map_wid
 		&& cur_psy < exec->info.map_hei)
 	{
 		if (exec->info.map[(int)floor(((cur_psy) / PIXELS))]
 			[(int)floor(((cur_psx + b) / PIXELS))] == '1')
+		{
+			// printf("POS == %c\n", exec->info.map[(int)floor(((cur_psy) / PIXELS))]
+			// [(int)floor(((cur_psx + b) / PIXELS))]);
 			break ;
+		}
 		cur_psx += xinc;
 		cur_psy += yinc;
 	}
@@ -129,8 +134,10 @@ void	ray_casting(t_exec *exec)
 	c = 0;
 	i = 0;
 	exec->dopen = 1;
-	while ((int)i <= (AOV) && c < exec->info.win_wid)
+	while ((int)i <= (AOV) && c <= exec->info.win_wid)
 	{
+		// if ((int)c == 1)
+		// 	break ;
 		ray[0].d = 0;
 		angle = exec->ply.rotangle - (degree_to_rad((AOV / 2) - i));
 		fix_current_angle(&angle);
