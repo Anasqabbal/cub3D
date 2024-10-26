@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:13:48 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 18:06:16 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:05:07 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_check_walls(t_exec *exec, int ind)
 			return (0);
 		else if (exec->info.map[(int)floor(y / PIXELS)]
 			[(int)floor(x / PIXELS)] == '1')
-			return (exec->ply.move_inc = i - 1 i);
+			return (exec->ply.move_inc = i - 1, i);
 	}
 	exec->ply.move_inc = i - 1;
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:04:58 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 15:07:41 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:48:33 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,14 @@ typedef struct s_mm
 	int j;
 }	t_mm;
 
+typedef struct s_stl
+{
+	int u;
+	int d;
+	int l;
+	int r;
+}	t_stl;
+
 typedef struct s_exec
 {
 	mlx_t		*mlx;
@@ -119,9 +127,11 @@ typedef struct s_exec
     mlx_image_t *ea;
     mlx_image_t *d;
 	mlx_image_t *wp;
-	mlx_image_t *wpsht;
+	mlx_image_t *wpshtt;
+	mlx_image_t **sh;
 	t_mm		mm;
 	t_ms		ms;
+	t_stl		stl;
 	char		**av;
 	int			i;
 	char 		dopen;
@@ -168,6 +178,8 @@ void	mouse_fun(void *ptr);
 void	fill_xstart_end(t_exec *exec, int *start, int *end, int diff);
 void	fill_ystart_end(t_exec *exec, int *start, int *end, int diff);
 int		get_element_from_map(t_exec *exec, char c, int ind);
+int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+void	initialize_buttons(t_exec *exec);
 
 float	ft_abs(float nm);
 

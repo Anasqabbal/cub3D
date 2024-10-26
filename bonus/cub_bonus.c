@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:17:41 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 17:39:03 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:49:20 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,34 @@ mlx_image_t *ft_texture(t_exec *exec, char *path_texture)
     return image;
 }
 
+void  read_images(t_exec *exec, int frmnb, char *name)
+{
+	char *src;
+	char *tmp;
+	int	i;
+
+	i = -1;
+	(void) exec;
+	exec->sh = malloc(sizeof(mlx_image_t) * frmnb);
+	while (++i < frmnb)
+	{
+		tmp = ft_itoa(i);
+		src = ft_strjoin(name, tmp);
+		src = ft_strjoin(src, ".png");
+		// free(tmp);
+		printf("i == %d\n", i);
+		exec->sh[i] = ft_texture(exec, src);
+	}
+}
+
+void initialize_buttons(t_exec *exec)
+{
+	exec->stl.d = 0;
+	exec->stl.l = 0;
+	exec->stl.r = 0;
+	exec->stl.u = 0;
+}
+
 int	start_cub(char **av)
 {
 	t_exec	exec;
@@ -46,7 +74,9 @@ int	start_cub(char **av)
     exec.ea = ft_texture(&exec, exec.text.EA);
     exec.d = ft_texture(&exec, "./png/door.png");
 	exec.wp = ft_texture(&exec, "./png/wp.png");
-	exec.wpsht = ft_texture(&exec, "./png/wpsht.png");
+	exec.wpshtt = ft_texture(&exec, "./png/wpsht.png");
+	read_images(&exec, 5, "./png/mv/gun_mv_");
+	initialize_buttons(&exec);
 	mlx_loop_hook(exec.mlx, mouse_fun, &exec);
 	mlx_close_hook(exec.mlx, clean_and_exit, &exec);
 	mlx_loop(exec.mlx);

@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 09:33:39 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:10:49 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	ray_casting(t_exec *exec)
 	c = 0;
 	i = 0;
 	exec->dopen = 1;
-	while ((int)i <= (AOV) && c <= exec->info.win_wid)
+	while ((int)i <= (AOV) && c < exec->info.win_wid)
 	{
 		// if ((int)c == 1)
 		// 	break ;

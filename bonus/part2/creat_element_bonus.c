@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 11:27:08 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:06:12 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@ int	draw_the_floor(t_exec *exec, unsigned int y, unsigned int x, int var)
 	int	yy;
 
 	yy = 0;
+	// color2 = 0x04ed93aa;
 	color2 = 0x04ed93aa;
+	color2 = 0x000000ff;
 	while (yy < var)
 	{
 		xx = 0;
 		while (xx < var)
 		{
+			/*0x04ed93ff*/
 			if (yy != 0 && xx > 0)
-				mlx_put_pixel(exec->wind_image, x + xx, y + yy, 0x04ed93ff);
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
 			else
 				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
 			xx++;
@@ -44,13 +47,14 @@ int	draw_the_walls(t_exec *exec, unsigned int y, unsigned int x, int var)
 
 	yy = 0;
 	color2 = 0x00190f55;
+	color2 = 0xffffffff;
 	while (yy < var)
 	{
 		xx = 0;
 		while (xx < var)
 		{
 			if (yy != 0 && xx >= 0 && x + xx <= exec->info.win_wid && x + xx >= 0 && y + yy <= exec->info.win_hei && yy + y >= 0)
-				mlx_put_pixel(exec->wind_image, x + xx, y + yy, 0x00190fff);
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
 			else if (x + xx <= exec->info.win_wid && x + xx > 0  && y + yy <= exec->info.win_hei && yy + y >= 0)
 				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
 			xx++;
