@@ -7,7 +7,8 @@
         "cub3d_bonus.h": "c",
         "stdio.h": "c",
         "math.h": "c",
-        "mlx42.h": "c"
+        "mlx42.h": "c",
+        "typeinfo": "c"
     },
     "cmake.sourceDirectory": "/Users/anqabbal/Desktop/cub3D/MLX42/build/_deps/glfw-src/src"
 }

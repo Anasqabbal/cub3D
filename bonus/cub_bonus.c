@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:17:41 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/26 17:49:20 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:18:28 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,30 @@ mlx_image_t *ft_texture(t_exec *exec, char *path_texture)
     return image;
 }
 
-void  read_images(t_exec *exec, int frmnb, char *name)
+void  read_images(t_exec *exec, char ind, char *name, int frmnb)
 {
-	char *src;
-	char *tmp;
+	char		*src;
+	char		*tmp;
+	mlx_image_t **hld;
 	int	i;
 
 	i = -1;
-	(void) exec;
-	exec->sh = malloc(sizeof(mlx_image_t) * frmnb);
+	hld = malloc(sizeof(mlx_image_t *) * frmnb);
+	if (!hld)
+		return ;
 	while (++i < frmnb)
 	{
 		tmp = ft_itoa(i);
 		src = ft_strjoin(name, tmp);
 		src = ft_strjoin(src, ".png");
-		// free(tmp);
-		printf("i == %d\n", i);
-		exec->sh[i] = ft_texture(exec, src);
+		hld[i] = ft_texture(exec, src);
 	}
+	if (ind == 0)
+		exec->wp.hld = *hld;
+	else if (ind == 1)
+		exec->wp.sht= hld;
+	else
+		exec->wp.rld = hld;
 }
 
 void initialize_buttons(t_exec *exec)
@@ -73,10 +79,14 @@ int	start_cub(char **av)
     exec.we = ft_texture(&exec, exec.text.WE);
     exec.ea = ft_texture(&exec, exec.text.EA);
     exec.d = ft_texture(&exec, "./png/door.png");
-	exec.wp = ft_texture(&exec, "./png/wp.png");
-	exec.wpshtt = ft_texture(&exec, "./png/wpsht.png");
-	read_images(&exec, 5, "./png/mv/gun_mv_");
+	exec.wp.shtnb = 31;
+	exec.wp.rldnb = 22;
+	exec.wp.blt = 3;
+	read_images(&exec, 0, "./png/gun/hld/hld_", 1);
+	read_images(&exec, 1, "./png/gun/sht/sht_", 31);
+	read_images(&exec, 2, "./png/gun/rld/rld_", 22);
 	initialize_buttons(&exec);
+	ray_casting(&exec);
 	mlx_loop_hook(exec.mlx, mouse_fun, &exec);
 	mlx_close_hook(exec.mlx, clean_and_exit, &exec);
 	mlx_loop(exec.mlx);

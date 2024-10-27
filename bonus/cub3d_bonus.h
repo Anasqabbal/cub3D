@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:04:58 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/26 17:48:33 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:14:05 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,17 @@ typedef struct s_stl
 	int r;
 }	t_stl;
 
+
+typedef struct s_wp
+{
+	mlx_image_t *hld;
+	mlx_image_t **sht;
+	int			shtnb;
+	mlx_image_t **rld;
+	int			rldnb;
+	unsigned char blt;
+} t_wp;
+
 typedef struct s_exec
 {
 	mlx_t		*mlx;
@@ -126,12 +137,10 @@ typedef struct s_exec
     mlx_image_t *so;
     mlx_image_t *ea;
     mlx_image_t *d;
-	mlx_image_t *wp;
-	mlx_image_t *wpshtt;
-	mlx_image_t **sh;
 	t_mm		mm;
 	t_ms		ms;
 	t_stl		stl;
+	t_wp		wp;
 	char		**av;
 	int			i;
 	char 		dopen;
