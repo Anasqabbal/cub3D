@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:13:48 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/25 18:05:07 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:55:37 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,6 @@ static void	set_the_right_value(char ind, int *x, int *y, t_exec *e)
 	}
 }
 
-// void adjust_increment(t_exec *exec, int i)
-// {
-// 	if (exec->ply.move_inc % SPEED == 0)
-// 		exec->ply.move_inc = i - 3;
-// 	else
-// 		exec->ply.move_inc = i - 1;
-// }
-
 int	ft_check_walls(t_exec *exec, int ind)
 {
 	int	i;
@@ -53,7 +45,7 @@ int	ft_check_walls(t_exec *exec, int ind)
 
 	i = 0;
 	j = 0;
-	while (++i <= SPEED)
+	while (++i < exec->ply.move_inc)
 	{
 		exec->i = i;
 		set_the_right_value(ind, &x, &y, exec);
@@ -64,6 +56,6 @@ int	ft_check_walls(t_exec *exec, int ind)
 			[(int)floor(x / PIXELS)] == '1')
 			return (exec->ply.move_inc = i - 1, i);
 	}
-	exec->ply.move_inc = i - 1;
+	exec->ply.move_inc = i;
 	return (i);
 }

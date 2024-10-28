@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 12:20:29 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:12:46 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,26 +68,4 @@ void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray)
     }
     while(y < (int)exec->info.win_hei && y >= x)
         mlx_put_pixel(exec->wind_image, rx, y++, exec->info.flr_cl);
-}
-
-void	catch_moves(mlx_key_data_t key, void *p)
-{
-	t_exec	*exec;
-
-	exec = p;
-	if (key.key == MLX_KEY_RIGHT)
-		move_right(exec, 1);
-	else if (key.key == MLX_KEY_LEFT)
-		move_left(exec, 1);
-	else if (key.key == MLX_KEY_W)
-		move_up(exec);
-	else if (key.key == MLX_KEY_S)
-		move_down(exec);
-	else if (key.key == MLX_KEY_D)
-		move_right(exec, 0);
-	else if (key.key == MLX_KEY_A)
-		move_left(exec, 0);
-	else if (key.key == MLX_KEY_ESCAPE || key.key == MLX_KEY_Q)
-		clean_and_exit(exec);
-    // mouse_fun(exec);
 }

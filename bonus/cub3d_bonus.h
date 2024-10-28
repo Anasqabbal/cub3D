@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:04:58 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/27 16:14:05 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:19:51 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 
 # define AOV 60
-# define PIXELS 60
-# define TILE_SIZE 60
+# define PIXELS 510
+# define TILE_SIZE 510
 # define SPEED 10
 # define VIEW_SPEED 10 * (M_PI / 180);
 
@@ -29,7 +29,7 @@ typedef struct s_cub
 	size_t  len;
 	size_t  len_h;
     char	*file2;
-    char	*copy;    
+    char	*copy;
     char	*tmp;
 	char	*map;
 	char	**map1;
@@ -71,6 +71,7 @@ typedef struct s_ply
 	float		rays;
 	float		rays_inc;
 	float		move_inc;
+	float		old_inc;
 	char		ply_char;
 } t_ply;
 
@@ -104,14 +105,6 @@ typedef struct s_mm
 	int j;
 }	t_mm;
 
-typedef struct s_stl
-{
-	int u;
-	int d;
-	int l;
-	int r;
-}	t_stl;
-
 
 typedef struct s_wp
 {
@@ -139,14 +132,13 @@ typedef struct s_exec
     mlx_image_t *d;
 	t_mm		mm;
 	t_ms		ms;
-	t_stl		stl;
 	t_wp		wp;
 	char		**av;
 	int			i;
 	char 		dopen;
 }	t_exec;
 
-void	draw_the_player(t_exec *exec, int var, int new_y);
+void	draw_the_player(t_exec *exec, int var, int new_y, int div, int prs);
 
 int		ft_check_walls(t_exec *exec, int ind);
 int		read_file(char **av, t_cub *cub, t_texture *texture);
@@ -157,7 +149,6 @@ int		draw_the_floor(t_exec *exec, unsigned int y,  unsigned int x, int var);
 int		draw_the_walls(t_exec *exec, unsigned int y,  unsigned int x, int var);
 void	set_player_info(t_exec *exec);
 void	draw_map(t_exec *exec, int var, int new_y);
-void	catch_moves(mlx_key_data_t key, void *p);
 void	move_left(t_exec *exec, char ind);
 void    move_up(t_exec *exec);
 void	move_right(t_exec *exec, char ind);
@@ -184,12 +175,12 @@ void    draw_mini_map(t_exec *exec);
 float	get_persent(float value, float new_v);
 // void	mouse_fun(void *ptr);
 void	mouse_fun(void *ptr);
-void	fill_xstart_end(t_exec *exec, int *start, int *end, int diff);
-void	fill_ystart_end(t_exec *exec, int *start, int *end, int diff);
+void	fill_xstart_end(t_exec *exec, int *start, int *end, float diff);
+void	fill_ystart_end(t_exec *exec, int *start, int *end, float diff);
 int		get_element_from_map(t_exec *exec, char c, int ind);
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
-void	initialize_buttons(t_exec *exec);
 
 float	ft_abs(float nm);
+void new_minimap(t_exec *exec);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:17:41 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/27 16:18:28 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:14:12 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,6 @@ void  read_images(t_exec *exec, char ind, char *name, int frmnb)
 		exec->wp.rld = hld;
 }
 
-void initialize_buttons(t_exec *exec)
-{
-	exec->stl.d = 0;
-	exec->stl.l = 0;
-	exec->stl.r = 0;
-	exec->stl.u = 0;
-}
-
 int	start_cub(char **av)
 {
 	t_exec	exec;
@@ -83,9 +75,8 @@ int	start_cub(char **av)
 	exec.wp.rldnb = 22;
 	exec.wp.blt = 3;
 	read_images(&exec, 0, "./png/gun/hld/hld_", 1);
-	read_images(&exec, 1, "./png/gun/sht/sht_", 31);
-	read_images(&exec, 2, "./png/gun/rld/rld_", 22);
-	initialize_buttons(&exec);
+	read_images(&exec, 1, "./png/gun/sht/sht_", exec.wp.shtnb);
+	read_images(&exec, 2, "./png/gun/rld/rld_", exec.wp.rldnb);
 	ray_casting(&exec);
 	mlx_loop_hook(exec.mlx, mouse_fun, &exec);
 	mlx_close_hook(exec.mlx, clean_and_exit, &exec);

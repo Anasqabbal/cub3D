@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:04:16 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 09:52:50 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:19:01 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@ int floor_or_door(char c)
 	return (1);
 }
 
-float adj_dimensions(t_exec *exec, int ind, int fl)
+float adj_dimensions(t_exec *exec, int ind, int fl, int prs)
 {
 	int		x;
 	int		y;
 	float	dt;
+	float		val;
 
 	y = -1;
+	val = 8.5;
 	while (exec->info.map[++y])
 	{
 		x = -1;
@@ -42,12 +44,12 @@ float adj_dimensions(t_exec *exec, int ind, int fl)
 	if (ind == 0)
 	{
 		x *= PIXELS;
-		dt = exec->ply.px - x;
-		return (get_persent(dt, 16));
+		dt = exec->ply.px / val - x / val;
+		return (get_persent(dt, prs));
 	}
 	y *= PIXELS;
-	dt = exec->ply.py - y;
-	return (get_persent(dt, 16));
+	dt = exec->ply.py / val - y / val;
+	return (get_persent(dt, prs));
 }
 
 float bx(float angle)
@@ -72,7 +74,7 @@ float by(float angle)
 		return (1);
 }
 
-void	draw_the_player(t_exec *exec, int var, int new_y)
+void	draw_the_player(t_exec *exec, int var, int new_y, int div, int prs)
 {
 	float	i;
 	float	nx;
@@ -82,20 +84,22 @@ void	draw_the_player(t_exec *exec, int var, int new_y)
 	float	new_angle;
 	int		j;
 
+	(void)div;
+	(void)var;
+	(void)prs;
 	new_angle = exec->ply.rotangle - (degree_to_rad(AOV / 2));
 	j = -1;
 	while ((int)++j < AOV)
 	{
 		new_angle += degree_to_rad(1);
 		i = 0.01;
-		ny = (exec->ply.py / get_persent(PIXELS, 10)) + new_y;
-		nx = exec->ply.px / get_persent(PIXELS, 10);
-		nxxx = exec->mm.px + (adj_dimensions(exec, 0, 0));
-		pyyy = exec->mm.py + (adj_dimensions(exec, 1, 0)) + new_y;
-		mlx_put_pixel(exec->wind_image, (int)nxxx, (int)pyyy, 0x6e022cff);
-		while (i < get_persent(PIXELS, 3) && nx > 0 && ny > 0  && nx < exec->info.win_wid)
+		ny = (exec->ply.py) / (get_persent(PIXELS, 10));
+		nx = (exec->ply.px) / (get_persent(PIXELS, 10));
+		nxxx = exec->mm.px + (adj_dimensions(exec, 0, 0, prs));
+		pyyy = exec->mm.py + (adj_dimensions(exec, 1, 0, prs)) + new_y;
+		while (i < 2 && nxxx > 0 && pyyy > 0  && nxxx < exec->info.win_wid && pyyy < exec->info.win_hei)
 		{
-			if (!floor_or_door(exec->info.map[(int)floor(((ny - new_y) + (by(new_angle) / 10)) / var)][(int)floor((nx + (bx(new_angle) / 10)) / var)]))
+			if (!floor_or_door(exec->info.map[(int)floor((ny + (by(new_angle) / 4)) / var)][(int)floor(nx + (bx(new_angle) / 4)) / var]))
 				break ;
 			mlx_put_pixel(exec->wind_image, (int)nxxx, (int)pyyy, 0x6e022cff);
 			nx -= cos(new_angle) * 0.1;
@@ -125,5 +129,5 @@ void    draw_mini_map(t_exec *exec)
 	fill_xstart_end(exec, &exec->mm.startx, &exec->mm.endx, diff);
 	fill_ystart_end(exec, &exec->mm.starty, &exec->mm.endy, diff);
     draw_map(exec, (PIXELS / get_persent(PIXELS, 10)) , new_y);
-	draw_the_player(exec, (PIXELS / get_persent(PIXELS, 10)), new_y);
+	draw_the_player(exec, (PIXELS / get_persent(PIXELS, 10)), new_y, get_persent(PIXELS, 10), get_persent(PIXELS, 27));
 }

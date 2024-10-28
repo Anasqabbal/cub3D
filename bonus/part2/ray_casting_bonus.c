@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/26 17:10:49 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:52:34 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,17 +102,12 @@ void	find_vertical_inter(float angle, t_exec *exec, t_ray *ray, char b)
 	cur_psy = exec->ply.py - ((exec->ply.px - cur_psx) * tan(angle));
 	if (xinc < 0)
 		b = -1;
-	// printf("xinc == %f %d %f\n", xinc , b , xinc + b);
 	while (cur_psy > 0 && cur_psx > 0 && cur_psx < exec->info.map_wid
 		&& cur_psy < exec->info.map_hei)
 	{
 		if (exec->info.map[(int)floor(((cur_psy) / PIXELS))]
 			[(int)floor(((cur_psx + b) / PIXELS))] == '1')
-		{
-			// printf("POS == %c\n", exec->info.map[(int)floor(((cur_psy) / PIXELS))]
-			// [(int)floor(((cur_psx + b) / PIXELS))]);
 			break ;
-		}
 		cur_psx += xinc;
 		cur_psy += yinc;
 	}
@@ -136,8 +131,6 @@ void	ray_casting(t_exec *exec)
 	exec->dopen = 1;
 	while ((int)i <= (AOV) && c < exec->info.win_wid)
 	{
-		// if ((int)c == 1)
-		// 	break ;
 		ray[0].d = 0;
 		angle = exec->ply.rotangle - (degree_to_rad((AOV / 2) - i));
 		fix_current_angle(&angle);

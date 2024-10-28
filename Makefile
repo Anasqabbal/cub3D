@@ -14,7 +14,8 @@ PART2B = ./bonus/part2/utils1_bonus.c ./bonus/part2/ray_casting_utils_bonus.c ./
 		 ./bonus/part2/creat_window_bonus.c ./bonus/part2/creat_element_bonus.c\
 		 ./bonus/part2/init_structs_bonus.c ./bonus/part2/catch_moves_bonus.c\
 		 ./bonus/part2/catch_moves_utils_bonus.c ./bonus/part2/ft_check_walls_bonus.c\
-		 ./bonus/part2/minimap_bonus.c ./bonus/part2/mouse_bonus.c ./bonus/part2/minimap_utils_bonus.c
+		 ./bonus/part2/minimap_bonus.c ./bonus/part2/mouse_bonus.c ./bonus/part2/minimap_utils_bonus.c\
+		 ./bonus/part2/new_minimap_bonus.c
 
 SRC=  ./mandatory/cub.c  $(PART2) $(PART1)
 SRCB = ./bonus/cub_bonus.c $(PART1B) $(PART2B)

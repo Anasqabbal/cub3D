@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:08:26 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/22 17:06:05 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/28 08:58:13 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int get_element_from_map(t_exec *exec, char c, int ind)
     return (x);
 }
 
-void	fill_xstart_end(t_exec *exec, int *start, int *end, int diff)
+void	fill_xstart_end(t_exec *exec, int *start, int *end, float diff)
 {
 	int	org_len;
 	int	org_pos;
@@ -58,7 +58,7 @@ void	fill_xstart_end(t_exec *exec, int *start, int *end, int diff)
 	}
 }
 
-void	fill_ystart_end(t_exec *exec, int *start, int *end, int diff)
+void	fill_ystart_end(t_exec *exec, int *start, int *end, float diff)
 {
 	int	org_len;
 	int	org_pos;
