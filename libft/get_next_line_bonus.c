@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 15:18:54 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/27 15:13:27 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:17:47 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ static char	*read_until_n_line(int fd, char *t_r)
 		buffer[n] = '\0';
 		line = to_join(line, buffer, 3);
 		if (!line)
-			return ( NULL);
+			return (NULL);
 		if (buffer && my_strchr(buffer, '\n'))
 			break ;
 	}
 	if (line && *line == '\0')
 		return (to_join(buffer, NULL, 0), line = to_join(line, NULL, 0), NULL);
-	return ( line);
+	return (line);
 }
 
 static char	*cut_the_rest(char **t_r, char **tmp, char **line)
@@ -94,7 +94,7 @@ static char	*cut_the_rest(char **t_r, char **tmp, char **line)
 		*tmp = to_join(*tmp, NULL, 0);
 	*line = cut_(*t_r, 0);
 	if (!(*line))
-		return ( *t_r = NULL, NULL);
+		return (*t_r = NULL, NULL);
 	*t_r = *tmp;
 	return (*line);
 }

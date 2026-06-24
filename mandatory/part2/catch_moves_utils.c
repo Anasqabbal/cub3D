@@ -6,73 +6,101 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:18:47 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/18 15:16:03 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/11/07 09:58:32 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	clean_and_exit(void *ptr)
+void	update_player_pos(t_exec *exec, float oldx, float oldy)
 {
-	t_exec	*exec;
-
-	exec = ptr;
-	gc_free_all();
-	mlx_delete_image(exec->mlx, exec->wind_image);
-	mlx_terminate(exec->mlx);
-	exit (0);
+	exec->info.map[(int)floor(oldy / PIXELS)][(int)floor(oldx / PIXELS)] = '0';
+	exec->info.map[(int)floor(exec->ply.py / PIXELS)]
+	[(int)floor(exec->ply.px / PIXELS)] = exec->ply.ply_char;
 }
 
 void	move_left(t_exec *exec, char ind)
 {
+	float	oldx;
+	float	oldy;
+
+	exec->ply.old_inc = exec->ply.move_inc;
 	if (ind == 0)
 	{
 		if (!ft_check_walls(exec, 0))
 			return ;
+		oldx = exec->ply.px;
+		oldy = exec->ply.py;
 		exec->ply.py -= (sin(exec->ply.rotangle
 					- degree_to_rad(90)) * exec->ply.move_inc);
 		exec->ply.px -= (cos(exec->ply.rotangle
 					- degree_to_rad(90)) * exec->ply.move_inc);
+		update_player_pos(exec, oldx, oldy);
 	}
 	else
 	{
-		exec->ply.rotangle -= VIEW_SPEED;
+		exec->ply.rotangle -= degree_to_rad(VIEW_SPEED);
 		if (exec->ply.rotangle < (float)0)
 			exec->ply.rotangle += 2 * M_PI;
 	}
+	exec->ply.move_inc = exec->ply.old_inc;
 }
 
 void	move_up(t_exec *exec)
 {
+	float	oldx;
+	float	oldy;
+
+	exec->ply.old_inc = exec->ply.move_inc;
 	if (!ft_check_walls(exec, 1))
 		return ;
+	oldx = exec->ply.px;
+	oldy = exec->ply.py;
 	exec->ply.py -= (sin(exec->ply.rotangle) * exec->ply.move_inc);
 	exec->ply.px -= (cos(exec->ply.rotangle) * exec->ply.move_inc);
+	update_player_pos(exec, oldx, oldy);
+	exec->ply.move_inc = exec->ply.old_inc;
 }
 
 void	move_right(t_exec *exec, char ind)
 {
+	float	oldx;
+	float	oldy;
+
+	exec->ply.old_inc = exec->ply.move_inc;
 	if (ind == 0)
 	{
 		if (!ft_check_walls(exec, 2))
 			return ;
+		oldx = exec->ply.px;
+		oldy = exec->ply.py;
 		exec->ply.py -= (sin(exec->ply.rotangle
 					+ degree_to_rad(90)) * exec->ply.move_inc);
 		exec->ply.px -= (cos(exec->ply.rotangle
 					+ degree_to_rad(90)) * exec->ply.move_inc);
+		update_player_pos(exec, oldx, oldy);
 	}
 	else
 	{
 		if (exec->ply.rotangle > (M_PI * 2))
 			exec->ply.rotangle -= 2 * M_PI;
-		exec->ply.rotangle += VIEW_SPEED;
+		exec->ply.rotangle += degree_to_rad(VIEW_SPEED);
 	}
+	exec->ply.move_inc = exec->ply.old_inc;
 }
 
 void	move_down(t_exec *exec)
 {
+	float	oldx;
+	float	oldy;
+
+	exec->ply.old_inc = exec->ply.move_inc;
 	if (!ft_check_walls(exec, 3))
 		return ;
+	oldx = exec->ply.px;
+	oldy = exec->ply.py;
 	exec->ply.py += (sin(exec->ply.rotangle) * exec->ply.move_inc);
 	exec->ply.px += (cos(exec->ply.rotangle) * exec->ply.move_inc);
+	update_player_pos(exec, oldx, oldy);
+	exec->ply.move_inc = exec->ply.old_inc;
 }

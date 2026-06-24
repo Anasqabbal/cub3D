@@ -6,26 +6,27 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/23 14:27:49 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:31:57 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-mlx_image_t *ft_texture(t_exec *exec, char *path_texture)
+mlx_image_t	*ft_texutre11(t_exec *exec, char *path_texture)
 {
-    mlx_texture_t *texture;
-    mlx_image_t *image;
-    texture = mlx_load_png(path_texture);
-    if (!texture)
+	mlx_texture_t	*texture;
+	mlx_image_t		*image;
+
+	texture = mlx_load_png(path_texture);
+	if (!texture)
 	{
-		write(2,"Error\nIn valid path",19);
-		printf("'%s'", path_texture);
+		write(2, "Error\ninvalid path", 19);
+		ft_putendl_fd(path_texture, 2);
 		clean_and_exit(exec);
 	}
-    image = mlx_texture_to_image(exec->mlx, texture);
+	image = mlx_texture_to_image(exec->mlx, texture);
 	mlx_delete_texture(texture);
-    return image;
+	return (image);
 }
 
 int	start_cub(char **av)
@@ -36,12 +37,11 @@ int	start_cub(char **av)
 		return (-1);
 	if (creat_and_start_awindow(&exec) < 0)
 		return (gc_free_all(), -1);
-	draw_map(&exec, PIXELS, 0);
-    exec.no = ft_texture(&exec, exec.text.NO);
-    exec.so = ft_texture(&exec, exec.text.SO);
-    exec.we = ft_texture(&exec, exec.text.WE);
-    exec.ea = ft_texture(&exec, exec.text.EA);
-    exec.d = ft_texture(&exec, "./png/door.png");
+	exec.no = ft_texutre11(&exec, exec.text.no);
+	exec.so = ft_texutre11(&exec, exec.text.so);
+	exec.we = ft_texutre11(&exec, exec.text.we);
+	exec.ea = ft_texutre11(&exec, exec.text.ea);
+	exec.d = ft_texutre11(&exec, "./png/door.png");
 	set_player_info(&exec);
 	ray_casting(&exec);
 	mlx_loop_hook(exec.mlx, &catch_moves, &exec);
@@ -66,10 +66,10 @@ int	check_extention(char *str)
 
 int	main(int ac, char **av)
 {
-	if (ac != 2 || ac > 3)
-		return (write(0, "error\ninvalid argument\n", 23), 1);
+	if (ac != 2)
+		return (write(0, "Error\ninvalid argument\n", 23), 1);
 	if (check_extention(av[1]))
-		return (write(0, "error\ninvalid extention\n", 24), 1);
+		return (write(0, "Error\ninvalid extention\n", 24), 1);
 	if (start_cub(av) < 0)
 		return (1);
 }

@@ -1,1 +1,7 @@
 *.o
+./bonus/*.o
+./mandatory/*.o
+./bonus/cub3D_bonus
+./mandatory/cub3D
+./bonus/MLX42/build
+./mandatory/MLX42/build

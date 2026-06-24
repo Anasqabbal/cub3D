@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:14:44 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/23 17:19:44 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/11/07 09:59:27 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	set_player_angle(t_exec *exec, char c)
 		exec->ply.rotangle = degree_to_rad(180);
 	else if (c == 'E')
 		exec->ply.rotangle = degree_to_rad(0);
-
+	exec->ply.ply_char = c;
 }
 
 void	set_player_info(t_exec *exec)
@@ -40,7 +40,6 @@ void	set_player_info(t_exec *exec)
 		{
 			if (!one_of_these(exec->info.map[y][x]))
 			{
-				exec->ply.rds = PIXELS / 6;
 				exec->ply.px = (x * PIXELS) + (PIXELS / 2);
 				exec->ply.py = (y * PIXELS) + (PIXELS / 2);
 				exec->ply.rays = exec->info.win_wid;
@@ -59,8 +58,8 @@ int	init_info_struct(t_info *info, t_cub *cub, t_texture *text)
 	info->map = text->map;
 	info->map_wid = cub->len * PIXELS;
 	info->map_hei = cub->len_h * PIXELS;
-	info->flr_cl = 0x04ed93ff;
-	info->clg_cl = 0x00190fff;
+	info->flr_cl = text->f_color;
+	info->clg_cl = text->c_color;
 	return (0);
 }
 

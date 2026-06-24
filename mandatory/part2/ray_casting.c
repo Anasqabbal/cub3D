@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 11:14:14 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/11/07 09:59:45 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	find_vertical_inter(float angle, t_exec *exec, t_ray *ray, char b)
 		if (exec->info.map[(int)floor(((cur_psy) / PIXELS))]
 			[(int)floor(((cur_psx + b) / PIXELS))] == '1')
 			break ;
-		mlx_put_pixel(exec->wind_image, cur_psx, cur_psy, 0xFF0000FF);
 		cur_psx += xinc;
 		cur_psy += yinc;
 	}
@@ -120,29 +119,12 @@ void	ray_casting(t_exec *exec)
 	inc = exec->ply.rays_inc;
 	c = 0;
 	i = 0;
-	while ((int)i <= (AOV) && c <= exec->info.win_wid)
+	while ((int)i <= (AOV) && c < exec->info.win_wid)
 	{
 		angle = exec->ply.rotangle - (degree_to_rad((AOV / 2) - i));
 		fix_current_angle(&angle);
 		fill_ray_information(exec, &ray[0], angle);
 		draw_the_walls22(c, exec, angle, &ray[0]);
-
-		// if (c == 0)
-		// {
-		// 	printf("FIRST\n");
-		// 	printf("your ray hit %d\n", ray[0].hv);
-		// 	printf("your dy 	 %f\n", ray[0].dy);
-		// 	printf("your dx		 %f\n", ray[0].dx);
-		// 	printf("your ds 	 %f\n", ray[0].ds);
-		// }
-		// else if (c == exec->info.win_wid)
-		// {
-		// 	printf("LAST\n");
-		// 	printf("your ray hit	%d\n", ray[0].hv);
-		// 	printf("your dy 	 %f\n", ray[0].dy);
-		// 	printf("your dx		 %f\n", ray[0].dx);
-		// 	printf("your ds 	 %f\n", ray[0].ds);
-		// }
 		c++;
 		i += inc;
 	}

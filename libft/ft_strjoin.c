@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 19:55:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/27 15:08:19 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:13:22 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	*(arr + len + len2) = '\0';
 	return (arr);
 }
+
 char	*ft_strjoin1(char *s1, char *s2)
 {
 	char		*ml;

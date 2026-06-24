@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:27:17 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/09/27 15:02:37 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:05:14 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static	int	count_w(const char *str, char ca)
 	return (count);
 }
 
-
 static	char	**printword(char const *str, char ce, char **mall, int len)
 {
 	int	i;
@@ -51,7 +50,7 @@ static	char	**printword(char const *str, char ce, char **mall, int len)
 			j = i;
 			while (str[j] && str[j] != ce)
 				j++;
-			mall[k] = ft_calloc(sizeof(char ),(len) + 1);
+			mall[k] = ft_calloc(sizeof(char ), (len) + 1);
 			if (mall[k] == NULL)
 				return (NULL);
 			ft_memcpy (mall[k], &str[i], j - i);
