@@ -38,9 +38,6 @@ mlx_image_t	*ft_texutre11(t_exec *exec, char *path_texture)
 
 static void	fill_bonus_info(t_exec *exec)
 {
-	int		i;
-
-	i = 0;
 	exec->lst = NULL;
 	exec->ms.sensitivity = 0.1 / 30;
 	exec->ms.prevx = exec->info.win_wid / 2;

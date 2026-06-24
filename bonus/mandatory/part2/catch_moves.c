@@ -33,14 +33,15 @@ void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray)
 	int			clg;
 
 	y = 0;
-	ray->wall_height = ((PIXELS) / (ray->ds))
+	float wall_height = ((PIXELS) / (ray->ds))
 		* (((exec->info.win_wid / 2) / tan(degree_to_rad(AOV / 2))));
-	if (isinf(ray->wall_height))
+	if (isinf(wall_height))
 	{
-		ray->wall_height = n;
+		wall_height = n;
 		if (rx == 0)
-			ray->wall_height = exec->info.win_hei;
+			wall_height = exec->info.win_hei;
 	}
+	ray->wall_height = wall_height;
 	n = ray->wall_height;
 	ray->x = rx;
 	clg = ((exec->info.win_hei) / 2) - (ray->wall_height / 2);

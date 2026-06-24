@@ -212,7 +212,6 @@ int parsing_map(t_cub *cub, int len)
 		return (1);
 	int i = 0;
 	size_t j = 0;
-	int p = 0;
 	/*now check  is avalid map or not*/
 	while (cub->map1[i])
 	{
@@ -232,7 +231,6 @@ int parsing_map(t_cub *cub, int len)
 				j++;
 			}
 			i++;
-			p = i;
 			continue;
 		}
 		while (cub->map1[i][j])
@@ -290,8 +288,8 @@ int read_file(char **av, t_cub *cub, t_texture *texture)
 	if (!(cub->file))
 		return (write(2, "error\nempty file\n", 17) ,1);
 	/*read just a textures and color*/
-    if (read_textures_colors(cub, fd,texture))
-        return (1);
+	if (read_textures_colors(cub, fd, texture))
+		return (1);
 	
 	/*if all variable (texture and color is full) go to read map now and join in this variable cub->map*/
 	cub->len = 0;

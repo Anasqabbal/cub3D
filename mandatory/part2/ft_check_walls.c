@@ -41,10 +41,8 @@ int	ft_check_walls(t_exec *exec, int ind)
 	int	i;
 	int	y;
 	int	x;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (++i < exec->ply.move_inc)
 	{
 		exec->i = i;

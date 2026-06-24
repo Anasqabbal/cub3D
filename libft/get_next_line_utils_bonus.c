@@ -34,10 +34,8 @@ void	*my_calloc(size_t count, size_t size)
 char	*to_join(char *s1, char *s2, int indice)
 {
 	char	*str1;
-	char	*str2;
 
 	str1 = s1;
-	str2 = s2;
 	if (indice == 0)
 	{
 		s1 = NULL;
@@ -47,10 +45,6 @@ char	*to_join(char *s1, char *s2, int indice)
 	if (!s1)
 		return (to_join(str1, NULL, 0));
 	str1 = NULL;
-	if (indice == 1)
-	{
-		str2 = NULL;
-	}
 	return (s1);
 }
 

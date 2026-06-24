@@ -24,7 +24,14 @@ OBJB=$(SRCB:.c=.o)
 LIBFT=./libft
 INCLUDES= ./mandatory/cub3d.h
 INCLUDESB= ./bonus/cub3d_bonus.h
-FRAMEWORK= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S), Linux)
+	SYS_LIBS = -ldl -lglfw -pthread -lm
+else
+	SYS_LIBS = -framework Cocoa -framework OpenGL -framework IOKit -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -L"/opt/homebrew/lib" -L"/usr/local/lib"
+endif
+
 MLX = ./MLX42/build
 
 all : mlx libf  $(NAME)
@@ -32,36 +39,44 @@ all : mlx libf  $(NAME)
 bonus : mlx libf $(BONUS)
 
 mlx :
+	@if [ ! -d "$(MLX)" ] || [ ! -f "$(MLX)/Makefile" ]; then \
+		cmake -S ./MLX42 -B $(MLX); \
+	fi
 	make -C $(MLX)
 
 libf :
 	@make -C $(LIBFT)
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT)/libft.a $(FRAMEWORK) $(MLX)/libmlx42.a -o $@
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT)/libft.a $(SYS_LIBS) $(MLX)/libmlx42.a -o $@
 
 $(BONUS) : $(OBJB)
-	$(CC) $(FLAGS) $(OBJB) $(LIBFT)/libft.a $(FRAMEWORK) $(MLX)/libmlx42.a -o $@
+	$(CC) $(FLAGS) $(OBJB) $(LIBFT)/libft.a $(SYS_LIBS) $(MLX)/libmlx42.a -o $@
 
-%_bonus.o : %_bonus.c $(INCLUDESB) $(MLX)/libmlx42.a $(LIBFT)/libft.a
+%_bonus.o : %_bonus.c $(INCLUDESB)
 	$(CC) $(FLAGS) -c $< -o $@
 
-%.o : %.c $(INCLUDES) $(NWMLX) $(LIBFT)/libft.a
+%.o : %.c $(INCLUDES)
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean :
 	@make -C $(LIBFT) $@
 	@rm -f $(OBJ)
 	@rm -f $(OBJB)
+	@if [ -d "$(MLX)" ]; then \
+		make -C $(MLX) $@ ; \
+	fi
 
 fclean : clean
 	@make -C $(LIBFT) $@
 	@rm -f $(NAME)
 	@rm -f $(BONUS)
+	@rm -rf $(MLX)
 
 re : fclean all
 
-.PHONY : clean
+.PHONY : clean fclean re mlx libf
+
 
 # LINUX= -lX11 -lXext -lXrandr
 

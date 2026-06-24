@@ -99,30 +99,41 @@ static char	*cut_the_rest(char **t_r, char **tmp, char **line)
 	return (*line);
 }
 
+#ifndef OPEN_MAX
+# define OPEN_MAX 1024
+#endif
+
 char	*get_next_line(int fd)
 {
 	static char	*t_r[OPEN_MAX];
 	char		*line;
 	char		*tmp;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
 		return (NULL);
 	if (t_r[fd] && my_strchr(t_r[fd], '\n'))
 		return (cut_the_rest(&t_r[fd], &tmp, &line));
-	else
+	line = read_until_n_line(fd, t_r[fd]);
+	if (!line)
 	{
-		line = read_until_n_line(fd, t_r[fd]);
-		if (!line)
-			return (t_r[fd] = NULL, NULL);
-		else if (line && *line == '\0')
-			return (line = to_join(line, NULL, 0), to_join(t_r[fd], NULL, 0));
-		t_r[fd] = cut_(line, 1);
-		if (!t_r[fd])
-			return (line = NULL, NULL);
-		tmp = line;
-		line = cut_(line, 0);
-		if (!line)
-			return (t_r[fd] = NULL, NULL);
-		return (line);
+		t_r[fd] = NULL;
+		return (NULL);
 	}
+	else if (line && *line == '\0')
+		return (line = to_join(line, NULL, 0), to_join(t_r[fd], NULL, 0));
+	t_r[fd] = cut_(line, 1);
+	if (!t_r[fd])
+	{
+		line = NULL;
+		return (NULL);
+	}
+	tmp = line;
+	(void)tmp;
+	line = cut_(line, 0);
+	if (!line)
+	{
+		t_r[fd] = NULL;
+		return (NULL);
+	}
+	return (line);
 }
