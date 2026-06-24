@@ -47,6 +47,8 @@ To compile and execute the game, follow these steps:
    ```
    *(Or running the bonus executable, `./cub3D_bonus maps/map_bonus.cub`)*
 
+![How to Build and Run](howToRun.gif)
+
 ## 🎮 Controls & Gameplay
 Use the following controls to play:
 
@@ -60,6 +62,10 @@ Use the following controls to play:
 
 ## 🗺️ Map Creation Rules
 The game parses a scene configuration file (must end with the `.cub` extension) to load textures, colors, and the map grid. You can create custom maps by adhering to the following rules:
+
+Here is an example of a valid map configuration:
+
+![Map Configuration Example](mapExample.png)
 
 ### 1. Configuration Metadata
 Before the map grid starts, you must specify the paths to the wall textures and the RGB colors for the floor and ceiling. Each setting must be on a new line and formatted as follows:
