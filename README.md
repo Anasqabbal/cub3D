@@ -7,7 +7,7 @@
 ## 📌 Overview
 **cub3D** is a graphics project at 1337 (42 Network) inspired by the legendary game Wolfenstein 3D. The objective is to create a dynamic 3D view inside a maze using the mathematical technique known as Raycasting.
 
-![Gameplay Demo](gameoutput.gif)
+![Gameplay Demo](cub3D.gif)
 
 This project represents a significant leap in algorithmic complexity. As a Software Engineer, this project showcases my ability to implement complex mathematics, handle real-time rendering, and manage application performance.
 
@@ -40,25 +40,14 @@ To compile and execute the game, follow these steps:
    ```
    *(Note: You can compile the bonus version using `make bonus` if you want features like the minimap or doors).*
 
+![Compilation Phase](Cub3DCompilationPhase.gif)
+
 2. **Run the game:**
    Launch the game by providing the path to a map file (with the `.cub` extension):
    ```bash
    ./cub3D maps/map.cub
    ```
    *(Or running the bonus executable, `./cub3D_bonus maps/map_bonus.cub`)*
-
-![How to Build and Run](howToRun.gif)
-
-## 🎮 Controls & Gameplay
-Use the following controls to play:
-
-| Key / Input | Action |
-| :--- | :--- |
-| **W**, **A**, **S**, **D** (or **AWSD**) | Move the player (Forward, Left, Backward, Right) |
-| **Mouse / Souris** | Look around / Rotate the camera |
-| **T** | Shoot / Fire |
-| **R** | Reload weapon |
-| **ESC** / **Cross icon** | Exit the game cleanly |
 
 ## 🗺️ Map Creation Rules
 The game parses a scene configuration file (must end with the `.cub` extension) to load textures, colors, and the map grid. You can create custom maps by adhering to the following rules:
@@ -91,6 +80,18 @@ The map grid must be the last section of the configuration file. It is defined u
 *   **Single Player:** The map must contain exactly **one** player starting position (`N`, `S`, `E`, or `W`).
 *   **Empty Lines:** There should be no empty lines inside the map grid.
 
+## 🎮 Controls & Gameplay
+Use the following controls to play:
+
+| Key / Input | Action |
+| :--- | :--- |
+| **W**, **A**, **S**, **D** (or **AWSD**) | Move the player (Forward, Left, Backward, Right) |
+| **Mouse / Souris** | Look around / Rotate the camera |
+| **T** | Shoot / Fire |
+| **R** | Reload weapon |
+| **ESC** / **Cross icon** | Exit the game cleanly |
+
+
 ---
 
 ## 🧠 What I Learned
@@ -98,6 +99,10 @@ The map grid must be the last section of the configuration file. It is defined u
 - Real-time rendering optimization techniques.
 - Advanced parsing of complex configuration files.
 - Managing a complex graphical state machine in C.
+- Efficient memory management: Saving memory and preventing memory leaks using a custom garbage collector to ensure smooth, lightweight performance and an easy-to-play experience without heavy gameplay stutters.
+
+## 🤝 Need Help?
+If you are facing any issues during the run, struggling with the project, or just looking for advice, don't hesitate to reach out! You can contact me directly via the links in the [Connect with me](#-connect-with-me) section.
 
 ## 🌐 Connect with me
 [![GitHub](https://img.shields.io/badge/GitHub-black?logo=github)](https://github.com/Anasqabbal)
